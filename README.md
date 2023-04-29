@@ -140,4 +140,4 @@ Webタイマーアプリ『the Grim Reaper Timer』です。
 
 [画面遷移図](https://www.figma.com/file/C1WTKACYaDGQt3pd63RqdT/%E6%AD%BB%E7%A5%9E%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC?node-id=0%3A1&t=rn3GNWungrT4apXO-1)
 
-[![ER図](https://i.gyazo.com/854f3c1593a0224478bc23ad82f84b92.png)](https://gyazo.com/854f3c1593a0224478bc23ad82f84b92)
+[![ER図](https://i.gyazo.com/a0b9e71ba77ae8f12517e487ea9d9263.png)](https://gyazo.com/a0b9e71ba77ae8f12517e487ea9d9263)
