@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_one :notification, dependent: :destroy
+
   validates :name, presence: true
   validates :name, length: { maximum: 15 }
 end
