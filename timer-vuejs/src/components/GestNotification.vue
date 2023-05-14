@@ -12,14 +12,31 @@
     </div>
 
     <div class="selection">
-      <div class="sound-radio-button">
-        <input type="radio" id="sound" v-model="radio" value="false">
-        <label for="sound">サウンド通知</label>
+      <div class="sound-group">
+        <div>
+          <input type="radio" id="sound" v-model="radio" value="false">
+          <label for="sound">サウンド通知</label>
+        </div>
+        <div>
+          <font-awesome-icon :icon="['fas', 'volume-up']" style="color: #D9D9D9;" />
+          音でお知らせ
+        </div>
       </div>
-      <div class="push-radio-button">
-        <input type="radio" id="push" v-model="radio" value="true">
-        <label for="push">プッシュ通知</label>
+      <div class="line"></div>
+
+      <div class="push-group">
+        <div>
+          <input type="radio" id="push" v-model="radio" value="true">
+          <label for="push">プッシュ通知</label>
+        </div>
+        <div>
+          <font-awesome-icon :icon="['fas', 'eye']" style="color: #D9D9D9;" />
+          視覚でお知らせ
+        </div>
       </div>
+    </div>
+    <div class="attention">
+      ※プッシュ通知の許可をお願い致します。
     </div>
   </div>
 </template>
@@ -39,7 +56,7 @@
     text-align: center;
   }
   h2 {
-    background-color: #494949;
+    background-color: rgba(73, 73, 73, 0.6);;
     padding: 10px;
     font-weight: normal;
   }
@@ -49,10 +66,11 @@
   }
   .explanation p {
     padding-bottom: 20px;
-    border-bottom: 0.1px solid #D9D9D9;
+    border-bottom: 0.1px solid #525151;
   }
   .question p {
-    margin-top: 50px;
+    margin-top: 40px;
+    margin-bottom: 15px;
   }
 
   input[type="radio"] {
@@ -87,5 +105,31 @@
   }
   input[type="radio"]:checked::after {
     opacity: 1;
+  }
+
+  .selection label {
+    font-size: 20px;
+  }
+  .selection div {
+    font-size: 20px;
+  }
+
+  .sound-group, .push-group {
+    display: flex;
+    justify-content: center;
+  }
+  .sound-group div, .push-group div {
+    margin: 20px;
+  }
+
+  .attention {
+    font-size: 13px;
+    margin-bottom: 50px;
+  }
+
+  .line {
+    width: 400px;
+    margin:  0 auto;
+    border-top: 1px solid #525151;
   }
 </style>
