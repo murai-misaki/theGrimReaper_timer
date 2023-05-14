@@ -22,14 +22,17 @@
 </script>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica+SC&display=swap');
+
   .container {
     padding: 20px 70px 50px 70px;
     border: 1px solid #D9D9D9;
   }
   
   button {
+    font-family: 'IM Fell DW Pica SC', serif;
     width: 400px;
-    font-size: 19px;
+    font-size: 26px;
     background: #eee;
     position: relative;
     display: flex;
@@ -37,7 +40,7 @@
     align-items: center;
     margin: 0 auto;
     max-width: 240px;
-    padding: 20px 25px;
+    padding: 10px 15px;
     color: #313131;
     transition: 0.3s ease-in-out;
     font-weight: 500;
