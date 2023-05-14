@@ -1,0 +1,13 @@
+body {
+  background-color: #000000;
+  color: #D9D9D9;
+}
+.container {
+  width: 90%;
+  max-width: 960px;
+  margin: 80px auto;
+}
+.error {
+  color: #ff3f80;
+  font-size: 14px;
+}
