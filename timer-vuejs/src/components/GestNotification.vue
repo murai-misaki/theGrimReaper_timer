@@ -80,6 +80,7 @@
     position: relative;
     vertical-align: sub;
     margin-right: 5px;
+    cursor: pointer;
   }
   input[type="radio"]::before, input[type="radio"]::after{
     content: "";
@@ -123,6 +124,7 @@
   }
 
   .attention {
+    color: #BFBFBF;
     font-size: 13px;
     margin-bottom: 50px;
   }
