@@ -2,7 +2,6 @@
   <div v-show="show" class="modal_contents">
     <div v-on:click="close" class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
-      <div v-on:click="close" class="modal_close_btn">×</div>
       <h1 class="heading03">How to Use</h1>
       <p><span class="number">1.</span><span class="red">30分ごとに</span>立ち上がりのお知らせを致します。</p>
       <p><span class="number">2.</span> 30分経過して通知が来ましたら、<span class="red">アプリ画面にて''立ち上がるか''を教えてください</span>。</p>
@@ -28,9 +27,6 @@
     methods: {
       open () {
         this.show = true
-      },
-      close () {
-        this.show = false
       }
     }
   }
@@ -41,8 +37,7 @@
 
   h1 {
     font-family: 'IM Fell English SC', serif;
-    color: rgba(39, 39, 39, 0.85);
-    font-size: 50px;
+    font-size: 38px;
     text-align: center;
   }
 
@@ -52,7 +47,7 @@
     margin-right: 10px;
   }
   span.attention {
-    color: rgba(39, 39, 39, 0.51);
+    color: #BFBFBF;
     font-size: 13px;
   }
   p {
@@ -63,10 +58,10 @@
   }
   span.position1 {
     margin-left: 44px;
-    color: #8F0B0B;
+    color: #CB0101;
   }
   span.red {
-    color: #8F0B0B;
+    color: #CB0101;
   }
   img {
     width: 180px;
@@ -94,20 +89,13 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    background-color: #FFF;
+    background-color: #000000;
     width: 750px;
-    height: 770px;
+    height: 610px;
     margin: auto;
     transform: translate(-50%,-50%);
     padding: 20px 65px;
-    color: rgba(39, 39, 39, 0.71);
-  }
-  .modal_close_btn {
-    display: inline-block;
-    cursor: pointer;
-    margin-top: 30px;
-    margin-left: 750px;
-    font-size: 30px;
+    border: 2px solid #FFFFFF;
   }
 
   button {
@@ -120,9 +108,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 40px auto;
+    margin: 30px auto;
     max-width: 280px;
-    padding: 15px 25px;
+    padding: 10px 25px;
     color: #313131;
     transition: 0.3s ease-in-out;
     font-weight: 500;
