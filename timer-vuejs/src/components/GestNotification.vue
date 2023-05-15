@@ -38,17 +38,41 @@
     <div class="attention">
       ※プッシュ通知の許可をお願い致します。
     </div>
+  <div class="error">{{ error }}</div>
   </div>
 </template>
 
 <script>
+
+import axios from 'axios'
+
   export default {
-  data () {
-    return {
-      radio: 'false'
+    data () {
+      return {
+        radio: 'false'
+      }
+    },
+    methods: {
+      async createNotification () {
+        try {
+          const res = await axios.post(`http://localhost:3000/notifications`, {way: this.radio},
+          {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+
+          if (!res) {
+            throw new Error('選択された通知方法を保存できませんでした')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
     }
   }
-}
 </script>
 
 <style scoped>

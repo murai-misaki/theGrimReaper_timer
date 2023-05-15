@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <GestNotification />
-    <button @click="modal">Timer Start</button>
+    <GestNotification ref="gestNotification" />
+    <button @click="selection">Timer Start</button>
     <HowtouseOKbuttonModal ref="howtouseOkbuttonModal" />
   </div>
 </template>
@@ -14,8 +14,10 @@
     components: { GestNotification, HowtouseOKbuttonModal },
 
     methods: {
-      modal () {
+      selection () {
+        this.$refs.gestNotification.createNotification().then(() => {
         this.$refs.howtouseOkbuttonModal.open()
+        })
       }
     }
   }
