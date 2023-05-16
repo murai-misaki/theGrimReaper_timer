@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       registrations: 'auth/registrations'
     }
 
-    resource :notifications, only: %i[create edit update]
+    resource :notifications, only: %i[create show update]
     resource :total_shortened_lifespans, only: %i[create show update]
   end
 end
