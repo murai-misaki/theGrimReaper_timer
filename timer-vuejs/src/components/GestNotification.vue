@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>30分ごとに立ち上がりのお知らせを致します。</h2>
+    <h2 class="neontext">30分ごとに立ち上がりのお知らせを致します。</h2>
 
     <div class="explanation">
       <span>‘’ 30分に一度3分、立って動く ‘’</span>
@@ -80,8 +80,6 @@ import axios from 'axios'
     text-align: center;
   }
   h2 {
-    background-color: rgba(40, 40, 40, 0.99);
-    padding: 10px;
     font-weight: normal;
   }
   span {
@@ -93,8 +91,11 @@ import axios from 'axios'
     border-bottom: 0.1px solid #525151;
   }
   .question p {
+    width: 480px;
     margin-top: 40px;
     margin-bottom: 15px;
+    margin-left: 240px;
+    background-color: rgba(40, 40, 40, 0.99);
   }
 
   input[type="radio"] {
@@ -157,5 +158,26 @@ import axios from 'axios'
     width: 400px;
     margin:  0 auto;
     border-top: 1px solid #525151;
+  }
+
+  .neontext {
+  animation: flicker 1.5s infinite alternate;
+  color: #fff;
+  }
+  @keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+      text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #0fa,
+      0 0 80px #0fa,
+      0 0 90px #0fa,
+      0 0 100px #0fa,
+      0 0 150px #0fa;
+    } 
+    20%, 24%, 55% {
+      text-shadow: none;
+    }
   }
 </style>
