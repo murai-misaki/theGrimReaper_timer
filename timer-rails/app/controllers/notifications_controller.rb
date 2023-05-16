@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create edit update]
+  before_action :authenticate_user!, only: %i[create show update]
 
   def create
     notification = current_user.build_notification(notification_params)
@@ -11,7 +11,7 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def edit
+  def show
     notification = current_user.notification
 
     if notification
