@@ -80,7 +80,7 @@ import axios from 'axios'
     text-align: center;
   }
   h2 {
-    background-color: rgba(73, 73, 73, 0.6);;
+    background-color: rgba(40, 40, 40, 0.99);
     padding: 10px;
     font-weight: normal;
   }
