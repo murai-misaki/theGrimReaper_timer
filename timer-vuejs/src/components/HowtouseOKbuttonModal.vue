@@ -1,6 +1,6 @@
 <template>
   <div v-show="show" class="modal_contents">
-    <div v-on:click="close" class="modal_contents_bg"></div>
+    <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="heading03">How to Use</h1>
       <p><span class="number">1.</span><span class="red">30分ごとに</span>立ち上がりのお知らせを致します。</p>
@@ -12,7 +12,7 @@
       </div>
       <p><span class="number">4.</span> 本日の作業を終えて、タイマーを終了される場合は、<br><span class="position1">必ずタイマーのENDボタンを押してください</span>。</p>
       <span class="attention">※ ENDボタンを押さずにタイマーを強制終了すると、タイマー記録が破損する可能性がありますのでご注意ください 。</span>
-      <button>OK</button>
+      <button @click="redirectToTimer">OK</button>
     </div>
   </div>
 </template>
@@ -27,6 +27,9 @@
     methods: {
       open () {
         this.show = true
+      },
+      redirectToTimer () {
+        this.$router.push({ name: 'Timer' })
       }
     }
   }
@@ -81,9 +84,9 @@
     width: 100%;
   }
   .modal_contents_bg {
-    background: rgba(0,0,0,.8);
+    background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 100%;
+    height: 900px;
   }
   .modal_contents_wrap {
     position: absolute;
@@ -92,10 +95,14 @@
     background-color: #000000;
     width: 750px;
     height: 610px;
-    margin: auto;
+    margin: 10px auto;
     transform: translate(-50%,-50%);
     padding: 20px 65px;
     border: 2px solid #FFFFFF;
+  }
+  .modal_close_btn {
+    margin-left: 760px;
+    cursor: pointer;
   }
 
   button {
@@ -148,7 +155,7 @@ button:hover:after {
 	content: '';
 	width: 70px;
 	height: 3px;
-	background-color: #e3bf00;
+	background-color: rgba(40, 40, 40, 0.99);
 }
 
 .heading03::before {
