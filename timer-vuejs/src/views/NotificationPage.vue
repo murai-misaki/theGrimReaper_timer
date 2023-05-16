@@ -4,14 +4,16 @@
     <button @click="selection">Timer Start</button>
     <HowtouseOKbuttonModal ref="howtouseOkbuttonModal" />
   </div>
+    <FooterLink />
 </template>
 
 <script>
   import GestNotification from '../components/GestNotification.vue'
   import HowtouseOKbuttonModal from '../components/HowtouseOKbuttonModal.vue'
+  import FooterLink from '../components/FooterLink.vue'
 
   export default {
-    components: { GestNotification, HowtouseOKbuttonModal },
+    components: { GestNotification, HowtouseOKbuttonModal, FooterLink },
 
     methods: {
       selection () {
