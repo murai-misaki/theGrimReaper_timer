@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_16_063212) do
+ActiveRecord::Schema.define(version: 2023_05_16_140227) do
 
   create_table "notifications", force: :cascade do |t|
     t.boolean "way", default: false, null: false
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 2023_05_16_063212) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "one_day_times", force: :cascade do |t|
+    t.integer "count_up", default: 0, null: false
+    t.integer "exercise", default: 0, null: false
+    t.integer "shortened_lifespan", default: 0, null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_one_day_times_on_user_id"
   end
 
   create_table "total_shortened_lifespans", force: :cascade do |t|
@@ -48,5 +58,6 @@ ActiveRecord::Schema.define(version: 2023_05_16_063212) do
   end
 
   add_foreign_key "notifications", "users"
+  add_foreign_key "one_day_times", "users"
   add_foreign_key "total_shortened_lifespans", "users"
 end

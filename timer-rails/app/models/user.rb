@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_one :notification, dependent: :destroy
   has_one :total_shortened_lifespan, dependent: :destroy
+  has_many :one_day_times, dependent: :destroy
 
   validates :name, presence: true
   validates :name, length: { maximum: 15 }
