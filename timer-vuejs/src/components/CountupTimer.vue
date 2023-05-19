@@ -9,6 +9,9 @@
       <button class="end">End</button>
     </div>
   </div>
+  <p>{{ count_up }}</p>
+  <p>{{ shortened_lifespan }}</p>
+  <p>{{total_shortened_lifespan}}</p>
 </template>
 
 <script>
@@ -21,8 +24,14 @@ export default {
       timerOn: true,
       timerInterval: null,
       startTime: null,
-      elapsedTime: 0
-    };
+      elapsedTime: 0,
+
+      count_up: 0,
+      shortened_lifespan: 0,
+      total_shortened_lifespan: 0,
+
+      audio: new Audio(require('@/assets/sounds/Timer_Sound.mp3')),
+    }
   },
   mounted() {
     this.startTimer();
@@ -40,6 +49,18 @@ export default {
         this.seconds = Math.floor(this.elapsedTime / 1000) % 60;
         this.minutes = Math.floor(this.elapsedTime / 1000 / 60) % 60;
         this.hours = Math.floor(this.elapsedTime / 1000 / 60 / 60);
+
+        // 30分経過するごとにcount_upに30加算する
+        if (this.minutes % 30 === 0 && this.seconds === 0) {
+          this.count_up += 30;
+          this.audio.play()
+        }
+
+        // 1時間経過するごとにshortened_lifespanとtotal_shortened_lifespanに22加算する
+        if (this.hours > 0 && this.minutes === 0 && this.seconds === 0) {
+          this.shortened_lifespan += 22;
+          this.total_shortened_lifespan += 22;
+        }
       }, 1000);
     },
     stop() {
@@ -49,11 +70,10 @@ export default {
     start() {
       this.timerOn = true;
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
-    }
+    },
   }
-};
+}
 </script>
-
 
 <style scoped>
 </style>
