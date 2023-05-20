@@ -30,7 +30,9 @@ export default {
       timerOn: false,
       timerInterval: null,
       startTime: null,
-      elapsedTime: 0
+      elapsedTime: 0,
+
+      audio: new Audio(require('@/assets/sounds/Short_Gothic_07.mp3'))
     };
   },
   mounted() {
@@ -51,6 +53,11 @@ export default {
         this.seconds = Math.floor(remainingTime / 1000) % 60;
         this.minutes = Math.floor(remainingTime / 1000 / 60) % 60;
         this.hours = Math.floor(remainingTime / 1000 / 60 / 60);
+
+        if (this.hours === 0 && this.minutes === 0 && this.seconds === 0) {
+          this.audio.play() // 鳴らす
+          clearInterval(this.timerInterval); // タイマーのインターバルを停止
+        }
       }, 990);
     },
     stop() {
