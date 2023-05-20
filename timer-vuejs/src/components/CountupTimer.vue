@@ -30,7 +30,7 @@ export default {
       shortened_lifespan: 0,
       total_shortened_lifespan: 0,
 
-      audio: new Audio(require('@/assets/sounds/Timer_Sound.mp3')),
+      audio: new Audio(require('@/assets/sounds/Short_Gothic_02.mp3'))
     }
   },
   mounted() {
@@ -53,7 +53,7 @@ export default {
         // 30分経過するごとにcount_upに30加算する
         if (this.minutes % 30 === 0 && this.seconds === 0) {
           this.count_up += 30;
-          this.audio.play()
+          this.audio.play() // 鳴らす
         }
 
         // 1時間経過するごとにshortened_lifespanとtotal_shortened_lifespanに22加算する
