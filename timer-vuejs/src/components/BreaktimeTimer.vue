@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import Push from 'push.js';
+
 export default {
   data() {
     return {
@@ -34,9 +36,6 @@ export default {
 
       audio: new Audio(require('@/assets/sounds/Short_Gothic_07.mp3'))
     };
-  },
-  mounted() {
-    this.startTimer();
   },
   methods: {
     formatTime(value) {
@@ -56,6 +55,11 @@ export default {
 
         if (this.hours === 0 && this.minutes === 0 && this.seconds === 0) {
           this.audio.play() // 鳴らす
+          Push.create("立ち上がって3分が経ちました", {
+            body: "ブレイクタイムを終了します",
+            icon: require('@/assets/img/push_icon.png'),
+            requireInteraction: true
+          });
           clearInterval(this.timerInterval); // タイマーのインターバルを停止
         }
       }, 990);
@@ -66,6 +70,7 @@ export default {
     },
     start() {
       this.timerOn = true;
+      Push.Permission.request();
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     }
   }
