@@ -11,10 +11,12 @@ import { faEye } from "@fortawesome/free-solid-svg-icons"
 import { faGear } from "@fortawesome/free-solid-svg-icons"
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons"
 import { faBookSkull } from "@fortawesome/free-solid-svg-icons"
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons"
 
 library.add(faVolumeUp)
 library.add(faEye)
 library.add(faGear)
 library.add(faCircleQuestion)
 library.add(faBookSkull)
+library.add(faTriangleExclamation)
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')

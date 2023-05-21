@@ -3,15 +3,16 @@
     <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="neontext">How to Use</h1>
-      <p><span class="number">1.</span><span class="red">30分ごとに</span>立ち上がりのお知らせを致します。</p>
-      <p><span class="number">2.</span> 30分経過して通知が来ましたら、<span class="red">アプリ画面にて''立ち上がるか''を教えてください</span>。</p>
+      <p class="body"><span class="number">1.</span><span class="red">30分ごとに</span>立ち上がりのお知らせを致します。</p>
+      <p class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />タイマーの通知が届かない場合は、ご使用のブラウザの通知をオフにしている可能性があります。<br>端末の設定画面から使用されているブラウザアプリの通知をオンにしてください。</p>
+      <p class="body"><span class="number">2.</span> 30分経過して通知が来ましたら、<span class="red">アプリ画面にて''立ち上がるか''を教えてください</span>。</p>
       <span class="attention">※ 1時間座り続けたことで縮んだ寿命の時間を正確にお伝えする為に、正直にお答えください。</span>
       <div class="group">
-        <p><span class="number">3.</span> Yesをクリックすると、3分のブレイクタイムタイマーが開始されます。<br><span class="position">Noをクリックすると、そのままタイマーが再開します。</span></p>
+        <p class="body"><span class="number">3.</span> Yesをクリックすると、3分のブレイクタイムタイマーが開始されます。<br><span class="position">Noをクリックすると、そのままタイマーが再開します。</span></p>
         <img src="../assets/img/standup.png" alt="実際のアプリ画面イメージ" >
       </div>
-      <p><span class="number">4.</span> 本日の作業を終えて、タイマーを終了される場合は、<br><span class="position1">必ずタイマーのENDボタンを押してください</span>。</p>
-      <span class="attention">※ ENDボタンを押さずにタイマーを強制終了すると、タイマー記録が破損する可能性がありますのでご注意ください 。</span>
+      <p class="body"><span class="number">4.</span> 本日の作業を終えて、タイマーを終了される場合は、<br><span class="position1">必ずタイマーのENDボタンを押してください</span>。</p>
+      <span class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />ENDボタンを押さずにタイマーを強制終了すると、タイマー記録が破損する可能性がありますのでご注意ください 。</span>
       <button @click="redirectToTimer">OK</button>
     </div>
   </div>
@@ -49,11 +50,11 @@
     font-size: 40px;
     margin-right: 10px;
   }
-  span.attention {
+  span.attention, p.attention {
     color: #BFBFBF;
-    font-size: 13px;
+    font-size: 12px;
   }
-  p {
+  p.body {
     border-bottom: 1px solid rgba(207, 207, 207, 0.51);
   }
   span.position {
@@ -86,7 +87,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 900px;
+    height: 1000px;
   }
   .modal_contents_wrap {
     position: absolute;
@@ -95,9 +96,9 @@
     background-color: #000000;
     width: 750px;
     height: 620px;
-    margin: 10px auto;
     transform: translate(-50%,-50%);
-    padding: 20px 65px;
+    padding: 20px 65px 120px 65px;
+    margin-top: 80px;
     border: 2px solid #FFFFFF;
   }
   .modal_close_btn {
@@ -106,43 +107,23 @@
   }
 
   button {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 20px;
+    font-size: 25px;
     width: 300px;
-    background: #eee;
-    border-radius: 3px;
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 30px auto;
+    margin-left:240px;
+    margin-top: 50px;
+    font-family: 'IM Fell English SC', serif;
     max-width: 280px;
     padding: 10px 25px;
-    color: #313131;
-    transition: 0.3s ease-in-out;
-    font-weight: 500;
+    border: 2px solid #D9D9D9;
+    border-radius: 0;
+    color: #D9D9D9;
+    background: #000000;
     cursor: pointer;
-}
-button:hover {
-    background: #313131;
-    color: #FFF;
-}
-button:after {
-    content: '';
-    width: 5px;
-    height: 5px;
-    border-top: 3px solid #313131;
-    border-right: 3px solid #313131;
-    transform: rotate(45deg) translateY(-50%);
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    border-radius: 1px;
-    transition: 0.3s ease-in-out;
-}
-button:hover:after {
-    border-color: #FFF;
-}
+  }
+  button:hover {
+  color: #D9D9D9;
+  background: rgba(217, 217, 217, 0.2);
+  }
 
 .neontext {
     color: #fff;

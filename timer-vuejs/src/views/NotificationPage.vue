@@ -35,39 +35,20 @@
   
   button {
     font-family: 'IM Fell English SC', serif;
-    width: 400px;
-    font-size: 23px;
-    background: #eee;
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 240px;
-    padding: 10px 15px;
-    color: #313131;
-    transition: 0.3s ease-in-out;
-    font-weight: 500;
-    z-index:0;
+    width: 470px;
+    font-size: 30px;
+    padding: 15px 15px;
+    margin-left: 250px;
+    margin-top: 10px;
+    border: 3px solid #8F0B0B;
+    border-radius: 0;
+    color: #D9D9D9;
+    background: #000000;
     cursor: pointer;
   }
-  button:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    display: block;
-    background: #8F0B0B;
-    transition: .3s;
-    left:0;
-  }
   button:hover {
-    color: #FFF;
-  }
-  button:hover:before {
-    width: 100%;
-    z-index: -1;
+    color: #D9D9D9;
+    background: rgba(90, 3, 3, 0.6);
   }
 
 </style>
