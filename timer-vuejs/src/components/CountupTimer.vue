@@ -15,13 +15,15 @@
 </template>
 
 <script>
+import Push from 'push.js';
+
 export default {
   data() {
     return {
       seconds: 0,
       minutes: 0,
       hours: 0,
-      timerOn: true,
+      timerOn: false,
       timerInterval: null,
       startTime: null,
       elapsedTime: 0,
@@ -32,9 +34,6 @@ export default {
 
       audio: new Audio(require('@/assets/sounds/Short_Gothic_02.mp3'))
     }
-  },
-  mounted() {
-    this.startTimer();
   },
   methods: {
     formatTime(value) {
@@ -54,6 +53,11 @@ export default {
         if (this.minutes % 30 === 0 && this.seconds === 0) {
           this.count_up += 30;
           this.audio.play() // 鳴らす
+          Push.create("座ったまま30分が経ちました", {
+            body: "アプリのタイマー画面にて立ち上がるか教えてください",
+            icon: require('@/assets/img/push_icon.png'),
+            requireInteraction: true
+          });
         }
 
         // 1時間経過するごとにshortened_lifespanとtotal_shortened_lifespanに22加算する
@@ -69,6 +73,7 @@ export default {
     },
     start() {
       this.timerOn = true;
+      Push.Permission.request();
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     },
   }
