@@ -35,16 +35,17 @@
         </div>
       </div>
     </div>
-    <div class="attention">
-      ※プッシュ通知の許可をお願い致します。
-    </div>
+    <button @click="push">プッシュ通知の許可をお願いします</button>
+    <p class="attention">
+      ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に一度許可していただいていたら、表示されません)
+    </p>
   <div class="error">{{ error }}</div>
   </div>
 </template>
 
 <script>
-
 import axios from 'axios'
+import Push from 'push.js';
 
   export default {
     data () {
@@ -70,6 +71,9 @@ import axios from 'axios'
         } catch (error) {
           console.log(error)
         }
+      },
+      push () {
+        Push.Permission.request();
       }
     }
   }
@@ -134,10 +138,10 @@ import axios from 'axios'
   }
 
   .selection label {
-    font-size: 20px;
+    font-size: 22px;
   }
   .selection div {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .sound-group, .push-group {
@@ -145,7 +149,7 @@ import axios from 'axios'
     justify-content: center;
   }
   .sound-group div, .push-group div {
-    margin: 20px;
+    margin: 24px;
   }
 
   .attention {
@@ -179,5 +183,19 @@ import axios from 'axios'
     20%, 24%, 55% {
       text-shadow: none;
     }
+  }
+
+  button {
+    border: 1px solid #BFBFBF;
+    border-radius: 10px;
+    color: #BFBFBF;
+    background: #000000;
+    cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  button:hover {
+  color: #D9D9D9;
+  background: rgba(217, 217, 217, 0.2);
   }
 </style>

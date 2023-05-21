@@ -39,6 +39,10 @@ export default {
       audio: new Audio(require('@/assets/sounds/Short_Gothic_07.mp3'))
     };
   },
+  mounted() {
+    this.$emit('getNotification')
+    this.startTimer();
+  },
   methods: {
     formatTime(value) {
       return value.toString().padStart(2, '0'); // 2桁の0埋めフォーマット
@@ -75,8 +79,6 @@ export default {
     },
     start() {
       this.timerOn = true;
-      Push.Permission.request();
-      this.$emit('getNotification')
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     }
   }
