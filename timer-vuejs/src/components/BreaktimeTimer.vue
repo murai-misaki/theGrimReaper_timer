@@ -24,6 +24,8 @@
 import Push from 'push.js';
 
 export default {
+  props: ['notificationWay'],
+
   data() {
     return {
       seconds: 0,
@@ -54,12 +56,15 @@ export default {
         this.hours = Math.floor(remainingTime / 1000 / 60 / 60);
 
         if (this.hours === 0 && this.minutes === 0 && this.seconds === 0) {
-          this.audio.play() // 鳴らす
-          Push.create("立ち上がって3分が経ちました", {
-            body: "ブレイクタイムを終了します",
-            icon: require('@/assets/img/push_icon.png'),
-            requireInteraction: true
-          });
+          if (this.notificationWay === true) {
+            Push.create("立ち上がって3分が経ちました", {
+              body: "ブレイクタイムを終了します",
+              icon: require('@/assets/img/push_icon.png'),
+              requireInteraction: true
+            });
+          } else {
+            this.audio.play() // 鳴らす
+          }
           clearInterval(this.timerInterval); // タイマーのインターバルを停止
         }
       }, 990);
@@ -71,6 +76,7 @@ export default {
     start() {
       this.timerOn = true;
       Push.Permission.request();
+      this.$emit('getNotification')
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     }
   }

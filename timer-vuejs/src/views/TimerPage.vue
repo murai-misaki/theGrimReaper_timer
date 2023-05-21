@@ -7,15 +7,17 @@
       <font-awesome-icon :icon="['fas', 'book-skull']" style="color: #D9D9D9;" class="skull-icon" />
     </div>
     <div v-if="showTimer">
-      <CountupTimer />
+      <CountupTimer @getNotification="getNotification" :notificationWay="notificationWay" />
     </div>
     <div v-if="!showTimer">
-      <BreaktimeTimer />
+      <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" />
      </div>
+     <p>{{notificationWay}}</p>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   import CountupTimer from '../components/CountupTimer.vue'
   import BreaktimeTimer from '../components/BreaktimeTimer.vue'
 
@@ -24,8 +26,28 @@
 
     data () {
       return {
-        showTimer: false
+        showTimer: false,
+        notificationWay: false,
       }
+    },
+    methods: {
+      async getNotification () {
+        try {
+          const res = await axios.get(`http://localhost:3000/notifications`, {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+          if (!res) {
+            throw new Error('現在の通知方法を取得できませんでした')
+          }
+          this.notificationWay = res.data.way
+        } catch (error) {
+          console.log(error)
+        }
+      },
     }
   }
 </script>

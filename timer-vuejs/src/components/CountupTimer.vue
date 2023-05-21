@@ -18,6 +18,8 @@
 import Push from 'push.js';
 
 export default {
+  props: ['notificationWay'],
+
   data() {
     return {
       seconds: 0,
@@ -52,12 +54,16 @@ export default {
         // 30分経過するごとにcount_upに30加算する
         if (this.minutes % 30 === 0 && this.seconds === 0) {
           this.count_up += 30;
-          this.audio.play() // 鳴らす
-          Push.create("座ったまま30分が経ちました", {
-            body: "アプリのタイマー画面にて立ち上がるか教えてください",
-            icon: require('@/assets/img/push_icon.png'),
-            requireInteraction: true
-          });
+          if (this.notificationWay === true) {
+            Push.create("座ったまま30分が経ちました", {
+              body: "アプリのタイマー画面にて立ち上がるか教えてください",
+              icon: require('@/assets/img/push_icon.png'),
+              requireInteraction: true
+            });
+          } else {
+            this.audio.play() // 鳴らす
+          }
+          clearInterval(this.timerInterval); // タイマーのインターバルを停止
         }
 
         // 1時間経過するごとにshortened_lifespanとtotal_shortened_lifespanに22加算する
@@ -74,6 +80,7 @@ export default {
     start() {
       this.timerOn = true;
       Push.Permission.request();
+      this.$emit('getNotification')
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     },
   }
