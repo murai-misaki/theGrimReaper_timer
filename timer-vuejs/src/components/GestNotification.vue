@@ -39,7 +39,6 @@
     <p class="attention">
       ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に一度許可していただいていたら、表示されません)
     </p>
-  <div class="error">{{ error }}</div>
   </div>
 </template>
 
