@@ -2,17 +2,25 @@
   <div class="container">
     <div class="space"></div>
     <div class="icon-group">
-      <font-awesome-icon :icon="['fas', 'gear']" style="color: #D9D9D9;" class="setting-icon" />
-      <font-awesome-icon :icon="['fas', 'circle-question']" style="color: #D9D9D9;" class="question-icon" />
-      <font-awesome-icon :icon="['fas', 'book-skull']" style="color: #D9D9D9;" class="skull-icon" />
+      <div @click="openNotificationModal">
+        <font-awesome-icon :icon="['fas', 'gear']" style="color: #D9D9D9;" class="setting-icon" />
+      </div>
+      <div @click="openHowtouseModal">
+        <font-awesome-icon :icon="['fas', 'circle-question']" style="color: #D9D9D9;" class="question-icon" />
+      </div>
+      <div @click="openHealthriskModal">
+        <font-awesome-icon :icon="['fas', 'book-skull']" style="color: #D9D9D9;" class="skull-icon" />
+      </div>
     </div>
     <div v-if="showTimer">
       <CountupTimer @getNotification="getNotification" :notificationWay="notificationWay" />
     </div>
     <div v-if="!showTimer">
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" />
-     </div>
-     <p>{{notificationWay}}</p>
+    </div>
+    <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" />
+    <HowtouseModal ref="howtouseModal" />
+    <HealthriskModal ref="healthriskModal" />
   </div>
 </template>
 
@@ -20,9 +28,12 @@
   import axios from 'axios'
   import CountupTimer from '../components/CountupTimer.vue'
   import BreaktimeTimer from '../components/BreaktimeTimer.vue'
+  import NotificationModal from '../components/NotificationModal.vue'
+  import HowtouseModal from  '../components/HowtouseModal.vue'
+  import HealthriskModal from '../components/HealthriskModal.vue'
 
   export default {
-    components: { CountupTimer, BreaktimeTimer },
+    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal },
 
     data () {
       return {
@@ -47,6 +58,15 @@
         } catch (error) {
           console.log(error)
         }
+      },
+      openNotificationModal () {
+        this.$refs.notificationModal.open()
+      },
+      openHowtouseModal () {
+        this.$refs.howtouseModal.open()
+      },
+      openHealthriskModal () {
+        this.$refs.healthriskModal.open()
       },
     }
   }
@@ -119,6 +139,9 @@ button.start:hover {
     font-size: 30px;
     padding-bottom: 20px;
     margin-left: 780px;
+    display: flex
+  }
+  .icon-group div {
     cursor: pointer;
   }
   .question-icon {
