@@ -9,9 +9,6 @@
       <button class="end">End</button>
     </div>
   </div>
-  <p>{{ count_up }}</p>
-  <p>{{ shortened_lifespan }}</p>
-  <p>{{total_shortened_lifespan}}</p>
 </template>
 
 <script>
@@ -25,7 +22,7 @@ export default {
       seconds: 0,
       minutes: 0,
       hours: 0,
-      timerOn: false,
+      timerOn: true,
       timerInterval: null,
       startTime: null,
       elapsedTime: 0,
@@ -67,7 +64,7 @@ export default {
           } else {
             this.audio.play() // 鳴らす
           }
-          clearInterval(this.timerInterval); // タイマーのインターバルを停止
+          this.$emit('openStandupModal')
         }
 
         // 1時間経過するごとにshortened_lifespanとtotal_shortened_lifespanに22加算する
