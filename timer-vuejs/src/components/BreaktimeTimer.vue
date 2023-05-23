@@ -70,6 +70,7 @@ export default {
             this.audio.play() // 鳴らす
           }
           clearInterval(this.timerInterval); // タイマーのインターバルを停止
+          this.$emit('showCountupTimer')
         }
       }, 990);
     },
