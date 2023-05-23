@@ -13,14 +13,17 @@
       </div>
     </div>
     <div v-if="showTimer">
-      <CountupTimer @getNotification="getNotification" :notificationWay="notificationWay" />
+      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" />
     </div>
     <div v-if="!showTimer">
-      <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" />
+      <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" />
     </div>
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
+    <div v-show="showStandupModal">
+      <StandupModal @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
+    </div>
   </div>
 </template>
 
@@ -31,14 +34,16 @@
   import NotificationModal from '../components/NotificationModal.vue'
   import HowtouseModal from  '../components/HowtouseModal.vue'
   import HealthriskModal from '../components/HealthriskModal.vue'
+  import StandupModal from '../components/StandupModal.vue'
 
   export default {
-    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal },
+    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal },
 
     data () {
       return {
-        showTimer: false,
+        showTimer: true,
         notificationWay: false,
+        showStandupModal: false,
       }
     },
     methods: {
@@ -67,6 +72,21 @@
       },
       openHealthriskModal () {
         this.$refs.healthriskModal.open()
+      },
+      openStandupModal () {
+        this.$refs.countupTimer.stop()
+        this.showStandupModal = true
+      },
+      showBreaktimeTimer () {
+        this.showStandupModal = false
+        this.showTimer = false
+      },
+      showCountupTimer () {
+        this.showTimer = true
+      },
+      restartCountupTimer () {
+        this.showStandupModal = false
+        this.$refs.countupTimer.start()
       },
     }
   }
@@ -110,11 +130,11 @@
     background: #000000;
     cursor: pointer;
   }
-
-button.stop:hover {
-  color: #D9D9D9;
+  button.stop:hover {
+    color: #D9D9D9;
     background: rgba(90, 3, 3, 0.6);
   }
+
   button.start {
     font-family: 'IM Fell English SC', serif;
     font-size: 45px;
@@ -125,9 +145,8 @@ button.stop:hover {
     background: #000000;
     cursor: pointer;
   }
-
-button.start:hover {
-  color: #D9D9D9;
+  button.start:hover {
+    color: #D9D9D9;
     background: rgba(90, 3, 3, 0.6);
   }
 
