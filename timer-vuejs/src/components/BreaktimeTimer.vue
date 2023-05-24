@@ -6,7 +6,7 @@
     <div class="timer-button">
       <button class="stop" @click="stop" v-show="timerOn">Stop</button>
       <button class="start" @click="start" v-show="!timerOn">Start</button>
-      <button class="end">End</button>
+      <button class="end" @click="end">End</button>
     </div>
   </div>
   <p>体を動かしましょう。</p>
@@ -81,7 +81,10 @@ export default {
     start() {
       this.timerOn = true;
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
-    }
+    },
+    end() {
+      this.$emit('openShortenedLifespanModal')
+    },
   }
 };
 </script>
