@@ -13,16 +13,19 @@
       </div>
     </div>
     <div v-if="showTimer">
-      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" />
+      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" />
     </div>
     <div v-if="!showTimer">
-      <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" />
+      <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
     </div>
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
     <div v-show="showStandupModal">
       <StandupModal @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
+    </div>
+    <div v-show="showShortenedLifespanModal">
+      <ShortenedLifespanModal @closeShortenedLifespanModal="closeShortenedLifespanModal" />
     </div>
   </div>
 </template>
@@ -35,15 +38,17 @@
   import HowtouseModal from  '../components/HowtouseModal.vue'
   import HealthriskModal from '../components/HealthriskModal.vue'
   import StandupModal from '../components/StandupModal.vue'
+  import ShortenedLifespanModal from '../components/ShortenedLifespanModal.vue'
 
   export default {
-    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal },
+    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal },
 
     data () {
       return {
         showTimer: true,
         notificationWay: false,
         showStandupModal: false,
+        showShortenedLifespanModal: false,
       }
     },
     methods: {
@@ -87,6 +92,12 @@
       restartCountupTimer () {
         this.showStandupModal = false
         this.$refs.countupTimer.start()
+      },
+      openShortenedLifespanModal () {
+        this.showShortenedLifespanModal = true
+      },
+      closeShortenedLifespanModal () {
+        this.showShortenedLifespanModal = false
       },
     }
   }
