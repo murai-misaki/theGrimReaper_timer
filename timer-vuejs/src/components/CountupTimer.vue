@@ -6,7 +6,7 @@
     <div class="timer-button">
       <button class="stop" @click="stop" v-show="timerOn">Stop</button>
       <button class="start" @click="start" v-show="!timerOn">Start</button>
-      <button class="end">End</button>
+      <button class="end" @click="end">End</button>
     </div>
   </div>
 </template>
@@ -27,9 +27,10 @@ export default {
       startTime: null,
       elapsedTime: 0,
 
-      count_up: 0,
-      shortened_lifespan: 0,
-      total_shortened_lifespan: 0,
+      countUp: 0,
+      shortenedLifespan: 0,
+      totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
+      todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
 
       audio: new Audio(require('@/assets/sounds/Short_Gothic_02.mp3'))
     }
@@ -52,9 +53,14 @@ export default {
         this.minutes = Math.floor(this.elapsedTime / 1000 / 60) % 60;
         this.hours = Math.floor(this.elapsedTime / 1000 / 60 / 60);
 
-        // 30分経過するごとにcount_upに30加算する
-        if (this.minutes % 30 === 0 && this.seconds === 0) {
-          this.count_up += 30;
+        // 30分経過するごとにcountUpに30加算する
+        if (this.minutes % 3 === 0 && this.seconds === 0) {
+          if (this.totalCountUp) {
+            this.countUp = this.totalCountUp + 30;
+          } else {
+            this.countUp += 30;
+          }
+          window.localStorage.setItem('totalCountUp', this.countUp)
           if (this.notificationWay === true) {
             Push.create("座ったまま30分が経ちました", {
               body: "アプリのタイマー画面にて立ち上がるか教えてください",
@@ -67,10 +73,14 @@ export default {
           this.$emit('openStandupModal')
         }
 
-        // 1時間経過するごとにshortened_lifespanとtotal_shortened_lifespanに22加算する
+        // 1時間経過するごとにshortenedLifespanに22加算する
         if (this.hours > 0 && this.minutes === 0 && this.seconds === 0) {
-          this.shortened_lifespan += 22;
-          this.total_shortened_lifespan += 22;
+          if (this.todayShortenedLifespan) {
+            this.shortenedLifespan = this.todayShortenedLifespan + 22;
+          } else {
+            this.shortenedLifespan += 22;
+          }
+          window.localStorage.setItem('todayShortenedLifespan', this.shortenedLifespan)
         }
       }, 1000);
     },
@@ -80,7 +90,12 @@ export default {
     },
     start() {
       this.timerOn = true;
+      this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+      this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
+    },
+    end() {
+      this.$emit('openShortenedLifespanModal')
     },
   }
 }
