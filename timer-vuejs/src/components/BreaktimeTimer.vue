@@ -83,6 +83,7 @@ export default {
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     },
     end() {
+      this.stop()
       this.$emit('openShortenedLifespanModal')
     },
   }

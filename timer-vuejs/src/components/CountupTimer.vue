@@ -54,7 +54,7 @@ export default {
         this.hours = Math.floor(this.elapsedTime / 1000 / 60 / 60);
 
         // 30分経過するごとにcountUpに30加算する
-        if (this.minutes % 3 === 0 && this.seconds === 0) {
+        if (this.minutes % 30 === 0 && this.seconds === 0) {
           if (this.totalCountUp) {
             this.countUp = this.totalCountUp + 30;
           } else {
@@ -95,6 +95,7 @@ export default {
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     },
     end() {
+      this.stop()
       this.$emit('openShortenedLifespanModal')
     },
   }
