@@ -9,21 +9,149 @@
       <div v-show="!todayShortenedLifespan">
         <p>''本日戴いた寿命はございません。''<br>またのご利用をご利用をお待ちしております。</p>
       </div>
-      <button class="ok_button" @click="close">OK</button>
+      <button class="ok_button" @click="end">OK</button>
     </div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
+    props: ['totalCountUp', 'todayExercise', 'todayShortenedLifespan'],
+
     data () {
       return {
-        todayShortenedLifespan: window.localStorage.getItem('todayShortenedLifespan'),
+        onedaytimeTodayId: null,
+        onedaytimeTodayCountUp: 0,
+        onedaytimeTodayExercise: 0,
+        onedaytimeTodayShortenedLifespan: 0,
+        totalShortenedLifespan: 0,
       }
     },
     methods: {
       close () {
         this.$emit('closeShortenedLifespanModal')
+      },
+      async getOnedaytimeToday () {
+        try {
+          const res = await axios.get(`http://localhost:3000/one_day_times/today`, {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+          if (!res) {
+            throw new Error('本日のタイマー記録をを取得できませんでした')
+          }
+          this.onedaytimeTodayId = res.data.id
+          this.onedaytimeTodayCountUp = res.data.count_up
+          this.onedaytimeTodayExercise = res.data.exercise
+          this.onedaytimeTodayShortenedLifespan = res.data.shortened_lifespan
+          console.log({ res })
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      async createOnedaytime () {
+        try {
+          const res = await axios.post(`http://localhost:3000/one_day_times`, {
+            count_up: this.totalCountUp,
+            exercise: this.todayExercise,
+            shortened_lifespan: this.todayShortenedLifespan,
+            },
+          {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+
+          if (!res) {
+            throw new Error('本日のタイマー記録を保存できませんでした')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      async updateOnedaytime(onedaytimeId) {
+        try {
+          const res = await axios.patch(`http://localhost:3000/one_day_times/${onedaytimeId}`, {
+            count_up: this.totalCountUp + this.onedaytimeTodayCountUp,
+            exercise: this.todayExercise + this.onedaytimeTodayExercise,
+            shortened_lifespan: this.todayShortenedLifespan + this.onedaytimeTodayShortenedLifespan,
+            },
+          {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+
+          if (!res) {
+            throw new Error('本日のタイマー記録を更新できませんでした')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      async getTotalShortenedLifespan () {
+        try {
+          const res = await axios.get(`http://localhost:3000/total_shortened_lifespans`, {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+          if (!res) {
+            throw new Error('1時間座り続けたことで縮んだ寿命の合計時間を取得できませんでした')
+          }
+          this.totalShortenedLifespan = res.data.time
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      async updateTotalShortenedLifespan () {
+        try {
+          const res = await axios.patch(`http://localhost:3000/total_shortened_lifespans`, {time: this.totalShortenedLifespan + this.todayShortenedLifespan },
+          {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+
+          if (!res) {
+            throw new Error('1時間座り続けたことで縮んだ寿命の合計時間を更新できませんでした')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      end () {
+        this.close()
+        if (this.totalCountUp || this.todayExercise || this.todayShortenedLifespan) {
+          this.getOnedaytimeToday().then(() => {
+            if (this.onedaytimeTodayId) {
+              this.updateOnedaytime(this.onedaytimeTodayId)
+            } else {
+              this.createOnedaytime()
+            }
+          })
+        }
+        if (this.todayShortenedLifespan) {
+          this.getTotalShortenedLifespan().then(() => {
+            this.updateTotalShortenedLifespan()
+          })
+        }
+        window.localStorage.removeItem('totalCountUp')
+        window.localStorage.removeItem('todayExercise')
+        window.localStorage.removeItem('todayShortenedLifespan')
       },
     }
   }

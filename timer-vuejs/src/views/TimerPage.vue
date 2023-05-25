@@ -25,7 +25,7 @@
       <StandupModal @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
     </div>
     <div v-show="showShortenedLifespanModal">
-      <ShortenedLifespanModal @closeShortenedLifespanModal="closeShortenedLifespanModal" />
+      <ShortenedLifespanModal @closeShortenedLifespanModal="closeShortenedLifespanModal" :totalCountUp="totalCountUp" :todayExercise="todayExercise" :todayShortenedLifespan="todayShortenedLifespan" />
     </div>
   </div>
 </template>
@@ -49,6 +49,9 @@
         notificationWay: false,
         showStandupModal: false,
         showShortenedLifespanModal: false,
+        totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
+        todayExercise: Number(window.localStorage.getItem('todayExercise')),
+        todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
       }
     },
     methods: {
@@ -95,6 +98,9 @@
       },
       openShortenedLifespanModal () {
         this.showShortenedLifespanModal = true
+        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
+        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
       },
       closeShortenedLifespanModal () {
         this.showShortenedLifespanModal = false
