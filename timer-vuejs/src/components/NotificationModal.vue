@@ -39,7 +39,7 @@
       </div>
       <button @click="push" class="push-button">プッシュ通知の許可をお願いします</button>
       <p class="attention">
-        ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に一度許可していただいていたら、表示されません)
+        ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に許可になっている場合は表示されません)
       </p>
       <button class="update-button" @click="update">Update</button>
       <div v-show="flashMessage" class="flash_message">
@@ -63,12 +63,10 @@
         flashMessage: false,
       }
     },
-    mounted() {
-      this.$emit('getNotification')
-      this.radio = this.notificationWay
-    },
     methods: {
       open () {
+        this.$emit('getNotification')
+        this.radio = this.notificationWay
         this.show = true
       },
       close () {
