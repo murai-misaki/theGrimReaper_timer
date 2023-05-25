@@ -1,5 +1,5 @@
 class OneDayTimesController < ApplicationController
-  before_action :authenticate_user!, only: %i[create index]
+  before_action :authenticate_user!, only: %i[create show_today update index]
 
   def create
     today_time = current_user.one_day_times.build(today_time_params)
@@ -8,6 +8,25 @@ class OneDayTimesController < ApplicationController
       render json: { id: today_time.id, email: current_user.email, message: '成功しました' }, status: :ok
     else
       render json: { message: '保存出来ませんでした', errors: today_time.errors.messages }, status: :bad_request
+    end
+  end
+
+  def show_today
+    now = Time.current
+    today_time = current_user.one_day_times.find_by(created_at: now.all_day)
+
+    if today_time
+      render json: { id: today_time.id, count_up: today_time.count_up, exercise: today_time.exercise, shortened_lifespan: today_time.shortened_lifespan }, status: :ok
+    end
+  end
+
+  def update
+    today_time = current_user.one_day_times.find(params[:id])
+
+    if today_time.update(today_time_params)
+      render json: { id: today_time.id, message: '成功しました' }, status: :ok
+    else
+      render json: { message: '更新出来ませんでした', errors: today_time.errors.messages }, status: :bad_request
     end
   end
 
