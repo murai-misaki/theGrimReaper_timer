@@ -4,10 +4,10 @@
     <div class="modal_contents_wrap">
       <h1 class="neontext">Thank you for using.</h1>
       <div v-show="todayShortenedLifespan">
-        <p>''今回は<span>{{todayShortenedLifespan}}分</span>の寿命を戴きました。''<br>またのご利用をご利用をお待ちしております。</p>
+        <p>''今回は<span>{{todayShortenedLifespan}}分</span>の寿命を戴きました。''<br>またのご利用をお待ちしております。</p>
       </div>
       <div v-show="!todayShortenedLifespan">
-        <p>''今回戴いた寿命はございません。''<br>またのご利用をご利用をお待ちしております。</p>
+        <p>''今回戴いた寿命はございません。''<br>またのご利用をお待ちしております。</p>
       </div>
       <button class="ok_button" @click="end">OK</button>
     </div>
