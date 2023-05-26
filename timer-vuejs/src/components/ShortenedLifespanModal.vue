@@ -27,6 +27,8 @@
         onedaytimeTodayExercise: 0,
         onedaytimeTodayShortenedLifespan: 0,
         totalShortenedLifespan: 0,
+
+        guest: localStorage.getItem('guest')
       }
     },
     methods: {
@@ -152,6 +154,12 @@
         window.localStorage.removeItem('totalCountUp')
         window.localStorage.removeItem('todayExercise')
         window.localStorage.removeItem('todayShortenedLifespan')
+
+        if(this.guest === true) {
+          this.$router.push({ name: 'Mypage' })
+        } else {
+          this.$router.push({ name: 'Guestlogin' })
+        }
       },
     }
   }
