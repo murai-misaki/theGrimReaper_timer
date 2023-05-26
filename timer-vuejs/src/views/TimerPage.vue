@@ -13,7 +13,7 @@
       </div>
     </div>
     <div v-if="showTimer">
-      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" />
+      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" />
     </div>
     <div v-if="!showTimer">
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
@@ -27,6 +27,9 @@
     <div v-show="showShortenedLifespanModal">
       <ShortenedLifespanModal @closeShortenedLifespanModal="closeShortenedLifespanModal" :totalCountUp="totalCountUp" :todayExercise="todayExercise" :todayShortenedLifespan="todayShortenedLifespan" />
     </div>
+    <div v-show="showRiskModal">
+      <RiskModal @closeRiskModal="closeRiskModal" />
+    </div>
   </div>
 </template>
 
@@ -39,9 +42,10 @@
   import HealthriskModal from '../components/HealthriskModal.vue'
   import StandupModal from '../components/StandupModal.vue'
   import ShortenedLifespanModal from '../components/ShortenedLifespanModal.vue'
+  import RiskModal from '../components/RiskModal.vue'
 
   export default {
-    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal },
+    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal },
 
     data () {
       return {
@@ -49,6 +53,7 @@
         notificationWay: false,
         showStandupModal: false,
         showShortenedLifespanModal: false,
+        showRiskModal: false,
         totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
         todayExercise: Number(window.localStorage.getItem('todayExercise')),
         todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
@@ -104,6 +109,12 @@
       },
       closeShortenedLifespanModal () {
         this.showShortenedLifespanModal = false
+      },
+      openRiskModal () {
+        this.showRiskModal = true
+      },
+      closeRiskModal () {
+        this.showRiskModal = false
       },
     }
   }
