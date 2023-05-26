@@ -9,10 +9,14 @@
       <button class="end" @click="end">End</button>
     </div>
   </div>
+  <div v-show="todayTotalShortenedLifespan">
+    <p><span class="english_version neontext">Your lifispan was shortened today : <span class="time">total {{ todayTotalShortenedLifespan }} minutes</span></span><br><span class="japanese_varsion">''1時間座り続けたことで本日縮んだ寿命 : 合計 {{ todayTotalShortenedLifespan }}分''</span></p>
+  </div>
 </template>
 
 <script>
 import Push from 'push.js';
+import axios from 'axios'
 
 export default {
   props: ['notificationWay'],
@@ -32,11 +36,28 @@ export default {
       totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
       todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
 
+      onedaytimeTodayCountUp: 0,
+      checkCountUpTime: 0,
+      onedaytimeTodayShortenedLifespan: 0,
+      todayTotalShortenedLifespan: 0,
+
       audio: new Audio(require('@/assets/sounds/Short_Gothic_02.mp3'))
     }
   },
   mounted() {
     this.$emit('getNotification')
+    this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+    this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
+    this.getShortenedLifespanToday().then(() => {
+      this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
+    })
+    if (this.totalCountUp >= 480) {
+      this.$emit('openRiskModal')
+    } else {
+      this.getCountUpToday().then(() => {
+        this.checkCountUp()
+      })
+    }
     this.startTimer();
   },
   methods: {
@@ -92,15 +113,102 @@ export default {
       this.timerOn = true;
       this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
       this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
+      this.getShortenedLifespanToday().then(() => {
+        this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
+      })
+      if (this.totalCountUp >= 480) {
+        this.$emit('openRiskModal')
+      } else {
+        this.getCountUpToday().then(() => {
+          this.checkCountUp()
+        })
+      }
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     },
     end() {
       this.stop()
       this.$emit('openShortenedLifespanModal')
     },
+    async getCountUpToday () {
+      try {
+        const res = await axios.get(`http://localhost:3000/one_day_times/today`, {
+          headers: {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client')
+          }
+        })
+        if (!res) {
+          throw new Error('本日の座っている時間を取得できませんでした')
+        }
+        this.onedaytimeTodayCountUp = res.data.count_up
+        console.log({ res })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    checkCountUp () {
+      this.checkCountUpTime = this.onedaytimeTodayCountUp + this.totalCountUp
+
+      if (this.checkCountUpTime >= 480) {
+        this.$emit('openRiskModal')
+      }
+    },
+    async getShortenedLifespanToday () {
+      try {
+        const res = await axios.get(`http://localhost:3000/one_day_times/today`, {
+          headers: {
+            uid: window.localStorage.getItem('uid'),
+            "access-token": window.localStorage.getItem('access-token'),
+            client: window.localStorage.getItem('client')
+          }
+        })
+        if (!res) {
+          throw new Error('本日の1時間座り続けたことで縮んだ寿命を取得できませんでした')
+        }
+        this.onedaytimeTodayShortenedLifespan = res.data.shortened_lifespan
+        console.log({ res })
+      } catch (error) {
+        console.log(error)
+      }
+    },
   }
 }
 </script>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+  
+  p {
+    text-align: center;
+  }
+  .english_version {
+    font-family: 'IM Fell English SC', serif; 
+    font-size: 30px;
+  }
+  .time {
+    margin-left: 20px;
+  }
+
+  .neontext {
+  animation: flicker 1.5s infinite alternate;
+  color: #fff;
+  }
+  @keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+      text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #0fa,
+      0 0 80px #0fa,
+      0 0 90px #0fa,
+      0 0 100px #0fa,
+      0 0 150px #0fa;
+    } 
+    20%, 24%, 55% {
+      text-shadow: none;
+    }
+  }
+
 </style>
