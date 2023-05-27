@@ -59,6 +59,19 @@
         todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
       }
     },
+    // windowを使うのでmountedでイベント登録
+    mounted () {
+      window.addEventListener('beforeunload', () => {
+        this.removeItem()
+      })
+    },
+
+    // 一応破棄
+    unmounted () {
+      window.removeEventListener('beforeunload', () => {
+        this.removeItem()
+      })
+    },
     methods: {
       async getNotification () {
         try {
@@ -115,6 +128,11 @@
       },
       closeRiskModal () {
         this.showRiskModal = false
+      },
+      removeItem () {
+        window.localStorage.removeItem('totalCountUp')
+        window.localStorage.removeItem('todayExercise')
+        window.localStorage.removeItem('todayShortenedLifespan')
       },
     }
   }
