@@ -59,18 +59,11 @@
         todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
       }
     },
-    // windowを使うのでmountedでイベント登録
     mounted () {
-      window.addEventListener('beforeunload', () => {
-        this.removeItem()
-      })
+      window.addEventListener("beforeunload", this.confirmSave);
     },
-
-    // 一応破棄
     unmounted () {
-      window.removeEventListener('beforeunload', () => {
-        this.removeItem()
-      })
+      window.removeEventListener("beforeunload", this.confirmSave);
     },
     methods: {
       async getNotification () {
@@ -129,10 +122,8 @@
       closeRiskModal () {
         this.showRiskModal = false
       },
-      removeItem () {
-        window.localStorage.removeItem('totalCountUp')
-        window.localStorage.removeItem('todayExercise')
-        window.localStorage.removeItem('todayShortenedLifespan')
+      confirmSave (event) {
+        event.returnValue = "タイマー記録は保存されませんが、よろしいですか？";
       },
     }
   }
