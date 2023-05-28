@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     resource :notifications, only: %i[create show update]
     resource :total_shortened_lifespans, only: %i[create show update]
-    resources :one_day_times, only: %i[create index]
+    resources :one_day_times, only: %i[create update index]
+    get '/one_day_times/today', to: 'one_day_times#show_today'
   end
 end
