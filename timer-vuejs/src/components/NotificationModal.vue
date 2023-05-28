@@ -132,7 +132,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 1000px;
+    height: 900px;
   }
   .modal_contents_wrap {
     position: absolute;

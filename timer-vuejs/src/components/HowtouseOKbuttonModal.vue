@@ -11,8 +11,8 @@
         <p class="body"><span class="number">3.</span> Yesをクリックすると、3分のブレイクタイムタイマーが開始されます。<br><span class="position">Noをクリックすると、そのままタイマーが再開します。</span></p>
         <img src="../assets/img/standup.png" alt="実際のアプリ画面イメージ" >
       </div>
-      <p class="body"><span class="number">4.</span> 本日の作業を終えて、タイマーを終了される場合は、<br><span class="position1">必ずタイマーのENDボタンを押してください</span>。</p>
-      <span class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />ENDボタンを押さずにタイマーを強制終了すると、タイマー記録が破損する可能性がありますのでご注意ください 。</span>
+      <p class="body"><span class="number">4.</span> タイマーを終了される場合は、<span class="red">必ず''ENDボタン''を押してください</span>。</p>
+      <span class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />ENDボタンを押さずにタイマーを強制終了すると、タイマー記録(座っていた時間・1時間座り続けたことで縮んだ寿命・ブレイクタイム時に行った身体活動量)が保存されませんのでご注意ください 。</span>
       <button @click="redirectToTimer">OK</button>
     </div>
   </div>
@@ -59,10 +59,6 @@
   }
   span.position {
     margin-left: 39px;
-  }
-  span.position1 {
-    margin-left: 44px;
-    color: #CB0101;
   }
   span.red {
     color: #CB0101;
