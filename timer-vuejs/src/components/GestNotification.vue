@@ -43,14 +43,18 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Push from 'push.js';
+  import axios from 'axios'
+  import Push from 'push.js';
+  import removeItem from '../onedaytime/removeItem'
 
   export default {
     data () {
       return {
         radio: 'false'
       }
+    },
+    mounted () {
+      removeItem()
     },
     methods: {
       async createNotification () {
