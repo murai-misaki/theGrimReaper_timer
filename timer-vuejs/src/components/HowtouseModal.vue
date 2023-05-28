@@ -5,7 +5,7 @@
       <span @click="close" class="modal_close_btn"><font-awesome-icon :icon="['fas', 'xmark']" style="color: #D9D9D9;" /></span>
       <h1 class="neontext">How to Use</h1>
       <p class="body"><span class="number">1.</span><span class="red">30分ごとに</span>立ち上がりのお知らせを致します。</p>
-      <p class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />タイマーの通知が届かない場合は、ご使用のブラウザの通知をオフにしている可能性があります。<br>端末の設定画面から使用されているブラウザアプリの通知をオンにしてください。</p>
+      <p class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />タイマーの通知が届かない場合<br>・ご使用のブラウザの通知をオフにしている可能性があります。端末の設定画面から使用されているブラウザアプリの通知をオンにしてください。<br>・端末がスリープ状態になっている場合もタイマーの通知が届きません。</p>
       <p class="body"><span class="number">2.</span> 30分経過して通知が来ましたら、<span class="red">アプリ画面にて''立ち上がるか''を教えてください</span>。</p>
       <span class="attention">※ 1時間座り続けたことで縮んだ寿命の時間を正確にお伝えする為に、正直にお答えください。</span>
       <div class="group">
