@@ -13,6 +13,9 @@ import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons"
 import { faBookSkull } from "@fortawesome/free-solid-svg-icons"
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons"
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { faCircle } from "@fortawesome/free-solid-svg-icons"
 
 library.add(faVolumeUp)
 library.add(faEye)
@@ -21,4 +24,7 @@ library.add(faCircleQuestion)
 library.add(faBookSkull)
 library.add(faTriangleExclamation)
 library.add(faXmark)
+library.add(faChevronRight)
+library.add(faChevronLeft)
+library.add(faCircle)
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
