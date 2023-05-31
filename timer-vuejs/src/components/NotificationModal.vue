@@ -43,8 +43,8 @@
       </p>
       <button class="update-button" @click="update">Update</button>
       <div v-show="flashMessage" class="flash_message">
-      お知らせ方法を更新しました。
-    </div>
+        <p>お知らせ方法を更新しました。</p>
+      </div>
     </div>
   </div>
 </template>
@@ -318,6 +318,12 @@
   }
 
   .flash_message {
-    padding-top: 10px;
+    padding-top: 20px;
+  }
+  .flash_message p {
+    border: 1px solid #BFBFBF;
+    background: rgba(217, 217, 217, 0.2);
+    width: 300px;
+    margin: 0 auto;
   }
 </style>
