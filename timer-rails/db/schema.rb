@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_16_140227) do
+ActiveRecord::Schema.define(version: 2023_05_31_132536) do
 
   create_table "notifications", force: :cascade do |t|
     t.boolean "way", default: false, null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2023_05_16_140227) do
 
   create_table "one_day_times", force: :cascade do |t|
     t.integer "count_up", default: 0, null: false
-    t.integer "exercise", default: 0, null: false
+    t.float "exercise", default: 0.0, null: false
     t.integer "shortened_lifespan", default: 0, null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
