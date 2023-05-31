@@ -29,6 +29,10 @@
           <font-awesome-icon :icon="['fas', 'circle']" style="color: #525252;" />
           <font-awesome-icon :icon="['fas', 'circle']" style="color: #525252;" />
         </div>
+        <div v-show="flashMessage1" class="flash_message">
+          <p>本日の身体活動量として記録しました。</p>
+        </div>
+        <button @click="record1">Finished</button>
       </div>
       <div v-show="stretch == 2">
         <h1 class="neontext">lower back stretch</h1>
@@ -49,6 +53,10 @@
           <font-awesome-icon :icon="['fas', 'circle']" style="color: #D9D9D9;" />
           <font-awesome-icon :icon="['fas', 'circle']" style="color: #525252;" />
         </div>
+        <div v-show="flashMessage2" class="flash_message">
+          <p>本日の身体活動量として記録しました。</p>
+        </div>
+        <button @click="record2">Finished</button>
       </div>
       <div v-show="stretch == 3">
         <h1 class="neontext">back stretch</h1>
@@ -69,11 +77,11 @@
           <font-awesome-icon :icon="['fas', 'circle']" style="color: #525252;" />
           <font-awesome-icon :icon="['fas', 'circle']" style="color: #D9D9D9;" />
         </div>
+        <div v-show="flashMessage3" class="flash_message">
+          <p>本日の身体活動量として記録しました。</p>
+        </div>
+        <button @click="record3">Finished</button>
       </div>
-      <div v-show="flashMessage" class="flash_message">
-        <p>本日の身体活動量として記録しました。</p>
-      </div>
-      <button @click="record">Finished</button>
     </div>
   </div>
 </template>
@@ -84,32 +92,69 @@
       return {
         show: false,
         stretch: 1,
-        flashMessage: false,
+        todayExercise: Number(window.localStorage.getItem('todayExercise')),
+        exerciseTime: 0,
+        flashMessage1: false,
+        flashMessage2: false,
+        flashMessage3: false,
       }
     },
     methods: {
       open () {
         this.show = true
+        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
       },
       close () {
         this.show = false
       },
       nextPage () {
         this.stretch += 1
+        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
       },
       backPage () {
         this.stretch -= 1
+        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
       },
-      showFlashMessage () {
-        this.flashMessage = true
+      setItemExerciseTime1 () {
+        if (this.todayExercise) {
+            this.exerciseTime = this.todayExercise + 1;
+        } else {
+          this.exerciseTime += 1;
+        }
+        window.localStorage.setItem('todayExercise', this.exerciseTime)
       },
-      closeFlashMessage () {
-        this.flashMessage = false
+      record1 () {
+        this.setItemExerciseTime1()
+        this.flashMessage1 = true
+        setTimeout(this.closeFlashMessage1, 3000);
       },
-      record () {
-        this.showFlashMessage()
-        setTimeout(this.closeFlashMessage, 2000);
-      }
+      setItemExerciseTime30 () {
+        if (this.todayExercise) {
+          this.exerciseTime = this.todayExercise + 0.5;
+        } else {
+          this.exerciseTime += 0.5;
+        }
+        window.localStorage.setItem('todayExercise', this.exerciseTime)
+      },
+      record2 () {
+        this.setItemExerciseTime30()
+        this.flashMessage2 = true
+        setTimeout(this.closeFlashMessage2, 3000);
+      },
+      record3 () {
+        this.setItemExerciseTime30()
+        this.flashMessage3 = true
+        setTimeout(this.closeFlashMessage3, 3000);
+      },
+      closeFlashMessage1 () {
+        this.flashMessage1 = false
+      },
+      closeFlashMessage2 () {
+        this.flashMessage2 = false
+      },
+      closeFlashMessage3 () {
+        this.flashMessage3 = false
+      },
     }
   }
 </script>

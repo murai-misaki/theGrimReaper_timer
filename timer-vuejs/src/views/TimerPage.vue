@@ -19,7 +19,10 @@
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
     </div>
     <div v-if="!showTimer">
-      <p class="exercise-title">体を動かしましょう。</p>
+      <div class="exercise-title-group">
+        <p class="exercise-title">体を動かしましょう。</p>
+        <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
+      </div>
       <div class="exercise-button-group">
         <button @click="openFullBodyModal" class="exercise-button1">全身バランスよく</button>
         <button @click="openShoulderPainModal" class="exercise-button2">肩こり・肩痛予防</button>
@@ -28,7 +31,6 @@
         <button @click="openLocomoCheckModal" class="exercise-button5">ロコモチェック</button>
         <button @click="openDrinkWater" class="exercise-button6">水を飲みましょう</button>
       </div>
-      <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
     </div>
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" />
     <HowtouseModal ref="howtouseModal" />
@@ -151,19 +153,15 @@
       },
       openFullBodyModal () {
         this.$refs.fullBody.open()
-        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
       },
       openShoulderPainModal () {
         this.$refs.shoulderPain.open()
-        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
       },
       openLowbackPainModal () {
         this.$refs.lowbackPain.open()
-        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
       },
       openLegMuscleModal () {
         this.$refs.legMuscle.open()
-        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
       },
       openLocomoCheckModal () {
         this.$refs.locomoCheck.open()
@@ -391,6 +389,10 @@
   p.exercise-reference {
     color: #BFBFBF;
     font-size: 12px;
-    margin-top: 30px;
+    margin-top: 60px;
+    margin-left: 30px;
+  }
+  .exercise-title-group {
+    display: flex;
   }
 </style>
