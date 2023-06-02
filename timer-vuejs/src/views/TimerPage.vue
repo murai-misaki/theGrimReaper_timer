@@ -18,6 +18,18 @@
     <div v-if="!showTimer">
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
     </div>
+    <div v-if="!showTimer">
+      <p class="exercise-title">体を動かしましょう。</p>
+      <div class="exercise-button-group">
+        <button @click="openFullBodyModal" class="exercise-button1">全身バランスよく</button>
+        <button @click="openShoulderPainModal" class="exercise-button2">肩こり・肩痛予防</button>
+        <button @click="openLowbackPainModal" class="exercise-button3">腰痛・膝痛予防</button>
+        <button @click="openLegMuscleModal" class="exercise-button4">下肢筋力アップ</button>
+        <button @click="openLocomoCheckModal" class="exercise-button5">ロコモチェック</button>
+        <button @click="openDrinkWater" class="exercise-button6">水を飲みましょう</button>
+      </div>
+      <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
+    </div>
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
@@ -30,6 +42,12 @@
     <div v-show="showRiskModal">
       <RiskModal @closeRiskModal="closeRiskModal" />
     </div>
+    <FullBody ref="fullBody" />
+    <ShoulderPain ref="shoulderPain" />
+    <LowbackPain ref="lowbackPain" />
+    <LegMuscle ref="legMuscle" />
+    <LocomoCheck ref="locomoCheck" />
+    <DrinkWater ref="drinkWater" />
   </div>
 </template>
 
@@ -43,9 +61,15 @@
   import StandupModal from '../components/StandupModal.vue'
   import ShortenedLifespanModal from '../components/ShortenedLifespanModal.vue'
   import RiskModal from '../components/RiskModal.vue'
+  import FullBody from '../components/FullBody.vue'
+  import ShoulderPain from '../components/ShoulderPain.vue'
+  import LowbackPain  from '../components/LowbackPain.vue'
+  import LegMuscle from '../components/LegMuscle.vue'
+  import LocomoCheck from '../components/LocomoCheck.vue'
+  import DrinkWater from '../components/DrinkWater.vue'
 
   export default {
-    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal },
+    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal, FullBody, ShoulderPain, LowbackPain, LegMuscle, LocomoCheck, DrinkWater },
 
     data () {
       return {
@@ -124,6 +148,24 @@
       },
       confirmSave (event) {
         event.returnValue = "タイマー記録は保存されませんが、よろしいですか？";
+      },
+      openFullBodyModal () {
+        this.$refs.fullBody.open()
+      },
+      openShoulderPainModal () {
+        this.$refs.shoulderPain.open()
+      },
+      openLowbackPainModal () {
+        this.$refs.lowbackPain.open()
+      },
+      openLegMuscleModal () {
+        this.$refs.legMuscle.open()
+      },
+      openLocomoCheckModal () {
+        this.$refs.locomoCheck.open()
+      },
+      openDrinkWater () {
+        this.$refs.drinkWater.open()
       },
     }
   }
@@ -216,5 +258,134 @@
     font-size: 130px;
     color: #daf6ff; /* 文字の色 */
     text-shadow: 0 0 20px #0aafe6; /* 文字を発光させる */
+  }
+
+  p.exercise-title {
+    margin-top: 50px;
+    padding-left: 25px;
+    padding-right: 20px;
+    font-size: 20px;
+    border-bottom: 1px solid #525151;
+    width: 200px;
+  }
+
+  .exercise-button-group {
+    margin-top: 30px;
+  }
+  .exercise-button1 {
+    display: inline-block;
+    text-decoration: none;
+    color: #D9D9D9;
+    width: 130px;
+    height: 130px;
+    line-height: 120px;
+    border-radius: 50%;
+    border: double 3px #D9D9D9;
+    overflow: hidden;
+    transition: .6s;
+    background: #000000;
+    cursor: pointer;
+  }
+  .exercise-button1:hover {
+    background: rgba(10, 71, 20, 0.6);
+  }
+
+  .exercise-button2 {
+    display: inline-block;
+    text-decoration: none;
+    color: #D9D9D9;
+    width: 130px;
+    height: 130px;
+    line-height: 120px;
+    border-radius: 50%;
+    border: double 3px #D9D9D9;
+    overflow: hidden;
+    transition: .6s;
+    background: #000000;
+    margin-left: 35px;
+    cursor: pointer;
+  }
+  .exercise-button2:hover {
+    background: rgba(10, 71, 20, 0.6);
+  }
+
+  .exercise-button3 {
+    display: inline-block;
+    text-decoration: none;
+    color: #D9D9D9;
+    width: 130px;
+    height: 130px;
+    line-height: 120px;
+    border-radius: 50%;
+    border: double 3px #D9D9D9;
+    overflow: hidden;
+    transition: .6s;
+    background: #000000;
+    margin-left: 35px;
+    cursor: pointer;
+  }
+  .exercise-button3:hover {
+    background: rgba(10, 71, 20, 0.6);
+  }
+
+  .exercise-button4 {
+    display: inline-block;
+    text-decoration: none;
+    color: #D9D9D9;
+    width: 130px;
+    height: 130px;
+    line-height: 120px;
+    border-radius: 50%;
+    border: double 3px #D9D9D9;
+    overflow: hidden;
+    transition: .6s;
+    background: #000000;
+    margin-left: 35px;
+    cursor: pointer;
+  }
+  .exercise-button4:hover {
+    background: rgba(10, 71, 20, 0.6);
+  }
+  .exercise-button5  {
+    display: inline-block;
+    text-decoration: none;
+    color: #D9D9D9;
+    width: 130px;
+    height: 130px;
+    line-height: 120px;
+    border-radius: 50%;
+    border: solid 2px #D9D9D9;
+    overflow: hidden;
+    transition: .4s;
+    background: #000000;
+    margin-left: 35px;
+    cursor: pointer;
+  }
+  .exercise-button5:hover {
+    background: rgba(10, 71, 20, 0.6);
+  }
+
+  .exercise-button6 {
+    display: inline-block;
+    text-decoration: none;
+    color: #D9D9D9;
+    width: 130px;
+    height: 130px;
+    line-height: 120px;
+    border-radius: 50%;
+    border: solid 2px #D9D9D9;
+    overflow: hidden;
+    transition: .4s;
+    background: #000000;
+    margin-left: 35px;
+    cursor: pointer;
+  }
+
+  .exercise-button6:hover {
+    background: rgba(12, 63, 109, 0.6);
+  }
+  p.exercise-reference {
+    color: #BFBFBF;
+    font-size: 7px;
   }
 </style>
