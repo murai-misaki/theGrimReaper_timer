@@ -12,10 +12,12 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "axios": "^1.4.0",
+    "chart.js": "^4.3.0",
     "core-js": "^3.8.3",
     "push.js": "^1.0.12",
     "vue": "^3.2.13",
     "vue-axios": "^3.5.2",
+    "vue-chartjs": "^5.2.0",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
