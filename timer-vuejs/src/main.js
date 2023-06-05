@@ -16,6 +16,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { faCircle } from "@fortawesome/free-solid-svg-icons"
+import { faUser } from "@fortawesome/free-solid-svg-icons"
 
 library.add(faVolumeUp)
 library.add(faEye)
@@ -27,4 +28,5 @@ library.add(faXmark)
 library.add(faChevronRight)
 library.add(faChevronLeft)
 library.add(faCircle)
+library.add(faUser)
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')

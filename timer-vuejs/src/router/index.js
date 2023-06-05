@@ -4,6 +4,7 @@ import NotificationPage from '../views/NotificationPage'
 import TimerPage from '../views/TimerPage'
 import MyPage from '../views/MyPage'
 import GuestloginPage from '../views/GuestloginPage'
+import AccountPage from '../views/AccountPage'
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: '/guestlogin',
     name: 'Guestlogin',
     component: GuestloginPage
+  },
+  {
+    path: '/accountpage',
+    name: 'AccountPage',
+    component: AccountPage
   },
 ]
 
