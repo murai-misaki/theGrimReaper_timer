@@ -1,6 +1,6 @@
 <template>
-  <h1>AccountPage.vue</h1>
-  準備中です。
+  <h2>アカウント管理ページです。</h2>
+  只今準備中です。
 </template>
 
 <script>
