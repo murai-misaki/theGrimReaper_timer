@@ -34,17 +34,32 @@ class OneDayTimesController < ApplicationController
     now = Time.current
     one_week_times = current_user.one_day_times.where(created_at: now.all_week)
 
-    one_week_times_array = one_week_times.map do |time|
-      {
-        id: time.id,
-        count_up: time.count_up,
-        exercise: time.exercise,
-        shortened_lifespan: time.shortened_lifespan,
-        created_at: time.created_at
-      }
+    count_up_array = []
+    exercise_array = []
+    shortened_lifespan_array = []
+
+    (0..6).each do |day|
+      date = now.beginning_of_week + day.days
+      time = one_week_times.find { |t| t.created_at.to_date == date.to_date }
+
+      if time.nil?
+        count_up_array << 0
+        exercise_array << 0
+        shortened_lifespan_array << 0
+      else
+        count_up_array << time.count_up
+        exercise_array << time.exercise
+        shortened_lifespan_array << time.shortened_lifespan
+      end
     end
 
-    render json: one_week_times_array, status: :ok
+    data = {
+      count_up: count_up_array,
+      exercise: exercise_array,
+      shortened_lifespan: shortened_lifespan_array
+    }
+
+    render json: data, status: :ok
   end
 
   private

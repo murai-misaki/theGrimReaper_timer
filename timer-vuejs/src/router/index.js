@@ -4,6 +4,9 @@ import NotificationPage from '../views/NotificationPage'
 import TimerPage from '../views/TimerPage'
 import MyPage from '../views/MyPage'
 import GuestloginPage from '../views/GuestloginPage'
+import AccountPage from '../views/AccountPage'
+import TotalshortenedlifespanPage from '../views/TotalshortenedlifespanPage'
+import RankingPage from '../views/RankingPage'
 
 const routes = [
   {
@@ -25,6 +28,21 @@ const routes = [
     path: '/guestlogin',
     name: 'Guestlogin',
     component: GuestloginPage
+  },
+  {
+    path: '/accountpage',
+    name: 'Accountpage',
+    component: AccountPage
+  },
+  {
+    path: '/totalshortenedlifespan',
+    name: 'Totalshortenedlifespan',
+    component: TotalshortenedlifespanPage
+  },
+  {
+    path: '/rankingpage',
+    name: 'Rankingpage',
+    component: RankingPage
   },
 ]
 
