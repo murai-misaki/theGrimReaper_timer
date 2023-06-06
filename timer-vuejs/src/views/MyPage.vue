@@ -39,6 +39,24 @@
     <ExercisetimeChart />
     <p class="exercise-attention">1日の身体活動が10分(1回1分の運動を10回)増加すると、3.2%のリスク※が減少することが明らかになっています。<br><span>※ 死亡、生活習慣病・がん・ロコモ・認知症の発症(厚生労働省 : 健康づくりのための身体活動基準2013)</span></p>
   </div>
+  <div class="button-group">
+    <div @click="redirectToTotalshortenedlifespanPage" class="shortened-lifespan">
+      <div>
+        <img src="../assets/img/shortened_lifespan.png" alt="死神イラスト" class="shortene-lifespan-img" >
+      </div>
+      <div class="shortened-lifespan-div">
+        <p class="shortened-lifespan-text">shortened<br>lifespan</p>
+      </div>
+    </div>
+    <div @click="redirectToRankingPage" class="ranking">
+      <div>
+        <img src="../assets/img/ranking.png" alt="ランキングイラスト" class="ranking-img" >
+      </div>
+      <div class="ranking-div">
+        <p class="ranking-text">ranking</p>
+      </div>
+    </div>
+  </div>
   <div class="footer">
     <FooterLink />
   </div>
@@ -69,11 +87,17 @@
         this.show = true
       },
       redirectToAccountPage () {
-        this.$router.push({ name: 'AccountPage' })
+        this.$router.push({ name: 'Accountpage' })
       },
       redirectToTimer () {
         this.$router.push({ name: 'Timer' })
-      }
+      },
+      redirectToTotalshortenedlifespanPage () {
+        this.$router.push({ name: 'Totalshortenedlifespan' })
+      },
+      redirectToRankingPage () {
+        this.$router.push({ name: 'Rankingpage' })
+      },
     }
   }
 </script>
@@ -117,6 +141,9 @@
     width: 30px;
     cursor: pointer;
   }
+  .user-icon:hover {
+    background: rgba(217, 217, 217, 0.2);
+  }
 
   .chart {
     width: 950px;
@@ -158,6 +185,60 @@
   }
   span {
     font-size: 14px;
+  }
+
+  .shortened-lifespan {
+    display: flex;
+    border: 1px solid #D9D9D9;
+    width: 350px;
+    height: 110px;
+    margin-left: 310px;
+    cursor: pointer;
+  }
+  .shortened-lifespan:hover {
+    background: rgba(217, 217, 217, 0.2);
+  }
+  .ranking {
+    display: flex;
+    border: 1px solid #D9D9D9;
+    width: 350px;
+    height: 110px;
+    margin-left: 140px;
+    cursor: pointer;
+  }
+  .ranking:hover {
+    background: rgba(217, 217, 217, 0.2);
+  }
+  
+  .shortene-lifespan-img {
+    width: 60px;
+    margin-left: 35px;
+    margin-top: 25px;
+  }
+  .ranking-img {
+    width: 100px;
+    margin-left: 28px;
+    margin-top: 25px;
+  }
+  .shortened-lifespan-div {
+    margin-top: -40px;
+  }
+  .ranking-div {
+    margin-top: -30px;
+  }
+  .shortened-lifespan-text {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 40px;
+    margin-left: 35px;
+  }
+  .ranking-text {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 50px;
+    margin-left: 25px;
+  }
+  .button-group {
+    display: flex;
+    margin-top: 50px;
   }
 
   .footer {
