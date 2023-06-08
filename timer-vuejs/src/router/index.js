@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import TopPage from '../views/TopPage'
 import NotificationPage from '../views/NotificationPage'
 import TimerPage from '../views/TimerPage'
 import MyPage from '../views/MyPage'
@@ -9,6 +10,11 @@ import TotalshortenedlifespanPage from '../views/TotalshortenedlifespanPage'
 import RankingPage from '../views/RankingPage'
 
 const routes = [
+  {
+    path: '/',
+    name: 'Top',
+    component: TopPage
+  },
   {
     path: '/notification',
     name: 'Notification',
