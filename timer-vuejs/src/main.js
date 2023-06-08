@@ -6,7 +6,7 @@ import './assets/main.css'
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import { library } from "@fortawesome/fontawesome-svg-core"
-import { faVolumeUp } from "@fortawesome/free-solid-svg-icons"
+import { faChevronDown, faVolumeUp } from "@fortawesome/free-solid-svg-icons"
 import { faEye } from "@fortawesome/free-solid-svg-icons"
 import { faGear } from "@fortawesome/free-solid-svg-icons"
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons"
@@ -29,4 +29,5 @@ library.add(faChevronRight)
 library.add(faChevronLeft)
 library.add(faCircle)
 library.add(faUser)
+library.add(faChevronDown)
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
