@@ -4,11 +4,13 @@
   </div>
   <div v-show="!show">
     <div class="navbar">
-      <div class="login-link">LogIn</div>
-      <div class="signup-link">SignUp</div>
+      <div @click="openLoginformModal" class="login-link">LogIn</div>
+      <div @click="openSignupformModal" class="signup-link">SignUp</div>
     </div>
     <SubTitle />
     <ToIntroduce />
+    <LoginformModal ref="loginformModal" @changeSignupformModal="changeSignupformModal" />
+    <SignupformModal ref="signupformModal" @changLoginformModal="changLoginformModal" />
     <FooterLink />
   </div>
 </template>
@@ -17,10 +19,12 @@
   import AppTitle from '../components/AppTitle.vue'
   import SubTitle from '../components/SubTitle.vue'
   import ToIntroduce from '../components/ToIntroduce.vue'
+  import LoginformModal from '../components/LoginformModal.vue'
+  import SignupformModal from '../components/SignupformModal.vue'
   import FooterLink from '../components/FooterLink.vue'
 
   export default {
-    components: { AppTitle, SubTitle, ToIntroduce, FooterLink },
+    components: { AppTitle, SubTitle, ToIntroduce, LoginformModal, SignupformModal, FooterLink },
 
     data () {
       return {
@@ -34,6 +38,20 @@
       closeTitle () {
         this.show = false
       },
+      openLoginformModal () {
+        this.$refs.loginformModal.open()
+      },
+      openSignupformModal () {
+        this.$refs.signupformModal.open()
+      },
+      changLoginformModal () {
+        this.$refs.signupformModal.close()
+        this.$refs.loginformModal.open()
+      },
+      changeSignupformModal () {
+        this.$refs.loginformModal.close()
+        this.$refs.signupformModal.open()
+      }
     }
   }
 </script>
