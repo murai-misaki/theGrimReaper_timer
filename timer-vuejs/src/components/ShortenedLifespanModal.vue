@@ -154,7 +154,7 @@
         }
         removeItem()
 
-        if(this.guest === true) {
+        if(this.guest === false) {
           this.$router.push({ name: 'Mypage' })
         } else {
           this.$router.push({ name: 'Guestlogin' })
