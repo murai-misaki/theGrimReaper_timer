@@ -10,12 +10,13 @@
     <SubTitle />
     <ToIntroduce />
     <LoginformModal ref="loginformModal" @changeSignupformModal="changeSignupformModal" />
-    <SignupformModal ref="signupformModal" @changLoginformModal="changLoginformModal" />
+    <SignupformModal ref="signupformModal" @changLoginformModal="changLoginformModal" @createTotalShortenedLifespan="createTotalShortenedLifespan" />
     <FooterLink />
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   import AppTitle from '../components/AppTitle.vue'
   import SubTitle from '../components/SubTitle.vue'
   import ToIntroduce from '../components/ToIntroduce.vue'
@@ -51,7 +52,25 @@
       changeSignupformModal () {
         this.$refs.loginformModal.close()
         this.$refs.signupformModal.open()
-      }
+      },
+      async createTotalShortenedLifespan () {
+        try {
+          const res = await axios.post(`http://localhost:3000/total_shortened_lifespans`, {},
+          {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+
+          if (!res) {
+            throw new Error('縮んだ寿命の合計時間を記録する機能の準備に失敗しました')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      },
     }
   }
 </script>
