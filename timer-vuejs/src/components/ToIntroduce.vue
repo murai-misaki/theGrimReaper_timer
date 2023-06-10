@@ -74,19 +74,25 @@
       </div>
     </div>
   </div>
-  <button>Let's use the Grim Reaper Timer</button>
+  <button @click="guestSignUp">Let's use the Grim Reaper Timer</button>
   <p class="guest-login">( Guest LogIn )</p>
+  <div class="error">{{ guestSignupError }}</div>
   <div class="line"></div>
   <p class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />アカウントをお持ちの方は <span>LogIN</span>リンクからログインして下さい。</p>
 </template>
 
 <script>
   export default {
+    props: ['guestSignupError'],
+
     data () {
       return {
       }
     },
     methods: {
+      guestSignUp () {
+        this.$emit('guestSignUp')
+      }
     }
   }
 </script>
@@ -314,6 +320,15 @@
   p.title {
     text-align: center;
     margin-top: -10px;
+  }
+
+  .error {
+    color: #CB0101;
+    font-size: 15px;
+    text-align: center;
+    background: rgba(90, 3, 3, 0.6);
+    width: 420px;
+    margin: 20px auto;
   }
 
 </style>

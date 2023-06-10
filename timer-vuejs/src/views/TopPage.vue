@@ -7,8 +7,8 @@
       <div @click="openLoginformModal" class="login-link">LogIn</div>
       <div @click="openSignupformModal" class="signup-link">SignUp</div>
     </div>
-    <SubTitle />
-    <ToIntroduce />
+    <SubTitle @guestSignUp="guestSignUp" :guestSignupError="guestSignupError" />
+    <ToIntroduce @guestSignUp="guestSignUp" :guestSignupError="guestSignupError" />
     <LoginformModal ref="loginformModal" @changeSignupformModal="changeSignupformModal" />
     <SignupformModal ref="signupformModal" @changLoginformModal="changLoginformModal" @createTotalShortenedLifespan="createTotalShortenedLifespan" />
     <FooterLink />
@@ -17,6 +17,7 @@
 
 <script>
   import axios from 'axios'
+  import setItem from '../auth/setItem'
   import AppTitle from '../components/AppTitle.vue'
   import SubTitle from '../components/SubTitle.vue'
   import ToIntroduce from '../components/ToIntroduce.vue'
@@ -30,6 +31,7 @@
     data () {
       return {
         show: true,
+        guestSignupError: null
       }
     },
     mounted () {
@@ -71,6 +73,40 @@
           console.log(error)
         }
       },
+      async guestSignUp () {
+        this.guestSignupError = null
+        try {
+          // ユーザー登録のパラメータ情報をランダムに生成する
+          const randomName = Math.random().toString(36).substring(2, 8);
+          const randomEmail = randomName + '@example.com'
+          const randomPassword = Math.random().toString(36).substring(2, 12);
+
+          const res = await axios.post('http://localhost:3000/auth', {
+            name: randomName,
+            email: randomEmail,
+            password: randomPassword,
+            password_confirmation: randomPassword,
+            guest: true
+            }
+          )
+
+          if (!res) {
+            throw new Error('エラーが発生しました')
+          }
+
+          if (!this.guestSignupError) {
+            setItem(res.headers, res.data.data.guest)
+            this.createTotalShortenedLifespan()
+            this.$router.push({ name: 'Notification' })
+          }
+        
+          console.log({ res })
+
+        } catch (error) {
+          console.log({ error })
+          this.guestSignupError = 'エラーが発生しました'
+        }
+      }
     }
   }
 </script>
