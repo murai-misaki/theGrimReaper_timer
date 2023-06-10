@@ -53,6 +53,31 @@ const noRequireAuth = async (to, from, next) => {
   }
 }
 
+const requireAuthOnlyLoginUser = async (to, from, next) => {
+  const uid = window.localStorage.getItem('uid')
+  const client = window.localStorage.getItem('client')
+  const accessToken = window.localStorage.getItem('access-token')
+  const guest = window.localStorage.getItem('guest')
+
+  if (!uid || !client || !accessToken) {
+    console.log('ログインしていません')
+    next({ name: 'Top' })
+    return // ログインしていない場合は、requireAuthの処理をここで終わらせる
+  }
+
+  await validate()
+
+  if (error.value) {
+    console.log('認証に失敗しました')
+    next({ name: 'Top' })
+  } else if (guest === 'true') {
+    console.log('アカウント登録していません')
+    next({ name: 'Guestlogin' })
+  } else {
+    next()
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -76,7 +101,7 @@ const routes = [
     path: '/mypage',
     name: 'Mypage',
     component: MyPage,
-    beforeEnter: requireAuth
+    beforeEnter: requireAuthOnlyLoginUser
   },
   {
     path: '/guestlogin',
@@ -88,19 +113,19 @@ const routes = [
     path: '/accountpage',
     name: 'Accountpage',
     component: AccountPage,
-    beforeEnter: requireAuth
+    beforeEnter: requireAuthOnlyLoginUser
   },
   {
     path: '/totalshortenedlifespan',
     name: 'Totalshortenedlifespan',
     component: TotalshortenedlifespanPage,
-    beforeEnter: requireAuth
+    beforeEnter: requireAuthOnlyLoginUser
   },
   {
     path: '/rankingpage',
     name: 'Rankingpage',
     component: RankingPage,
-    beforeEnter: requireAuth
+    beforeEnter: requireAuthOnlyLoginUser
   },
 ]
 
