@@ -63,6 +63,7 @@
 
           if (!this.error) {
             setItem(res.headers, res.data.data.guest)
+            this.$emit('createTotalShortenedLifespan')
             this.$router.push({ name: 'Notification' })
           }
         
