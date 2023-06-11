@@ -37,7 +37,7 @@
     </div>
     <button @click="push">プッシュ通知の許可をお願いします</button>
     <p class="attention">
-      ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に一度許可していただいていたら、表示されません)
+      ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に許可になっている場合は表示されません)
     </p>
   </div>
 </template>
@@ -45,7 +45,7 @@
 <script>
   import axios from 'axios'
   import Push from 'push.js';
-  import removeItem from '../onedaytime/removeItem'
+  import onedaytimeRemoveItem from '../onedaytime/removeItem'
 
   export default {
     data () {
@@ -54,7 +54,7 @@
       }
     },
     mounted () {
-      removeItem()
+      onedaytimeRemoveItem()
     },
     methods: {
       async createNotification () {

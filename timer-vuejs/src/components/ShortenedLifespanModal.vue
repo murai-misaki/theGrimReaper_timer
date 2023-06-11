@@ -16,7 +16,7 @@
 
 <script>
   import axios from 'axios'
-  import removeItem from '../onedaytime/removeItem'
+  import onedaytimeRemoveItem from '../onedaytime/removeItem'
 
   export default {
     props: ['totalCountUp', 'todayExercise', 'todayShortenedLifespan'],
@@ -152,9 +152,9 @@
             this.updateTotalShortenedLifespan()
           })
         }
-        removeItem()
+        onedaytimeRemoveItem()
 
-        if(this.guest === false) {
+        if(this.guest === 'false') {
           this.$router.push({ name: 'Mypage' })
         } else {
           this.$router.push({ name: 'Guestlogin' })
