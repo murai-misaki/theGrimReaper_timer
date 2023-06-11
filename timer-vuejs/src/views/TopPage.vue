@@ -1,0 +1,133 @@
+<template>
+  <div v-show="show">
+    <AppTitle />
+  </div>
+  <div v-show="!show">
+    <div class="navbar">
+      <div @click="openLoginformModal" class="login-link">LogIn</div>
+      <div @click="openSignupformModal" class="signup-link">SignUp</div>
+    </div>
+    <SubTitle @guestSignUp="guestSignUp" :guestSignupError="guestSignupError" />
+    <ToIntroduce @guestSignUp="guestSignUp" :guestSignupError="guestSignupError" />
+    <LoginformModal ref="loginformModal" @changeSignupformModal="changeSignupformModal" />
+    <SignupformModal ref="signupformModal" @changLoginformModal="changLoginformModal" @createTotalShortenedLifespan="createTotalShortenedLifespan" />
+    <FooterLink />
+  </div>
+</template>
+
+<script>
+  import axios from 'axios'
+  import setItem from '../auth/setItem'
+  import AppTitle from '../components/AppTitle.vue'
+  import SubTitle from '../components/SubTitle.vue'
+  import ToIntroduce from '../components/ToIntroduce.vue'
+  import LoginformModal from '../components/LoginformModal.vue'
+  import SignupformModal from '../components/SignupformModal.vue'
+  import FooterLink from '../components/FooterLink.vue'
+
+  export default {
+    components: { AppTitle, SubTitle, ToIntroduce, LoginformModal, SignupformModal, FooterLink },
+
+    data () {
+      return {
+        show: true,
+        guestSignupError: null
+      }
+    },
+    mounted () {
+      setTimeout(this.closeTitle, 2000);
+    },
+    methods: {
+      closeTitle () {
+        this.show = false
+      },
+      openLoginformModal () {
+        this.$refs.loginformModal.open()
+      },
+      openSignupformModal () {
+        this.$refs.signupformModal.open()
+      },
+      changLoginformModal () {
+        this.$refs.signupformModal.close()
+        this.$refs.loginformModal.open()
+      },
+      changeSignupformModal () {
+        this.$refs.loginformModal.close()
+        this.$refs.signupformModal.open()
+      },
+      async createTotalShortenedLifespan () {
+        try {
+          const res = await axios.post(`http://localhost:3000/total_shortened_lifespans`, {},
+          {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+
+          if (!res) {
+            throw new Error('縮んだ寿命の合計時間を記録する機能の準備に失敗しました')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      async guestSignUp () {
+        this.guestSignupError = null
+        try {
+          // ユーザー登録のパラメータ情報をランダムに生成する
+          const randomName = Math.random().toString(36).substring(2, 8);
+          const randomEmail = randomName + '@example.com'
+          const randomPassword = Math.random().toString(36).substring(2, 12);
+
+          const res = await axios.post('http://localhost:3000/auth', {
+            name: randomName,
+            email: randomEmail,
+            password: randomPassword,
+            password_confirmation: randomPassword,
+            guest: true
+            }
+          )
+
+          if (!res) {
+            throw new Error('エラーが発生しました')
+          }
+
+          if (!this.guestSignupError) {
+            setItem(res.headers, res.data.data.guest)
+            this.createTotalShortenedLifespan()
+            this.$router.push({ name: 'Notification' })
+          }
+        
+          console.log({ res })
+
+        } catch (error) {
+          console.log({ error })
+          this.guestSignupError = 'エラーが発生しました'
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+
+  .navbar {
+    font-family: 'IM Fell English SC', serif;
+    display: flex;
+    font-size: 30px;
+    background-color: #000000;
+    position: fixed;
+    top: 30px;
+    left: 1200px;
+  }
+  .login-link {
+    margin-right: 30px;
+    cursor: pointer;
+  }
+  .signup-link {
+    cursor: pointer;
+  }
+</style>

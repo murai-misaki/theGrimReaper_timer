@@ -3,10 +3,15 @@
     <h1>The Grim Reaper Timer</h1>
     <button @click="redirectToTimer">Start</button>
     <div @click="redirectToAccountPage" class="account">
+      <p class="account-text">Account</p>
       <font-awesome-icon :icon="['fas', 'user']" style="color: #D9D9D9;" class="user-icon" />
     </div>
+    <div @click="logout">
+      <p class="logout-text">Logout</p>
+      <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" style="color: #D9D9D9;" class="logout-icon" />
+    </div>
   </div>
-  <div v-show="show" class="chart">
+  <div v-if="show" class="chart">
     <div class="time-group">
       <div class="time">
         <font-awesome-icon :icon="['fas', 'circle']" style="color: #D9D9D9;" class="circle" />
@@ -23,7 +28,7 @@
     <p class="sitting-attention">1日8時間(480分)以上座ると、罹患リスクや死亡リスクが高まります。</p>
   </div>
 
-  <div v-show="!show" class="chart">
+  <div v-if="!show" class="chart">
     <div class="time-group">
       <div class="time">
         <div @click="showSitting">
@@ -63,21 +68,24 @@
 </template>
 
 <script>
+  import axios from 'axios'
+  import authRemoveItem from '../auth/removeItem'
   import SittingtimeChart from '../components/SittingtimeChart.vue'
   import ExercisetimeChart from '../components/ExercisetimeChart.vue'
   import FooterLink from '../components/FooterLink.vue'
-  import removeItem from '../onedaytime/removeItem'
+  import onedaytimeRemoveItem from '../onedaytime/removeItem'
 
   export default {
     components: { SittingtimeChart, ExercisetimeChart, FooterLink },
 
     data () {
       return {
-        show: true
+        show: true,
+        error: null
       }
     },
     mounted () {
-      removeItem()
+      onedaytimeRemoveItem()
     },
     methods: {
       showExercise () {
@@ -98,6 +106,33 @@
       redirectToRankingPage () {
         this.$router.push({ name: 'Rankingpage' })
       },
+      async logout () {
+        this.error = null
+
+        try {
+          const res = await axios.delete('http://localhost:3000/auth/sign_out', {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client: window.localStorage.getItem('client')
+            }
+          })
+
+          if (!res) {
+            throw new Error('ログアウトできませんでした')
+          }
+
+          if (!this.error) {
+            console.log("ログアウトしました")
+            authRemoveItem()
+            this.$router.push({ name: 'Top' })
+          }
+
+          return res 
+        } catch (error) {
+          this.error = 'ログアウトできませんでした'
+        }
+      }
     }
   }
 </script>
@@ -132,19 +167,31 @@
     display: flex;
   }
   .user-icon {
-    font-size: 30px;
-    margin-top: 32px;
+    font-size: 28px;
+    margin-top: -13px;
     margin-left: 160px;
     border: solid 1px #D9D9D9;
     border-radius: 50%;
-    padding: 10px;
-    width: 30px;
+    padding: 8px;
+    width: 28px;
     cursor: pointer;
   }
   .user-icon:hover {
     background: rgba(217, 217, 217, 0.2);
   }
-
+  .logout-icon {
+    font-size: 28px;
+    margin-top: -13px;
+    margin-left: 44px;
+    cursor: pointer;
+    border: solid 1px #D9D9D9;
+    border-radius: 50%;
+    padding: 8px;
+    width: 28px;
+  }
+  .logout-icon:hover {
+    background: rgba(217, 217, 217, 0.2);
+  }
   .chart {
     width: 950px;
     margin: 0px auto;
@@ -243,5 +290,15 @@
 
   .footer {
     margin-top: 120px;
+  }
+
+  p.account-text {
+    font-family: 'IM Fell English SC', serif;
+    margin-left: 153px;
+  }
+  p.logout-text {
+    font-family: 'IM Fell English SC', serif;
+    margin-left: 39px;
+    margin-top: 17px;
   }
 </style>
