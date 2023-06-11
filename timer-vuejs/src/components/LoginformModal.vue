@@ -9,10 +9,10 @@
         <input type="password" required placeholder="パスワード" v-model="password">
         <button>ログイン</button>
         <div class="error">{{ error }}</div>
-        <p class="password-forget">パスワードをお忘れですか？</p>
+        <p @click="redirectToForgotPasswordPage" class="password-forget">パスワードをお忘れですか？</p>
         <div class="line"></div>
         <p @click="changeSignupformModal" class="signup">アカウントをお持ちでないですか？<span>アカウントを作成(無料)</span></p>
-    </form>
+      </form>
     </div>
   </div>
 </template>
@@ -58,11 +58,14 @@
           this.$router.push({ name: 'Mypage' })
         }
         console.log({ res })
-
+        return res
         } catch (error) {
           console.log({ error })
           this.error = 'メールアドレスもしくはパスワードが違います。'
         }
+      },
+      redirectToForgotPasswordPage () {
+        this.$router.push({ name: 'Forgotpassword' })
       }
     }
   }

@@ -9,6 +9,7 @@ import GuestloginPage from '../views/GuestloginPage'
 import AccountPage from '../views/AccountPage'
 import TotalshortenedlifespanPage from '../views/TotalshortenedlifespanPage'
 import RankingPage from '../views/RankingPage'
+import ForgotPasswordPage from '../views/ForgotPasswordPage'
 
 const { error, validate } = useValidate()
 
@@ -126,6 +127,11 @@ const routes = [
     name: 'Rankingpage',
     component: RankingPage,
     beforeEnter: requireAuthOnlyLoginUser
+  },
+  {
+    path: '/forgotpassword',
+    name: 'Forgotpassword',
+    component: ForgotPasswordPage
   },
 ]
 
