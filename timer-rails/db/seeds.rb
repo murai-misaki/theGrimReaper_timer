@@ -4,7 +4,7 @@
 
   # データの作成処理
     OneDayTime.create!(count_up: 30*n, exercise: n, shortened_lifespan: 22*n, user_id: User.first.id , created_at: date, updated_at: date)
-    puts "#{n}日前のメッセージを作成しました"
+    puts "#{n}日前のタイマー記録を作成しました"
 end
 
 puts "4日分の作成が完了しました"
