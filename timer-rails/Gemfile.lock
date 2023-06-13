@@ -109,6 +109,7 @@ GEM
     nokogiri (1.14.4-arm64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pg (1.5.3)
     puma (4.3.12)
       nio4r (~> 2.0)
     racc (1.6.2)
@@ -183,6 +184,7 @@ DEPENDENCIES
   devise
   devise_token_auth
   listen (~> 3.2)
+  pg
   puma (~> 4.1)
   rack-cors
   rails (~> 6.0.6, >= 6.0.6.1)
