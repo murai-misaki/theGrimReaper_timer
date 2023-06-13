@@ -6,13 +6,24 @@
     <ul class="footer__navi flex">
       <li>利用規約</li>
       <li>プライバシーポリシー</li>
-      <li>運営元</li>
+      <li @click="gotoTwitter">運営元</li>
     </ul>
   </div>
 </footer>
 </template>
 
 <script>
+  export default {
+    data () {
+      return {
+      }
+    },
+    methods: {
+      gotoTwitter () {
+        window.open('https://twitter.com/mi_web_engineer/', '_blank');
+      }
+    }
+  }
 </script>
 
 <style scoped>
