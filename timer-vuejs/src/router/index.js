@@ -79,6 +79,31 @@ const requireAuthOnlyLoginUser = async (to, from, next) => {
   }
 }
 
+const requireAuthOnlyGuestloginUser = async (to, from, next) => {
+  const uid = window.localStorage.getItem('uid')
+  const client = window.localStorage.getItem('client')
+  const accessToken = window.localStorage.getItem('access-token')
+  const guest = window.localStorage.getItem('guest')
+
+  if (!uid || !client || !accessToken) {
+    console.log('ログインしていません')
+    next({ name: 'Top' })
+    return // ログインしていない場合は、requireAuthの処理をここで終わらせる
+  }
+
+  await validate()
+
+  if (error.value) {
+    console.log('認証に失敗しました')
+    next({ name: 'Top' })
+  } else if (guest === 'false') {
+    console.log('アカウント登録済みです')
+    next({ name: 'Mypage' })
+  } else {
+    next()
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -108,7 +133,7 @@ const routes = [
     path: '/guestlogin',
     name: 'Guestlogin',
     component: GuestloginPage,
-    beforeEnter: requireAuth
+    beforeEnter: requireAuthOnlyGuestloginUser
   },
   {
     path: '/accountpage',
