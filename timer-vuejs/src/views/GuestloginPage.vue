@@ -1,10 +1,6 @@
 <template>
-  <div v-show="show">
-    <SingupRecommend @showChangeToLoginuser="showChangeToLoginuser" />
-  </div>
-  <div v-show="!show">
-    <ChangeToLoginuser />
-  </div>
+  <SingupRecommend @showChangeToLoginuser="showChangeToLoginuser" @openChangeToLoginuserModal="openChangeToLoginuserModal" />
+  <ChangeToLoginuserModal ref="changeToLoginuserModal" />
   <div class="footer">
     <FooterLink />
   </div>
@@ -12,20 +8,19 @@
 
 <script>
   import SingupRecommend from '../components/SingupRecommend.vue'
-  import ChangeToLoginuser from '../components/ChangeToLoginuser.vue'
+  import ChangeToLoginuserModal from '../components/ChangeToLoginuserModal.vue'
   import FooterLink from '../components/FooterLink.vue'
 
   export default {
-    components: { SingupRecommend, ChangeToLoginuser, FooterLink },
+    components: { SingupRecommend, ChangeToLoginuserModal, FooterLink },
 
     data () {
       return {
-        show: true
       }
     },
     methods: {
-      showChangeToLoginuser () {
-        this.show = false
+      openChangeToLoginuserModal () {
+        this.$refs.changeToLoginuserModal.open()
       }
     }
   }

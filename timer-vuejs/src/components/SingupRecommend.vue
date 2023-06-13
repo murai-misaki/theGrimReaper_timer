@@ -16,11 +16,12 @@
     <p class="text-right">ユーザーの1時間座り続けたことで<br>縮んだ寿命の合計時間を週間ランキングに</p>
   </div>
   <p class="text-right-purpose">→ 前向きに座りすぎを改善することに取り組める<br>ユーザー同士のスタンプコミュニケーション機能付き<br>(※ 自分のランキングの公開・非公開 は選択できます)</p>
-   <div class="line2"></div>
+  <div class="line2"></div>
   <div class="button-group">
-      <button @click="redirectToTopPage" class="left">To Top</button>
-      <button @click="showChangeToLoginuser" class="right">Sign Up</button>
-    </div>
+    <button @click="redirectToTopPage" class="left">To Top</button>
+    <button @click="openChangeToLoginuserModal" class="right">Sign Up</button>
+  </div>
+  <p class="attention">※ 今回のタイマー記録も引き継げます。</p>
 </template>
 
 <script>
@@ -39,8 +40,8 @@
           this.$router.push({ name: 'Top' })
         })
       },
-      showChangeToLoginuser () {
-        this.$emit('showChangeToLoginuser')
+      openChangeToLoginuserModal () {
+        this.$emit('openChangeToLoginuserModal')
       },
       async deleteGuestloginUser () {
         try {
@@ -77,7 +78,7 @@
   p.title {
     font-size: 26px;
     text-align: center;
-    margin-top: 35px;
+    margin-top: 27px;
   }
   span.app-name {
     font-family: 'IM Fell English SC', serif;
@@ -177,7 +178,6 @@
   }
 
   .button-group {
-    margin-top: 20px;
     text-align: center;
   }
   button.right {
@@ -209,5 +209,9 @@
   button.left:hover {
     color: #D9D9D9;
     background: rgba(90, 3, 3, 0.6);
+  }
+  .attention {
+    font-size: 11px;
+    margin-left: 830px;
   }
 </style>
