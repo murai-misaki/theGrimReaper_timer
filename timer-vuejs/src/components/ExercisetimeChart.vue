@@ -57,7 +57,7 @@ export default {
   methods: {
     async loadData() {
       try {
-        const res = await axios.get(`http://localhost:3000/one_day_times`, {
+        const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times`, {
           headers: {
             uid: window.localStorage.getItem('uid'),
             "access-token": window.localStorage.getItem('access-token'),

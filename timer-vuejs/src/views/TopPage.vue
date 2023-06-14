@@ -57,7 +57,7 @@
       },
       async createTotalShortenedLifespan () {
         try {
-          const res = await axios.post(`http://localhost:3000/total_shortened_lifespans`, {},
+          const res = await axios.post(process.env.VUE_APP_API_URL + `/total_shortened_lifespans`, {},
           {
             headers: {
               uid: window.localStorage.getItem('uid'),
@@ -81,7 +81,7 @@
           const randomEmail = randomName + '@example.com'
           const randomPassword = Math.random().toString(36).substring(2, 12);
 
-          const res = await axios.post('http://localhost:3000/auth', {
+          const res = await axios.post(process.env.VUE_APP_API_URL + '/auth', {
             name: randomName,
             email: randomEmail,
             password: randomPassword,

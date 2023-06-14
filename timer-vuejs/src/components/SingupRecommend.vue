@@ -45,7 +45,7 @@
       },
       async deleteGuestloginUser () {
         try {
-          const res = await axios.delete('http://localhost:3000/auth', {
+          const res = await axios.delete(process.env.VUE_APP_API_URL + '/auth', {
             headers: {
               uid: window.localStorage.getItem('uid'),
               "access-token": window.localStorage.getItem('access-token'),

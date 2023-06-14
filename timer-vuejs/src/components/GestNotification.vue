@@ -59,7 +59,7 @@
     methods: {
       async createNotification () {
         try {
-          const res = await axios.post(`http://localhost:3000/notifications`, {way: this.radio},
+          const res = await axios.post(process.env.VUE_APP_API_URL + `/notifications`, {way: this.radio},
           {
             headers: {
               uid: window.localStorage.getItem('uid'),
