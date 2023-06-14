@@ -38,7 +38,7 @@
       },
       async getOnedaytimeToday () {
         try {
-          const res = await axios.get(`http://localhost:3000/one_day_times/today`, {
+          const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times/today`, {
             headers: {
               uid: window.localStorage.getItem('uid'),
               "access-token": window.localStorage.getItem('access-token'),
@@ -59,7 +59,7 @@
       },
       async createOnedaytime () {
         try {
-          const res = await axios.post(`http://localhost:3000/one_day_times`, {
+          const res = await axios.post(process.env.VUE_APP_API_URL + `/one_day_times`, {
             count_up: this.totalCountUp,
             exercise: this.todayExercise,
             shortened_lifespan: this.todayShortenedLifespan,
@@ -81,7 +81,7 @@
       },
       async updateOnedaytime(onedaytimeId) {
         try {
-          const res = await axios.patch(`http://localhost:3000/one_day_times/${onedaytimeId}`, {
+          const res = await axios.patch(process.env.VUE_APP_API_URL + `/one_day_times/${onedaytimeId}`, {
             count_up: this.totalCountUp + this.onedaytimeTodayCountUp,
             exercise: this.todayExercise + this.onedaytimeTodayExercise,
             shortened_lifespan: this.todayShortenedLifespan + this.onedaytimeTodayShortenedLifespan,
@@ -103,7 +103,7 @@
       },
       async getTotalShortenedLifespan () {
         try {
-          const res = await axios.get(`http://localhost:3000/total_shortened_lifespans`, {
+          const res = await axios.get(process.env.VUE_APP_API_URL + `/total_shortened_lifespans`, {
             headers: {
               uid: window.localStorage.getItem('uid'),
               "access-token": window.localStorage.getItem('access-token'),
@@ -120,7 +120,7 @@
       },
       async updateTotalShortenedLifespan () {
         try {
-          const res = await axios.patch(`http://localhost:3000/total_shortened_lifespans`, {time: this.totalShortenedLifespan + this.todayShortenedLifespan },
+          const res = await axios.patch(process.env.VUE_APP_API_URL + `/total_shortened_lifespans`, {time: this.totalShortenedLifespan + this.todayShortenedLifespan },
           {
             headers: {
               uid: window.localStorage.getItem('uid'),

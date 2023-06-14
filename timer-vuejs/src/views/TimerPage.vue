@@ -92,7 +92,7 @@
     methods: {
       async getNotification () {
         try {
-          const res = await axios.get(`http://localhost:3000/notifications`, {
+          const res = await axios.get(process.env.VUE_APP_API_URL + `/notifications`, {
             headers: {
               uid: window.localStorage.getItem('uid'),
               "access-token": window.localStorage.getItem('access-token'),

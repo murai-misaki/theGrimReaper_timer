@@ -44,7 +44,7 @@
       async login() {
         this.error = null
         try {
-          const res = await axios.post('http://localhost:3000/auth/sign_in', {
+          const res = await axios.post(process.env.VUE_APP_API_URL + '/auth/sign_in', {
             email: this.email,
             password: this.password,
             }

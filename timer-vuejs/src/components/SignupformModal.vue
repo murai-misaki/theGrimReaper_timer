@@ -49,7 +49,7 @@
         this.error = null
         this.errorMessage = null
         try {
-          const res = await axios.post('http://localhost:3000/auth', {
+          const res = await axios.post(process.env.VUE_APP_API_URL + '/auth', {
             name: this.name,
             email: this.email,
             password: this.password,
