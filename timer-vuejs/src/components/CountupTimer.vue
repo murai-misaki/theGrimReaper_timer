@@ -19,7 +19,7 @@ import Push from 'push.js';
 import axios from 'axios'
 
 export default {
-  props: ['notificationWay'],
+  props: ['notificationWay', 'totalCountUp', 'todayShortenedLifespan'],
 
   data() {
     return {
@@ -33,8 +33,6 @@ export default {
 
       countUp: 0,
       shortenedLifespan: 0,
-      totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
-      todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
 
       onedaytimeTodayCountUp: 0,
       checkCountUpTime: 0,
@@ -46,8 +44,6 @@ export default {
   },
   mounted() {
     this.$emit('getNotification')
-    this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-    this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
     this.getShortenedLifespanToday().then(() => {
       this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
     })
@@ -111,8 +107,6 @@ export default {
     },
     start() {
       this.timerOn = true;
-      this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-      this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
       this.getShortenedLifespanToday().then(() => {
         this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
       })
@@ -141,7 +135,9 @@ export default {
         if (!res) {
           throw new Error('本日の座っている時間を取得できませんでした')
         }
-        this.onedaytimeTodayCountUp = res.data.count_up
+        if (res.data.count_up) {
+          this.onedaytimeTodayCountUp = res.data.count_up
+        }
         console.log({ res })
       } catch (error) {
         console.log(error)
@@ -166,7 +162,9 @@ export default {
         if (!res) {
           throw new Error('本日の1時間座り続けたことで縮んだ寿命を取得できませんでした')
         }
-        this.onedaytimeTodayShortenedLifespan = res.data.shortened_lifespan
+        if (res.data.shortened_lifespan) {
+          this.onedaytimeTodayShortenedLifespan = res.data.shortened_lifespan
+        }
         console.log({ res })
       } catch (error) {
         console.log(error)
