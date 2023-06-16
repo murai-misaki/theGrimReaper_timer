@@ -3,6 +3,7 @@
     <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="neontext">How to Use</h1>
+      <p class="subtitle">''アプリの主な使い方4ステップ''</p>
       <p class="body"><span class="number">1.</span><span class="red">30分ごとに</span>立ち上がりのお知らせを致します。</p>
       <p class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />タイマーの通知が届かない場合<br>・ご使用のブラウザの通知をオフにしている可能性があります。端末の設定画面から使用されているブラウザアプリの通知をオンにしてください。<br>・端末がスリープ状態になっている場合もタイマーの通知が届きません。</p>
       <p class="body"><span class="number">2.</span> 30分経過して通知が来ましたら、<span class="red">アプリ画面にて''立ち上がるか''を教えてください</span>。</p>
@@ -13,7 +14,7 @@
       </div>
       <p class="body"><span class="number">4.</span> タイマーを終了される場合は、<span class="red">必ず''ENDボタン''を押してください</span>。</p>
       <span class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />ENDボタンを押さずにタイマーを強制終了すると、タイマー記録(座っていた時間・1時間座り続けたことで縮んだ寿命・ブレイクタイム時に行った身体活動量)が保存されませんのでご注意ください 。</span>
-      <button @click="redirectToTimer">OK</button>
+      <button @click="openBrowserModal">OK</button>
     </div>
   </div>
 </template>
@@ -28,9 +29,13 @@
     methods: {
       open () {
         this.show = true
+        window.scrollTo(0, 0);
       },
-      redirectToTimer () {
-        this.$router.push({ name: 'Timer' })
+      close () {
+        this.show = false
+      },
+      openBrowserModal () {
+        this.$emit('openBrowserModal')
       }
     }
   }
@@ -162,5 +167,11 @@
       0 0 94px #0fa,
       0 0 140px #0fa;
     }
+  }
+
+  p.subtitle {
+    text-align: center;
+    margin-top: -20px;
+    font-size: 14px;
   }
 </style>
