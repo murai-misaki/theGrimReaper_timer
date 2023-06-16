@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <h1>The Grim Reaper Timer</h1>
-    <button @click="redirectToTimer">Start</button>
+    <button @click="openBrowserModal">Start</button>
     <div @click="redirectToAccountPage" class="account">
       <p class="account-text">Account</p>
       <font-awesome-icon :icon="['fas', 'user']" style="color: #D9D9D9;" class="user-icon" />
@@ -11,6 +11,7 @@
       <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" style="color: #D9D9D9;" class="logout-icon" />
     </div>
   </div>
+  <BrowserModal ref="browserModal" />
   <div v-if="show" class="chart">
     <div class="time-group">
       <div class="time">
@@ -72,11 +73,12 @@
   import authRemoveItem from '../auth/removeItem'
   import SittingtimeChart from '../components/SittingtimeChart.vue'
   import ExercisetimeChart from '../components/ExercisetimeChart.vue'
+  import BrowserModal from '../components/BrowserModal.vue'
   import FooterLink from '../components/FooterLink.vue'
   import onedaytimeRemoveItem from '../onedaytime/removeItem'
 
   export default {
-    components: { SittingtimeChart, ExercisetimeChart, FooterLink },
+    components: { SittingtimeChart, ExercisetimeChart, BrowserModal, FooterLink },
 
     data () {
       return {
@@ -97,8 +99,8 @@
       redirectToAccountPage () {
         this.$router.push({ name: 'Accountpage' })
       },
-      redirectToTimer () {
-        this.$router.push({ name: 'Timer' })
+      openBrowserModal () {
+        this.$refs.browserModal.open()
       },
       redirectToTotalshortenedlifespanPage () {
         this.$router.push({ name: 'Totalshortenedlifespan' })

@@ -2,7 +2,8 @@
   <div class="container">
     <GestNotification ref="gestNotification" />
     <button @click="selection">Timer Start</button>
-    <HowtouseOKbuttonModal ref="howtouseOkbuttonModal" />
+    <HowtouseOKbuttonModal ref="howtouseOkbuttonModal" @openBrowserModal="openBrowserModal" />
+    <BrowserModal ref="browserModal" />
   </div>
     <FooterLink />
 </template>
@@ -10,16 +11,21 @@
 <script>
   import GestNotification from '../components/GestNotification.vue'
   import HowtouseOKbuttonModal from '../components/HowtouseOKbuttonModal.vue'
+  import BrowserModal from '../components/BrowserModal.vue'
   import FooterLink from '../components/FooterLink.vue'
 
   export default {
-    components: { GestNotification, HowtouseOKbuttonModal, FooterLink },
+    components: { GestNotification, HowtouseOKbuttonModal, BrowserModal, FooterLink },
 
     methods: {
       selection () {
         this.$refs.gestNotification.createNotification().then(() => {
         this.$refs.howtouseOkbuttonModal.open()
         })
+      },
+      openBrowserModal () {
+        this.$refs.howtouseOkbuttonModal.close()
+        this.$refs.browserModal.open()
       }
     }
   }
