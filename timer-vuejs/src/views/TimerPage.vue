@@ -13,7 +13,7 @@
       </div>
     </div>
     <div v-if="showTimer">
-      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" />
+      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" :totalCountUp="totalCountUp" :todayShortenedLifespan="todayShortenedLifespan" />
     </div>
     <div v-if="!showTimer">
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
@@ -125,10 +125,14 @@
         this.showTimer = false
       },
       showCountupTimer () {
+        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
         this.showTimer = true
       },
       restartCountupTimer () {
         this.showStandupModal = false
+        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
         this.$refs.countupTimer.start()
       },
       openShortenedLifespanModal () {
