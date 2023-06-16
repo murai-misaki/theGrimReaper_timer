@@ -55,6 +55,7 @@
     },
     mounted () {
       onedaytimeRemoveItem()
+      window.scrollTo(0, 40);
     },
     methods: {
       async createNotification () {
