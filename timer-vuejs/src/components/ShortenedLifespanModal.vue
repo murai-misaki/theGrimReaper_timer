@@ -3,13 +3,24 @@
     <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="neontext">Thank you for using.</h1>
-      <div v-show="todayShortenedLifespan">
-        <p>''今回は<span>{{todayShortenedLifespan}}分</span>の寿命を戴きました。''<br>またのご利用をお待ちしております。</p>
+      <div class="text-group">
+        <div v-show="todayShortenedLifespan">
+          <p>''今回は<span>{{todayShortenedLifespan}}分</span>の寿命を戴きました。''<br>またのご利用をお待ちしております。</p>
+        </div>
+        <div v-show="!todayShortenedLifespan">
+          <p>''今回戴いた寿命はございません。''<br>またのご利用をお待ちしております。</p>
+        </div>
       </div>
-      <div v-show="!todayShortenedLifespan">
-        <p>''今回戴いた寿命はございません。''<br>またのご利用をお待ちしております。</p>
+      <div v-show="!loading">
+        <button class="ok_button" @click="end">OK</button>
       </div>
-      <button class="ok_button" @click="end">OK</button>
+      <div v-show="loading">
+        <div class="loading-block">
+          <div class="loading-circle"></div>
+          <div class="loading-circle"></div>
+          <div class="loading-circle"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +30,7 @@
   import onedaytimeRemoveItem from '../onedaytime/removeItem'
 
   export default {
-    props: ['totalCountUp', 'todayExercise', 'todayShortenedLifespan'],
+    props: ['totalCountUp', 'todayExercise', 'todayShortenedLifespan', 'loading'],
 
     data () {
       return {
@@ -33,9 +44,6 @@
       }
     },
     methods: {
-      close () {
-        this.$emit('closeShortenedLifespanModal')
-      },
       async getOnedaytimeToday () {
         try {
           const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times/today`, {
@@ -137,7 +145,7 @@
         }
       },
       end () {
-        this.close()
+        this.$emit('showLoading')
         if (this.totalCountUp || this.todayExercise || this.todayShortenedLifespan) {
           this.getOnedaytimeToday().then(() => {
             if (this.onedaytimeTodayId) {
@@ -225,8 +233,10 @@
       text-shadow: none;
     }
   }
+  div.text-group {
+    margin-bottom: 46px;
+  }
   button.ok_button {
-    margin-top: 30px;
     margin-left: 240px;
     font-family: 'IM Fell English SC', serif;
     font-size: 30px;
