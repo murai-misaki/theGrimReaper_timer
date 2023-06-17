@@ -1,6 +1,6 @@
 <template>
-  <SingupRecommend @showChangeToLoginuser="showChangeToLoginuser" @openChangeToLoginuserModal="openChangeToLoginuserModal" />
-  <ChangeToLoginuserModal ref="changeToLoginuserModal" />
+  <SingupRecommend @showChangeToLoginuser="showChangeToLoginuser" @openChangeToLoginuserModal="openChangeToLoginuserModal" :loading="loading" @showLoading="showLoading" />
+  <ChangeToLoginuserModal ref="changeToLoginuserModal" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
   <div class="footer">
     <FooterLink />
   </div>
@@ -16,11 +16,18 @@
 
     data () {
       return {
+        loading: false
       }
     },
     methods: {
       openChangeToLoginuserModal () {
         this.$refs.changeToLoginuserModal.open()
+      },
+      showLoading () {
+        this.loading = true
+      },
+      endLoading () {
+        this.loading = false
       }
     }
   }

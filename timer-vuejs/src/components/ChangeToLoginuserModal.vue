@@ -9,7 +9,16 @@
         <input type="email" required placeholder="メールアドレス" v-model="email">
         <input type="password" required placeholder="パスワード" v-model="password">
         <input type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
-        <button>新規登録</button>
+        <div v-show="!loading">
+          <button>新規登録</button>
+        </div>
+        <div v-show="loading">
+          <div class="loading-block">
+            <div class="loading-circle"></div>
+            <div class="loading-circle"></div>
+            <div class="loading-circle"></div>
+          </div>
+        </div>
         <div class="error">{{ errorMessage }}</div>
       </form>
     </div>
@@ -21,6 +30,8 @@
   import setItem from '../auth/setItem'
 
   export default {
+    props: ['loading'],
+
     data () {
       return {
         show: false,
@@ -41,6 +52,7 @@
         this.show = false
       },
       async userUpdate () {
+        this.$emit('showLoading')
         this.error = null
         this.errorMessage = null
         try {
@@ -71,6 +83,7 @@
           console.log({ res })
           return res
         } catch (error) { // もしtryの中の処理でエラーが発生した場合はcatch内の処理が実行される
+          this.$emit('endLoading')
           console.log({ error })
           this.error = error.response.data.errors.full_messages[0]
           if (this.error === "Password confirmation doesn't match Password") {
