@@ -17,11 +17,20 @@
   </div>
   <p class="text-right-purpose">→ 前向きに座りすぎを改善することに取り組める<br>ユーザー同士のスタンプコミュニケーション機能付き<br>(※ 自分のランキングの公開・非公開 は選択できます)</p>
   <div class="line2"></div>
-  <div class="button-group">
-    <button @click="redirectToTopPage" class="left">To Top</button>
-    <button @click="openChangeToLoginuserModal" class="right">Sign Up</button>
+  <div v-show="!loading">
+    <div class="button-group">
+      <button @click="redirectToTopPage" class="left">To Top</button>
+      <button @click="openChangeToLoginuserModal" class="right">Sign Up</button>
+    </div>
+    <p class="attention">※ 今回のタイマー記録も引き継げます。</p>
   </div>
-  <p class="attention">※ 今回のタイマー記録も引き継げます。</p>
+  <div v-show="loading">
+    <div class="loading-block">
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -29,12 +38,15 @@
   import authRemoveItem from '../auth/removeItem'
 
   export default {
+    props: ['loading'],
+
     data () {
       return {
       }
     },
     methods: {
       redirectToTopPage () {
+        this.$emit('showLoading')
         this.deleteGuestloginUser().then(() => {
           authRemoveItem()
           this.$router.push({ name: 'Top' })

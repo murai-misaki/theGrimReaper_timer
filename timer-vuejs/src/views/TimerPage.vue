@@ -30,14 +30,14 @@
       </div>
       <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
     </div>
-    <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" />
+    <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
     <div v-show="showStandupModal">
       <StandupModal @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
     </div>
     <div v-show="showShortenedLifespanModal">
-      <ShortenedLifespanModal @closeShortenedLifespanModal="closeShortenedLifespanModal" :totalCountUp="totalCountUp" :todayExercise="todayExercise" :todayShortenedLifespan="todayShortenedLifespan" />
+      <ShortenedLifespanModal :totalCountUp="totalCountUp" :todayExercise="todayExercise" :todayShortenedLifespan="todayShortenedLifespan" :loading="loading" @showLoading="showLoading" />
     </div>
     <div v-show="showRiskModal">
       <RiskModal @closeRiskModal="closeRiskModal" />
@@ -81,6 +81,7 @@
         totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
         todayExercise: Number(window.localStorage.getItem('todayExercise')),
         todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
+        loading: false,
       }
     },
     mounted () {
@@ -141,9 +142,6 @@
         this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
         this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
       },
-      closeShortenedLifespanModal () {
-        this.showShortenedLifespanModal = false
-      },
       openRiskModal () {
         this.showRiskModal = true
       },
@@ -171,6 +169,12 @@
       openDrinkWater () {
         this.$refs.drinkWater.open()
       },
+      showLoading () {
+        this.loading = true
+      },
+      endLoading () {
+        this.loading = false
+      }
     }
   }
 </script>

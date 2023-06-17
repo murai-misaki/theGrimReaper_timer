@@ -6,9 +6,19 @@
       <p class="account-text">Account</p>
       <font-awesome-icon :icon="['fas', 'user']" style="color: #D9D9D9;" class="user-icon" />
     </div>
-    <div @click="logout">
+    <div v-show="!loading">
+      <div @click="logout">
+        <p class="logout-text">Logout</p>
+        <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" style="color: #D9D9D9;" class="logout-icon" />
+      </div>
+    </div>
+    <div v-show="loading">
       <p class="logout-text">Logout</p>
-      <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" style="color: #D9D9D9;" class="logout-icon" />
+      <div class="loading-block-logout">
+        <div class="loading-circle-logout"></div>
+        <div class="loading-circle-logout"></div>
+        <div class="loading-circle-logout"></div>
+      </div>
     </div>
   </div>
   <BrowserModal ref="browserModal" />
@@ -83,7 +93,8 @@
     data () {
       return {
         show: true,
-        error: null
+        error: null,
+        loading: false
       }
     },
     mounted () {
@@ -109,6 +120,7 @@
         this.$router.push({ name: 'Rankingpage' })
       },
       async logout () {
+        this.showLoading()
         this.error = null
 
         try {
@@ -132,8 +144,15 @@
 
           return res 
         } catch (error) {
+          this.endLoading()
           this.error = 'ログアウトできませんでした'
         }
+      },
+      showLoading () {
+        this.loading = true
+      },
+      endLoading () {
+        this.loading = false
       }
     }
   }
@@ -302,5 +321,37 @@
     font-family: 'IM Fell English SC', serif;
     margin-left: 39px;
     margin-top: 17px;
+  }
+
+  .loading-block-logout {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -13px;
+    margin-left: 43px;
+    border: solid 1px #D9D9D9;
+    border-radius: 50%;
+    padding: 17px 8px;
+    width: 28px;
+  }
+  .loading-circle-logout {
+    width: 10px;
+    height: 10px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    animation: loading 1s infinite;
+    &:nth-child(2) {
+    animation-delay: 0.1s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+  }
+  @keyframes loading {
+    0% {
+      transform: scale(0.1);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 </style>

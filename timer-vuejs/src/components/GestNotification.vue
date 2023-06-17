@@ -48,6 +48,8 @@
   import onedaytimeRemoveItem from '../onedaytime/removeItem'
 
   export default {
+    props: ['loading'],
+
     data () {
       return {
         radio: 'false'
@@ -59,6 +61,7 @@
     },
     methods: {
       async createNotification () {
+        this.$emit('showLoading')
         try {
           const res = await axios.post(process.env.VUE_APP_API_URL + `/notifications`, {way: this.radio},
           {

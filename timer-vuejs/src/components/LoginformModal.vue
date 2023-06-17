@@ -7,7 +7,16 @@
       <form @submit.prevent="login">
         <input type="email" required placeholder="メールアドレス" v-model="email">
         <input type="password" required placeholder="パスワード" v-model="password">
-        <button>ログイン</button>
+        <div v-show="!loading">
+          <button>ログイン</button>
+        </div>
+        <div v-show="loading">
+          <div class="loading-block">
+            <div class="loading-circle"></div>
+            <div class="loading-circle"></div>
+            <div class="loading-circle"></div>
+          </div>
+        </div>
         <div class="error">{{ error }}</div>
         <p @click="redirectToForgotPasswordPage" class="password-forget">パスワードをお忘れですか？</p>
         <div class="line"></div>
@@ -22,6 +31,8 @@
   import setItem from '../auth/setItem'
 
   export default {
+    props: ['loading'],
+
     data () {
       return {
         show: false,
@@ -42,6 +53,7 @@
         this.$emit('changeSignupformModal')
       },
       async login() {
+        this.$emit('showLoading')
         this.error = null
         try {
           const res = await axios.post(process.env.VUE_APP_API_URL + '/auth/sign_in', {
@@ -61,6 +73,7 @@
         return res
         } catch (error) {
           console.log({ error })
+          this.$emit('endLoading')
           this.error = 'メールアドレスもしくはパスワードが違います。'
         }
       },

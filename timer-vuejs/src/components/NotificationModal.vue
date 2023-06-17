@@ -41,7 +41,16 @@
       <p class="attention">
         ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に許可になっている場合は表示されません)
       </p>
-      <button class="update-button" @click="update">Update</button>
+      <div v-show="!loading">
+        <button class="update-button" @click="update">Update</button>
+      </div>
+      <div v-show="loading">
+        <div class="loading-block">
+          <div class="loading-circle"></div>
+          <div class="loading-circle"></div>
+          <div class="loading-circle"></div>
+        </div>
+      </div>
       <div v-show="flashMessage" class="flash_message">
         <p>お知らせ方法を更新しました。</p>
       </div>
@@ -54,7 +63,7 @@
   import Push from 'push.js';
 
   export default {
-    props: ['notificationWay'],
+    props: ['notificationWay', 'loading'],
 
     data () {
       return {
@@ -73,6 +82,7 @@
         this.show = false
       },
       async updateNotification () {
+        this.$emit('showLoading')
         try {
           const res = await axios.patch(process.env.VUE_APP_API_URL + `/notifications`, {way: this.radio},
           {
@@ -86,6 +96,9 @@
           if (!res) {
             throw new Error('選択された通知方法を更新できませんでした')
           }
+          this.$emit('endLoading')
+          this.showFlashMessage()
+          setTimeout(this.closeFlashMessage, 3000);
         } catch (error) {
           console.log(error)
         }
@@ -101,8 +114,6 @@
       },
       update () {
         this.updateNotification().then(() => {
-          this.showFlashMessage()
-          setTimeout(this.closeFlashMessage, 3000);
           this.$emit('getNotification')
         })
       }

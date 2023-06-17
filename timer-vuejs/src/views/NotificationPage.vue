@@ -1,7 +1,16 @@
 <template>
   <div class="container">
-    <GestNotification ref="gestNotification" />
-    <button @click="selection">Timer Start</button>
+    <GestNotification ref="gestNotification" :loading="loading" @showLoading="showLoading" />
+    <div v-show="!loading">
+      <button @click="selection">Timer Start</button>
+    </div>
+    <div v-show="loading">
+      <div class="loading-block">
+        <div class="loading-circle"></div>
+        <div class="loading-circle"></div>
+        <div class="loading-circle"></div>
+      </div>
+    </div>
     <HowtouseOKbuttonModal ref="howtouseOkbuttonModal" @openBrowserModal="openBrowserModal" />
     <BrowserModal ref="browserModal" />
   </div>
@@ -17,6 +26,11 @@
   export default {
     components: { GestNotification, HowtouseOKbuttonModal, BrowserModal, FooterLink },
 
+    data () {
+      return {
+        loading: false
+      }
+    },
     methods: {
       selection () {
         this.$refs.gestNotification.createNotification().then(() => {
@@ -26,7 +40,10 @@
       openBrowserModal () {
         this.$refs.howtouseOkbuttonModal.close()
         this.$refs.browserModal.open()
-      }
+      },
+      showLoading () {
+        this.loading = true
+      },
     }
   }
 </script>
