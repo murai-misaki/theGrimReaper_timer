@@ -74,7 +74,16 @@
       </div>
     </div>
   </div>
-  <button @click="guestSignUp">Let's use the Grim Reaper Timer</button>
+  <div v-show="!loading">
+    <button @click="guestSignUp">Let's use the Grim Reaper Timer</button>
+  </div>
+  <div v-show="loading">
+    <div class="loading-block">
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+    </div>
+  </div>
   <p class="guest-login">( Guest LogIn )</p>
   <div class="error">{{ guestSignupError }}</div>
   <div class="line"></div>
@@ -83,7 +92,7 @@
 
 <script>
   export default {
-    props: ['guestSignupError'],
+    props: ['guestSignupError', 'loading'],
 
     data () {
       return {

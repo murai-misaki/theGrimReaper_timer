@@ -7,10 +7,10 @@
       <div @click="openLoginformModal" class="login-link">LogIn</div>
       <div @click="openSignupformModal" class="signup-link">SignUp</div>
     </div>
-    <SubTitle @guestSignUp="guestSignUp" :guestSignupError="guestSignupError" />
-    <ToIntroduce @guestSignUp="guestSignUp" :guestSignupError="guestSignupError" />
-    <LoginformModal ref="loginformModal" @changeSignupformModal="changeSignupformModal" />
-    <SignupformModal ref="signupformModal" @changLoginformModal="changLoginformModal" @createTotalShortenedLifespan="createTotalShortenedLifespan" />
+    <SubTitle @guestSignUp="guestSignUp" :guestSignupError="guestSignupError" :loading="loading" />
+    <ToIntroduce @guestSignUp="guestSignUp" :guestSignupError="guestSignupError" :loading="loading" />
+    <LoginformModal ref="loginformModal" @changeSignupformModal="changeSignupformModal" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
+    <SignupformModal ref="signupformModal" @changLoginformModal="changLoginformModal" @createTotalShortenedLifespan="createTotalShortenedLifespan" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
     <FooterLink />
   </div>
 </template>
@@ -31,7 +31,8 @@
     data () {
       return {
         show: true,
-        guestSignupError: null
+        guestSignupError: null,
+        loading: false
       }
     },
     mounted () {
@@ -74,6 +75,7 @@
         }
       },
       async guestSignUp () {
+        this.showLoading()
         this.guestSignupError = null
         try {
           // ユーザー登録のパラメータ情報をランダムに生成する
@@ -104,8 +106,15 @@
 
         } catch (error) {
           console.log({ error })
+          this.endLoading()
           this.guestSignupError = 'エラーが発生しました'
         }
+      },
+      showLoading () {
+        this.loading = true
+      },
+      endLoading () {
+        this.loading = false
       }
     }
   }

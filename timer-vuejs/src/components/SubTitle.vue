@@ -25,7 +25,16 @@
     <p class="reference">※ 座りすぎ研究の第一人者、早稲田大学スポーツ科学学術院教授 岡 浩一朗先生の記事参照</p>
   </div>
   <p class="summary">この <span>the Grim Reaper Timer</span> では<br>これらの座りすぎのリスクに対して、手軽に効果的な対策が行えます。</p>
-  <button @click="guestSignUp">Let's use the Grim Reaper Timer</button>
+  <div v-show="!loading">
+    <button @click="guestSignUp">Let's use the Grim Reaper Timer</button>
+  </div>
+  <div v-show="loading">
+    <div class="loading-block">
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+    </div>
+  </div>
   <p class="guest-login">( Guest LogIn )</p>
   <div class="error">{{ guestSignupError }}</div>
   <div class="line"></div>
@@ -34,7 +43,7 @@
 
 <script>
   export default {
-    props: ['guestSignupError'],
+    props: ['guestSignupError', 'loading'],
 
     data () {
       return {
