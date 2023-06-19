@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
    allow do
-     origins '*'
+     origins 'localhost:8080','https://www.shinigami-timer.com'
 
      resource '*',
        headers: :any,
