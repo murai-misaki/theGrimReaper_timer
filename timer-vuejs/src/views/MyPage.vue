@@ -92,12 +92,13 @@
 
     data () {
       return {
-        show: true,
+        show: false,
         error: null,
         loading: false
       }
     },
     mounted () {
+      this.showSitting()
       onedaytimeRemoveItem()
     },
     methods: {
