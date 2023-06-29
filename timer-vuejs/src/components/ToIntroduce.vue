@@ -5,7 +5,7 @@
     <h2>30分ごとに立ち上がりのお知らせを致します</h2>
     <div class="explanation">
       <span>‘’ 30分に一度3分、立って動く ‘’</span>
-      <p>一回に座ったまま過ごす時間が30分を超えないようにすること。<br>これで座り過ぎのリスクはかなり減らせます。</p>
+      <p>一回に座ったまま過ごす時間が30分を超えないようにすること。<br>これで座りすぎのリスクはかなり減らせます。</p>
     </div>
   </div>
   <div class="introduction">
@@ -43,8 +43,8 @@
     <h2>1日8時間以上座ることによって高まる罹患リスクや死亡リスク、<br>身体活動不足、水分不足も対策できる機能が備わっています</h2>
     <div class="body">
       <img src="../assets/img/to_introduce4.png" alt="該当の機能画面" class="img-left" >
-      <span class="number number-right">1</span>
-      <p class="text-right">1日に8時間以上座り続けている場合に注意喚起<br>罹患リスクや死亡リスクが高まるのを防ぐ機能</p>
+      <span class="number number-right4">1</span>
+      <p class="text-right4">1日に8時間以上座り続けている場合に注意喚起<br>罹患リスクや死亡リスクが高まるのを防ぐ機能</p>
     </div>
     <div class="body">
       <div>
@@ -216,6 +216,17 @@
     margin-left: 20px;
   }
 
+  span.number-right4 {
+    margin-left: 30px;
+    margin-top: 15px;
+    font-size: 60px;
+  }
+  p.text-right4 {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-left: 20px;
+  }
+
   .number5 {
     display: flex;
   }
@@ -250,7 +261,7 @@
   }
   p.text-right7 {
     font-size: 18px;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-left: 20px;
   }
   .number7 {
