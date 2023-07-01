@@ -74,7 +74,7 @@
 
   p.subtitle {
     text-align: center;
-    padding-top: 110px;
+    padding-top: 64px;
     font-size: 70px;
   }
   p.scroll-text {

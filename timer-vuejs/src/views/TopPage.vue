@@ -127,16 +127,19 @@
     font-family: 'IM Fell English SC', serif;
     display: flex;
     font-size: 30px;
-    background-color: #000000;
-    position: fixed;
+    background-color: transparent;
+    position: sticky;
     top: 30px;
-    left: 1200px;
+    justify-content: flex-end;
+    margin-right: 27px;
   }
   .login-link {
     margin-right: 30px;
     cursor: pointer;
+    background-color: #000000;
   }
   .signup-link {
     cursor: pointer;
+    background-color: #000000;
   }
 </style>
