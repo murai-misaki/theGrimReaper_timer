@@ -27,7 +27,7 @@
 
 <script>
   import axios from 'axios'
-  import onedaytimeRemoveItem from '../onedaytime/removeItem'
+  import onedaytimeRemoveItem from '../common/removeItem'
 
   export default {
     props: ['totalCountUp', 'todayExercise', 'todayShortenedLifespan', 'loading'],

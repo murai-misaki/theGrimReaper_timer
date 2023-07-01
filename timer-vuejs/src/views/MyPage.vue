@@ -85,7 +85,7 @@
   import ExercisetimeChart from '../components/ExercisetimeChart.vue'
   import BrowserModal from '../components/BrowserModal.vue'
   import FooterLink from '../components/FooterLink.vue'
-  import onedaytimeRemoveItem from '../onedaytime/removeItem'
+  import onedaytimeRemoveItem from '../common/removeItem'
 
   export default {
     components: { SittingtimeChart, ExercisetimeChart, BrowserModal, FooterLink },
