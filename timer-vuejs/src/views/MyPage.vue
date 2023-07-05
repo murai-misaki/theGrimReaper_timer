@@ -92,7 +92,7 @@
 
     data () {
       return {
-        show: false,
+        show: null,
         error: null,
         loading: false
       }
