@@ -125,7 +125,7 @@ export default {
     },
     async getCountUpToday () {
       try {
-        const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times/today`, {
+        const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times/today_count_up`, {
           headers: {
             uid: window.localStorage.getItem('uid'),
             "access-token": window.localStorage.getItem('access-token'),
@@ -152,7 +152,7 @@ export default {
     },
     async getShortenedLifespanToday () {
       try {
-        const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times/today`, {
+        const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times/today_shortened_lifespan`, {
           headers: {
             uid: window.localStorage.getItem('uid'),
             "access-token": window.localStorage.getItem('access-token'),
