@@ -5,7 +5,8 @@ class TotalShortenedLifespansController < ApplicationController
     total_time = current_user.build_total_shortened_lifespan
 
     if total_time.save
-      render json: { id: total_time.id, email: current_user.email, message: '成功しました' }, status: :ok
+      hash = TotalShortenedLifespanSerializer.new(total_time).serializable_hash
+      render json: hash, status: :ok
     else
       render json: { message: '保存出来ませんでした', errors: total_time.errors.messages }, status: :bad_request
     end
@@ -15,14 +16,17 @@ class TotalShortenedLifespansController < ApplicationController
     total_time = current_user.total_shortened_lifespan
 
     if total_time
-      render json: { id: total_time.id, time: total_time.time }, status: :ok
+      hash = TotalShortenedLifespanSerializer.new(total_time).serializable_hash
+      render json: hash, status: :ok
     end
   end
 
   def update
     total_time = current_user.total_shortened_lifespan
+    
     if total_time.update(time_params)
-      render json: { id: total_time.id, time: total_time.time, message: '成功しました' }, status: :ok
+      hash = TotalShortenedLifespanSerializer.new(total_time).serializable_hash
+      render json: hash, status: :ok
     else
       render json: { message: '更新出来ませんでした', errors: total_time.errors.messages }, status: :bad_request
     end
