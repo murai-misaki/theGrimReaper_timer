@@ -45,7 +45,7 @@
 <script>
   import axios from 'axios'
   import Push from 'push.js';
-  import onedaytimeRemoveItem from '../onedaytime/removeItem'
+  import onedaytimeRemoveItem from '../common/removeItem'
 
   export default {
     props: ['loading'],

@@ -103,7 +103,7 @@
           if (!res) {
             throw new Error('現在の通知方法を取得できませんでした')
           }
-          this.notificationWay = res.data.way
+          this.notificationWay = res.data.data.attributes.way
         } catch (error) {
           console.log(error)
         }

@@ -32,3 +32,5 @@
 /config/master.key
 
 /vendor/bundle/
+
+.rubocop_todo.yml

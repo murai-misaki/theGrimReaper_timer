@@ -27,7 +27,7 @@
 
 <script>
   import axios from 'axios'
-  import onedaytimeRemoveItem from '../onedaytime/removeItem'
+  import onedaytimeRemoveItem from '../common/removeItem'
 
   export default {
     props: ['totalCountUp', 'todayExercise', 'todayShortenedLifespan', 'loading'],
@@ -121,7 +121,7 @@
           if (!res) {
             throw new Error('1時間座り続けたことで縮んだ寿命の合計時間を取得できませんでした')
           }
-          this.totalShortenedLifespan = res.data.time
+          this.totalShortenedLifespan = res.data.data.attributes.time
         } catch (error) {
           console.log(error)
         }

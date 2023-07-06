@@ -31,7 +31,6 @@ export default {
     };
   },
   mounted() {
-    this.$emit('getNotification')
     this.startTimer();
   },
   methods: {
