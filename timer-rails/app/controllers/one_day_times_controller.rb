@@ -1,6 +1,11 @@
 class OneDayTimesController < ApplicationController
   before_action :authenticate_user!, only: %i[create show_today update index]
 
+  def index
+    data = build_weekly_data
+    render json: data, status: :ok
+  end
+
   def create
     today_time = current_user.one_day_times.build(today_time_params)
 
@@ -45,11 +50,6 @@ class OneDayTimesController < ApplicationController
     else
       render json: { message: '更新出来ませんでした', errors: today_time.errors.messages }, status: :bad_request
     end
-  end
-
-  def index
-    data = build_weekly_data
-    render json: data, status: :ok
   end
 
   private
