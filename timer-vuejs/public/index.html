@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
+  <head prefix=”og:https://ogp.me/ns#”>
     <% if (process.env.VUE_APP_ENVIRONMENT === 'production') { %>
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-N9N3KZ642B"></script>
@@ -17,6 +17,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="favicon.ico">
     <title>the Grim Reaper Timer | 座りすぎ防止Webタイマーアプリ</title>
+    <meta property="og:title" content="the Grim Reaper Timer | 座りすぎ防止Webタイマーアプリ" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="「1時間座り続けると寿命が22分縮む」座りすぎで縮んだ寿命を可視化する、座りすぎ防止Webタイマーアプリです。" />
+    <meta property="og:url" content="https://www.shinigami-timer.com" />
+    <meta property="og:site_name" content="the Grim Reaper Timer" />
+    <meta property="og:image" content="/assets/images/ogp_image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <noscript>
