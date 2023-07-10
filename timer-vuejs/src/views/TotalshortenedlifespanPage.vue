@@ -1,10 +1,17 @@
 <template>
-  <h2>1時間座り続けたことで縮んだ寿命の合計時間をお伝えするページです。</h2>
-  <p>只今準備中です。お楽しみに。</p>
+  <HomeButton />
+  <TotalShortenedLifespan />
+  <FooterLink />
 </template>
 
 <script>
+  import HomeButton from '../components/HomeButton.vue'
+  import TotalShortenedLifespan from '../components/TotalShortenedLifespan.vue'
+  import FooterLink from '../components/FooterLink.vue'
+
   export default {
+    components: { HomeButton, TotalShortenedLifespan, FooterLink },
+
     data () {
       return {
       }
