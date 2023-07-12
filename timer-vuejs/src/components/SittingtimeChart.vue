@@ -69,7 +69,6 @@ export default {
         }
         this.generateChart(res.data.count_up, res.data.shortened_lifespan)
         this.loaded = true
-        console.log({ res })
       } catch (error) {
         console.log(error)
       }

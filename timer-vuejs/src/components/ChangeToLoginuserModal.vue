@@ -80,7 +80,6 @@
             this.$router.push({ name: 'Mypage' })
           }
         
-          console.log({ res })
           return res
         } catch (error) { // もしtryの中の処理でエラーが発生した場合はcatch内の処理が実行される
           this.$emit('endLoading')

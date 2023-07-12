@@ -60,7 +60,6 @@
           this.onedaytimeTodayCountUp = res.data.count_up
           this.onedaytimeTodayExercise = res.data.exercise
           this.onedaytimeTodayShortenedLifespan = res.data.shortened_lifespan
-          console.log({ res })
         } catch (error) {
           console.log(error)
         }

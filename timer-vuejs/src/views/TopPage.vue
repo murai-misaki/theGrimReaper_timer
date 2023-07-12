@@ -101,9 +101,6 @@
             this.createTotalShortenedLifespan()
             this.$router.push({ name: 'Notification' })
           }
-        
-          console.log({ res })
-
         } catch (error) {
           console.log({ error })
           this.endLoading()
