@@ -11,7 +11,8 @@
     <p>1時間座り続けたことで寿命が合計 {{ time }} 分縮みました...30分ごとに立ち上がります！</p>
     <p>#the Grim Reaper Timer #死神タイマー<br>#座りすぎによるリスク #1時間座り続けると寿命が22分縮む</p>
   </div>
-  <button @click="twitterShare">懺悔ツイートする</button>
+  <p class="tweet-description">Twitterで座りすぎ改善を宣言しましょう！</p>
+  <button @click="twitterShare">この結果をツイートする</button>
   <div class="space"></div>
 </template>
 
@@ -86,11 +87,19 @@
   .tweet-border {
     border: 1px solid #BFBFBF;
     width: 650px;
-    margin-left: 300px;
-    margin-top: -80px;
+    margin-left: 250px;
+    margin-top: -60px;
   }
   .tweet-border p {
     padding-left: 25px;
+    color: #BFBFBF;
+  }
+  .tweet-description {
+    text-align: right;
+    margin-top: -70px;
+    margin-right: 240px;
+    margin-bottom: 50px;
+    font-size: 13px;
     color: #BFBFBF;
   }
   button {
@@ -99,7 +108,7 @@
     padding: 10px;
     border: 1px solid #BFBFBF;
     float: right;
-    margin-right: 310px;
+    margin-right: 285px;
     margin-top: -41px;
   }
   button:hover {
@@ -108,6 +117,6 @@
     border: 1px solid #D9D9D9;
   }
   .space {
-    margin-bottom: 100px;
+    margin-bottom: 130px;
   }
 </style>

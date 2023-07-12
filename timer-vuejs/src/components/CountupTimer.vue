@@ -138,7 +138,6 @@ export default {
         if (res.data.count_up) {
           this.onedaytimeTodayCountUp = res.data.count_up
         }
-        console.log({ res })
       } catch (error) {
         console.log(error)
       }
@@ -165,7 +164,6 @@ export default {
         if (res.data.shortened_lifespan) {
           this.onedaytimeTodayShortenedLifespan = res.data.shortened_lifespan
         }
-        console.log({ res })
       } catch (error) {
         console.log(error)
       }

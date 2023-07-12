@@ -22,7 +22,7 @@
     </div>
   </div>
   <BrowserModal ref="browserModal" />
-  <div v-if="show" class="chart">
+  <div v-show="show" class="chart">
     <div class="time-group">
       <div class="time">
         <font-awesome-icon :icon="['fas', 'circle']" style="color: #D9D9D9;" class="circle" />
@@ -39,7 +39,7 @@
     <p class="sitting-attention">1日8時間(480分)以上座ると、罹患リスクや死亡リスクが高まります。</p>
   </div>
 
-  <div v-if="!show" class="chart">
+  <div v-show="!show" class="chart">
     <div class="time-group">
       <div class="time">
         <div @click="showSitting">

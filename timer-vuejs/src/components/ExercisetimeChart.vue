@@ -69,7 +69,6 @@ export default {
         }
         this.generateChart(res.data.exercise)
         this.loaded = true
-        console.log({ res })
       } catch (error) {
         console.log(error)
       }

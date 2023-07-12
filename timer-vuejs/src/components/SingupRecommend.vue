@@ -4,7 +4,7 @@
   <p class="subtitle neontext">''あなた専用のマイページを作成いたします''</p>
   <p class="text-top">ログイン後すぐに、タイマー利用ができ、日常使いに大変便利！</p>
   <div class="img-group">
-    <img src="../assets/img/to_introduce3.png" alt="該当の機能画面" class="img-left" >
+    <img src="../assets/img/to_introduce3_2.png" alt="該当の機能画面" class="img-left" >
     <img src="../assets/img/to_introduce2.png" alt="該当の機能画面" class="img-center-left" >
     <img src="../assets/img/to_introduce6.png" alt="該当の機能画面" class="img-center-right" >
     <img src="../assets/img/ranking_img.png" alt="該当の機能画面" class="img-right" >

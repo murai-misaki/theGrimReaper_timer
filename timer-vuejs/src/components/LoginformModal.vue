@@ -69,7 +69,6 @@
           setItem(res.headers, res.data.data.guest)
           this.$router.push({ name: 'Mypage' })
         }
-        console.log({ res })
         return res
         } catch (error) {
           console.log({ error })

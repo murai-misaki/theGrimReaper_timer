@@ -13,7 +13,16 @@
         <p class="exception">・ ご使用のブラウザがFirefoxの場合</p>
         <p class="exception">・ タイマー作動中に他のタブに移動せず、当アプリのタブがアクティブなタブ(現在表示しているページのタブ)の場合</p>
       </div>
-      <button @click="redirectToTimer">OK</button>
+      <div v-show="!loading">
+        <button @click="redirectToTimer">OK</button>
+      </div>
+      <div v-show="loading">
+        <div class="loading-block space">
+          <div class="loading-circle"></div>
+          <div class="loading-circle"></div>
+          <div class="loading-circle"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +31,8 @@
   export default {
     data () {
       return {
-        show: false
+        show: false,
+        loading: false
       }
     },
     methods: {
@@ -31,8 +41,12 @@
         window.scrollTo(0, 0);
       },
       redirectToTimer () {
+        this.showLoading()
         this.$router.push({ name: 'Timer' })
-      }
+      },
+      showLoading () {
+        this.loading = true
+      },
     }
   }
 </script>
@@ -174,5 +188,8 @@
     color: #BFBFBF;
     font-size: 12px;
     margin-left: 20px;
+  }
+  .space {
+    margin-top: 50px;
   }
 </style>
