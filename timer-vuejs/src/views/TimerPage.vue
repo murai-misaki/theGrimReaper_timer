@@ -137,6 +137,7 @@
         this.$refs.countupTimer.start()
       },
       openShortenedLifespanModal () {
+        window.scrollTo(0, 0);
         this.showShortenedLifespanModal = true
         this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
         this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
