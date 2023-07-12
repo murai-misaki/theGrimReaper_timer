@@ -144,10 +144,10 @@
           console.log(error)
         }
       },
-      end () {
+      async end () {
         this.$emit('showLoading')
         if (this.totalCountUp || this.todayExercise || this.todayShortenedLifespan) {
-          this.getOnedaytimeToday().then(() => {
+          await this.getOnedaytimeToday().then(() => {
             if (this.onedaytimeTodayId) {
               this.updateOnedaytime(this.onedaytimeTodayId)
             } else {
@@ -156,7 +156,7 @@
           })
         }
         if (this.todayShortenedLifespan) {
-          this.getTotalShortenedLifespan().then(() => {
+          await this.getTotalShortenedLifespan().then(() => {
             this.updateTotalShortenedLifespan()
           })
         }
