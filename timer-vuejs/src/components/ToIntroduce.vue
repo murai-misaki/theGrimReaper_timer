@@ -35,7 +35,7 @@
     </div>
     <div class="body-last">
       <img src="../assets/img/to_introduce3.png" alt="該当の機能画面" class="img-left" >
-      <span class="number number-right">3</span>
+      <span class="number number-right3">3</span>
       <p class="text-right3">1時間座り続けたことで縮んだ寿命の合計時間を知れる</p>
     </div>
   </div>
@@ -212,8 +212,12 @@
 
   p.text-right3 {
     font-size: 18px;
-    margin-top: 70px;
+    margin-top: 35px;
     margin-left: 20px;
+  }
+  span.number-right3 {
+    margin-left: 30px;
+    font-size: 60px;
   }
 
   span.number-right4 {
