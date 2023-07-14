@@ -12,7 +12,7 @@
         </div>
       </div>
       <div v-show="!loading">
-        <button class="ok_button" @click="end">OK</button>
+        <button class="ok_button" @click="recordOnedaytimeToday">OK</button>
       </div>
       <div v-show="loading">
         <div class="loading-block">
@@ -82,6 +82,8 @@
           if (!res) {
             throw new Error('本日のタイマー記録を保存できませんでした')
           }
+          this.recordTotalShortenedLifespan()
+          this.redirectToPage()
         } catch (error) {
           console.log(error)
         }
@@ -104,6 +106,8 @@
           if (!res) {
             throw new Error('本日のタイマー記録を更新できませんでした')
           }
+          this.recordTotalShortenedLifespan()
+          this.redirectToPage()
         } catch (error) {
           console.log(error)
         }
@@ -143,30 +147,35 @@
           console.log(error)
         }
       },
-      async end () {
+      recordOnedaytimeToday () {
         this.$emit('showLoading')
         if (this.totalCountUp || this.todayExercise || this.todayShortenedLifespan) {
-          await this.getOnedaytimeToday().then(() => {
+          this.getOnedaytimeToday().then(() => {
             if (this.onedaytimeTodayId) {
               this.updateOnedaytime(this.onedaytimeTodayId)
             } else {
               this.createOnedaytime()
             }
           })
+        } else {
+          this.redirectToPage()
         }
+      },
+      recordTotalShortenedLifespan () {
         if (this.todayShortenedLifespan) {
-          await this.getTotalShortenedLifespan().then(() => {
+          this.getTotalShortenedLifespan().then(() => {
             this.updateTotalShortenedLifespan()
           })
         }
+      },
+      redirectToPage () {
         onedaytimeRemoveItem()
-
         if(this.guest === 'false') {
           this.$router.push({ name: 'Mypage' })
         } else {
           this.$router.push({ name: 'Guestlogin' })
         }
-      },
+      }
     }
   }
 </script>
