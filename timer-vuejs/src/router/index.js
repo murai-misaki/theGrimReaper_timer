@@ -10,6 +10,8 @@ import AccountPage from '../views/AccountPage'
 import TotalshortenedlifespanPage from '../views/TotalshortenedlifespanPage'
 import RankingPage from '../views/RankingPage'
 import ForgotPasswordPage from '../views/ForgotPasswordPage'
+import TermsOfServicePage from '../views/TermsOfServicePage'
+import PrivacyPolicyPage from '../views/PrivacyPolicyPage'
 
 const { error, validate } = useValidate()
 
@@ -157,6 +159,16 @@ const routes = [
     path: '/forgotpassword',
     name: 'Forgotpassword',
     component: ForgotPasswordPage
+  },
+  {
+    path: '/termsofservice',
+    name: 'Termsofservice',
+    component: TermsOfServicePage
+  },
+  {
+    path: '/privacypolicy',
+    name: 'Privacypolicy',
+    component: PrivacyPolicyPage
   },
 ]
 

@@ -4,8 +4,8 @@
   <div class="md-flex md-justify-between">
       <p><span>the Grim Reaper Timer</span><br>shinigami-timer.com 2023</p>
     <ul class="footer__navi flex">
-      <li>利用規約</li>
-      <li>プライバシーポリシー</li>
+      <li @click="redirectToTermsOfServicePage">利用規約</li>
+      <li @click="redirectToPrivacyPolicyPage">プライバシーポリシー</li>
       <li @click="gotoTwitter">運営元</li>
     </ul>
   </div>
@@ -19,6 +19,12 @@
       }
     },
     methods: {
+      redirectToTermsOfServicePage () {
+        this.$router.push({ name: 'Termsofservice' })
+      },
+      redirectToPrivacyPolicyPage () {
+        this.$router.push({ name: 'Privacypolicy' })
+      },
       gotoTwitter () {
         window.open('https://twitter.com/mi_web_engineer/', '_blank');
       }
