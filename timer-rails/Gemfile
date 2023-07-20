@@ -27,6 +27,9 @@ gem 'rack-cors'
 
 gem 'devise'
 gem 'devise_token_auth'
+gem 'devise-i18n'
+
+gem 'rails-i18n'
 
 gem 'jsonapi-serializer'
 
@@ -44,6 +47,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  gem 'letter_opener_web'
 end
 
 group :production do
