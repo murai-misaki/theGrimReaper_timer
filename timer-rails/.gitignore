@@ -34,3 +34,6 @@
 /vendor/bundle/
 
 .rubocop_todo.yml
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml

@@ -56,6 +56,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    addressable (2.8.4)
+      public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     bcrypt (3.1.18)
     bootsnap (1.16.0)
@@ -63,20 +65,58 @@ GEM
     builder (3.2.4)
     byebug (11.1.3)
     concurrent-ruby (1.2.2)
+    config (4.2.1)
+      deep_merge (~> 1.2, >= 1.2.1)
+      dry-validation (~> 1.0, >= 1.0.0)
     crass (1.0.6)
     date (3.3.3)
+    deep_merge (1.2.2)
     devise (4.9.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.11.0)
+      devise (>= 4.9.0)
     devise_token_auth (1.2.1)
       bcrypt (~> 3.0)
       devise (> 3.5.2, < 5)
       rails (>= 4.2.0, < 7.1)
     dockerfile-rails (1.4.2)
       rails
+    dry-configurable (1.1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-core (1.0.0)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.0.0)
+    dry-initializer (3.1.1)
+    dry-logic (1.5.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-schema (1.13.2)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 1.0, >= 1.0.1)
+      dry-core (~> 1.0, < 2)
+      dry-initializer (~> 3.0)
+      dry-logic (>= 1.4, < 2)
+      dry-types (>= 1.7, < 2)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.1)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
+      zeitwerk (~> 2.6)
+    dry-validation (1.10.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      dry-initializer (~> 3.0)
+      dry-schema (>= 1.12, < 2)
+      zeitwerk (~> 2.6)
     erubi (1.12.0)
     ffi (1.15.5)
     globalid (1.1.0)
@@ -87,6 +127,15 @@ GEM
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     language_server-protocol (3.17.0.3)
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    letter_opener (1.8.1)
+      launchy (>= 2.2, < 3)
+    letter_opener_web (2.0.0)
+      actionmailer (>= 5.2)
+      letter_opener (~> 1.7)
+      railties (>= 5.2)
+      rexml
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -125,6 +174,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.3)
+    public_suffix (5.0.3)
     puma (4.3.12)
       nio4r (~> 2.0)
     racc (1.6.2)
@@ -153,6 +203,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
+    rails-i18n (7.0.7)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     railties (6.0.6.1)
       actionpack (= 6.0.6.1)
       activesupport (= 6.0.6.1)
@@ -225,15 +278,19 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
+  config
   devise
+  devise-i18n
   devise_token_auth
   dockerfile-rails (>= 1.4)
   jsonapi-serializer
+  letter_opener_web
   listen (~> 3.2)
   pg
   puma (~> 4.1)
   rack-cors
   rails (~> 6.0.6, >= 6.0.6.1)
+  rails-i18n
   rubocop
   rubocop-performance
   rubocop-rails

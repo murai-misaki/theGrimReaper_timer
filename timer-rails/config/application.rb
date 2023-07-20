@@ -35,5 +35,6 @@ module TimerRails
     config.api_only = true
 
     config.time_zone = 'Tokyo'
+    config.i18n.default_locale = :ja
   end
 end

@@ -1,15 +1,30 @@
 <template>
-  <h2>パスワードを忘れた場合のページです。</h2>
-  只今準備中です。
+  <div v-show="show">
+    <ForgotPassword @showPasswordResetSent="showPasswordResetSent" />
+  </div>
+  <div v-show="!show">
+    <PasswordResetSent />
+  </div>
+  <FooterLink />
 </template>
 
 <script>
+  import ForgotPassword from '../components/ForgotPassword.vue'
+  import PasswordResetSent from '../components/PasswordResetSent.vue'
+  import FooterLink from '../components/FooterLink.vue'
+
   export default {
+    components: { ForgotPassword, PasswordResetSent, FooterLink },
+
     data () {
       return {
+        show: true
       }
     },
     methods: {
+      showPasswordResetSent () {
+        this.show = false
+      }
     }
   }
 </script>

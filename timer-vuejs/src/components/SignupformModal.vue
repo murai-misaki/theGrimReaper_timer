@@ -19,7 +19,7 @@
             <div class="loading-circle"></div>
           </div>
         </div>
-        <div class="error">{{ errorMessage }}</div>
+        <div class="error">{{ error }}</div>
         <div class="line"></div>
         <p>すでにアカウントをお持ちですか？<span @click="changLoginformModal">ログイン</span></p>
     </form>
@@ -42,7 +42,6 @@
         password: '',
         passwordConfirmation: '',
         error: null,
-        errorMessage: null,
       }
     },
     methods: {
@@ -59,7 +58,6 @@
       async signUp () {
         this.$emit('showLoading')
         this.error = null
-        this.errorMessage = null
         try {
           const res = await axios.post(process.env.VUE_APP_API_URL + '/auth', {
             name: this.name,
@@ -83,17 +81,10 @@
         } catch (error) { // もしtryの中の処理でエラーが発生した場合はcatch内の処理が実行される
           this.$emit('endLoading')
           console.log({ error })
-          this.error = error.response.data.errors.full_messages[0]
-          if (this.error === "Password confirmation doesn't match Password") {
-            this.errorMessage = 'パスワードの確認がパスワードと一致しません'
-          } else if (this.error === "Password is too short (minimum is 6 characters)") {
-            this.errorMessage = 'パスワードが短すぎます(最低6文字)'
-          } else if (this.error === "Name is too long (maximum is 10 characters)") {
-            this.errorMessage = '名前が長すぎます (最大 10 文字)'
-          } else if (this.error === "Email has already been taken") {
-            this.errorMessage = 'メールアドレスは、すでに使われています'
+          if (error.response.data.errors.full_messages[0]) {
+            this.error = error.response.data.errors.full_messages[0]
           } else {
-            this.errorMessage = 'アカウントを登録できませんでした'
+            this.error = 'アカウントを登録できませんでした'
           }
         }
       }
