@@ -1,0 +1,3 @@
+default_url_options:
+  protcol: 'https'
+  host: <%= ENV['MAILER_HOST'] %>
