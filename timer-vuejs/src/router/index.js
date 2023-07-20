@@ -10,6 +10,7 @@ import AccountPage from '../views/AccountPage'
 import TotalshortenedlifespanPage from '../views/TotalshortenedlifespanPage'
 import RankingPage from '../views/RankingPage'
 import ForgotPasswordPage from '../views/ForgotPasswordPage'
+import PasswordResetPage from '../views/PasswordResetPage'
 import TermsOfServicePage from '../views/TermsOfServicePage'
 import PrivacyPolicyPage from '../views/PrivacyPolicyPage'
 
@@ -158,7 +159,14 @@ const routes = [
   {
     path: '/forgotpassword',
     name: 'Forgotpassword',
-    component: ForgotPasswordPage
+    component: ForgotPasswordPage,
+    beforeEnter: noRequireAuth
+  },
+  {
+    path: '/passwordreset',
+    name: 'Passwordreset',
+    component: PasswordResetPage,
+    beforeEnter: noRequireAuth
   },
   {
     path: '/termsofservice',
