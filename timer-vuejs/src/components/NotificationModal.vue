@@ -77,6 +77,7 @@
         this.$emit('getNotification')
         this.radio = this.notificationWay
         this.show = true
+        window.scrollTo(0, 0);
       },
       close () {
         this.show = false

@@ -28,6 +28,7 @@
     methods: {
       open () {
         this.show = true
+        window.scrollTo(0, 0);
       },
       close () {
         this.show = false
