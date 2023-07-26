@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="space"></div>
+    <div class="timerpage-top-space"></div>
     <div class="icon-group">
       <div @click="openNotificationModal">
         <font-awesome-icon :icon="['fas', 'gear']" style="color: #D9D9D9;" class="setting-icon" />
@@ -238,7 +238,7 @@
     background: rgba(90, 3, 3, 0.6);
   }
 
-  .space {
+  .timerpage-top-space {
     margin-bottom: 60px;
   }
 
