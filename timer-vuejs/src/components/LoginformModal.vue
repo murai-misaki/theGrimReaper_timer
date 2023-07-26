@@ -66,7 +66,7 @@
         }
 
         if (!this.error) {
-          setItem(res.headers, res.data.data.guest)
+          setItem(res.headers, res.data.data.guest, res.data.data.name)
           this.$router.push({ name: 'Mypage' })
         }
         return res

@@ -97,7 +97,7 @@
           }
 
           if (!this.guestSignupError) {
-            setItem(res.headers, res.data.data.guest)
+            setItem(res.headers, res.data.data.guest, res.data.data.name)
             this.createTotalShortenedLifespan()
             this.$router.push({ name: 'Notification' })
           }
