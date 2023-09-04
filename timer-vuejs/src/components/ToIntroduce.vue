@@ -75,7 +75,7 @@
     </div>
   </div>
   <div v-show="!loading">
-    <button @click="guestSignUp">Let's use the Grim Reaper Timer</button>
+    <button @click="guestSignUp">Let's Start !</button>
   </div>
   <div v-show="loading">
     <div class="loading-block">
@@ -84,7 +84,7 @@
       <div class="loading-circle"></div>
     </div>
   </div>
-  <p class="guest-login">( Guest LogIn )</p>
+  <p class="guest-login">( ゲストログインで当サービスをお試しいただけます。 )</p>
   <div class="error">{{ guestSignupError }}</div>
   <div class="line"></div>
   <p class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />アカウントをお持ちの方は <span>LogIN</span>リンクからログインして下さい。</p>
@@ -288,8 +288,9 @@
     color: #D9D9D9;
     background: #8F0B0B;
     cursor: pointer;
-    margin-left: 500px;
+    margin-left: 585px;
     padding: 10px 30px;
+    width: 250px;
   }
   button:hover {
     color: #D9D9D9;
@@ -298,8 +299,7 @@
 
   .guest-login {
     text-align: center;
-    font-family: 'IM Fell English SC', serif;
-    font-size: 20px;
+    color: #BFBFBF;
   }
   .line {
     margin: -10px auto;
