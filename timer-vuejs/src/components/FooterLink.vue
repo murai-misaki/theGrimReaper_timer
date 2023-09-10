@@ -2,7 +2,7 @@
   <div class="footer-line"></div>
   <footer class="footer">
   <div class="md-flex md-justify-between">
-      <p><span>the Grim Reaper Timer</span><br>shinigami-timer.com 2023</p>
+      <p><span>the Grim Reaper Timer</span><br>shinigami-timer.com</p>
     <ul class="footer__navi flex">
       <li @click="redirectToTermsOfServicePage">利用規約</li>
       <li @click="redirectToPrivacyPolicyPage">プライバシーポリシー</li>
