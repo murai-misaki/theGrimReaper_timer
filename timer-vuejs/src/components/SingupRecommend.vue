@@ -13,16 +13,17 @@
     <p class="text-left">1時間座り続けたことで<br>縮んだ寿命の合計時間を知れる</p>
     <p class="text-center-left">1日ごとの座っている時間と1時間座り続けたことで<br>縮んだ寿命を記録し、直近1週間分をグラフ化</p>
     <p class="text-center-right">ブレイクタイム時に行った1日ごとの<br>身体活動量を記録し、直近1週間分をグラフ化</p>
-    <p class="text-right">ユーザーの1時間座り続けたことで<br>縮んだ寿命の合計時間を週間ランキングに</p>
+    <p class="text-right">死神が縮めた寿命・身体活動量の<br>リアルタイム週間ランキング</p>
   </div>
-  <p class="text-right-purpose">→ 前向きに座りすぎを改善することに取り組める<br>ユーザー同士のスタンプコミュニケーション機能付き<br>(※ 自分のランキングの公開・非公開 は選択できます)</p>
+  <p class="text-right-purpose">(※ 自分のランキングの公開・非公開 は選択できます)</p>
   <div class="line2"></div>
   <div v-show="!loading">
     <div class="button-group">
       <button @click="redirectToTopPage" class="left">To Top</button>
       <button @click="openChangeToLoginuserModal" class="right">Sign Up</button>
     </div>
-    <p class="attention">※ 今回のタイマー記録も引き継げます。</p>
+    <p class="attention-left">(※ ゲストアカウントを削除し、トップページに戻ります。)</p>
+    <p class="attention-right">(※ 今回のタイマー記録も引き継げます。)</p>
   </div>
   <div v-show="loading">
     <div class="loading-block">
@@ -172,7 +173,7 @@
     text-align: center;
   }
   .text-right {
-    margin-left: 37px;
+    margin-left: 60px;
     font-size: 12px;
     text-align: center;
   }
@@ -222,8 +223,15 @@
     color: #D9D9D9;
     background: rgba(90, 3, 3, 0.6);
   }
-  .attention {
+  .attention-left {
+    font-size: 9px;
+    margin-left: 362px;
+    color: #BFBFBF;
+  }
+  .attention-right {
     font-size: 11px;
-    margin-left: 830px;
+    margin-left: 825px;
+    margin-top: -25px;
+    color: #BFBFBF;
   }
 </style>
