@@ -26,7 +26,6 @@
         <button @click="openLowbackPainModal" class="exercise-button3">腰痛・膝痛予防</button>
         <button @click="openLegMuscleModal" class="exercise-button4">下肢筋力アップ</button>
         <button @click="openLocomoCheckModal" class="exercise-button5">ロコモチェック</button>
-        <button @click="openDrinkWater" class="exercise-button6">水を飲みましょう</button>
       </div>
       <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
     </div>
@@ -47,7 +46,6 @@
     <LowbackPain ref="lowbackPain" />
     <LegMuscle ref="legMuscle" />
     <LocomoCheck ref="locomoCheck" />
-    <DrinkWater ref="drinkWater" />
   </div>
 </template>
 
@@ -66,10 +64,9 @@
   import LowbackPain  from '../components/LowbackPain.vue'
   import LegMuscle from '../components/LegMuscle.vue'
   import LocomoCheck from '../components/LocomoCheck.vue'
-  import DrinkWater from '../components/DrinkWater.vue'
 
   export default {
-    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal, FullBody, ShoulderPain, LowbackPain, LegMuscle, LocomoCheck, DrinkWater },
+    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal, FullBody, ShoulderPain, LowbackPain, LegMuscle, LocomoCheck },
 
     data () {
       return {
@@ -166,9 +163,6 @@
       },
       openLocomoCheckModal () {
         this.$refs.locomoCheck.open()
-      },
-      openDrinkWater () {
-        this.$refs.drinkWater.open()
       },
       showLoading () {
         this.loading = true
@@ -293,7 +287,9 @@
     overflow: hidden;
     transition: .6s;
     background: #000000;
+    margin-left: 55px;
     cursor: pointer;
+    font-size: 14px;
   }
   .exercise-button1:hover {
     background: rgba(10, 71, 20, 0.6);
@@ -311,8 +307,9 @@
     overflow: hidden;
     transition: .6s;
     background: #000000;
-    margin-left: 35px;
+    margin-left: 50px;
     cursor: pointer;
+    font-size: 14px;
   }
   .exercise-button2:hover {
     background: rgba(10, 71, 20, 0.6);
@@ -330,8 +327,9 @@
     overflow: hidden;
     transition: .6s;
     background: #000000;
-    margin-left: 35px;
+    margin-left: 50px;
     cursor: pointer;
+    font-size: 14px;
   }
   .exercise-button3:hover {
     background: rgba(10, 71, 20, 0.6);
@@ -349,8 +347,9 @@
     overflow: hidden;
     transition: .6s;
     background: #000000;
-    margin-left: 35px;
+    margin-left: 50px;
     cursor: pointer;
+    font-size: 14px;
   }
   .exercise-button4:hover {
     background: rgba(10, 71, 20, 0.6);
@@ -367,31 +366,12 @@
     overflow: hidden;
     transition: .4s;
     background: #000000;
-    margin-left: 35px;
+    margin-left: 50px;
     cursor: pointer;
+    font-size: 14px;
   }
   .exercise-button5:hover {
     background: rgba(10, 71, 20, 0.6);
-  }
-
-  .exercise-button6 {
-    display: inline-block;
-    text-decoration: none;
-    color: #D9D9D9;
-    width: 130px;
-    height: 130px;
-    line-height: 120px;
-    border-radius: 50%;
-    border: solid 2px #D9D9D9;
-    overflow: hidden;
-    transition: .4s;
-    background: #000000;
-    margin-left: 35px;
-    cursor: pointer;
-  }
-
-  .exercise-button6:hover {
-    background: rgba(12, 63, 109, 0.6);
   }
   p.exercise-reference {
     color: #BFBFBF;

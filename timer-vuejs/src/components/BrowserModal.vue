@@ -94,7 +94,7 @@
     height: 650px;
     transform: translate(-50%,-50%);
     padding: 20px 65px 120px 65px;
-    margin-top: 80px;
+    margin-top: 70px;
     border: 2px solid #FFFFFF;
   }
   .modal_close_btn {

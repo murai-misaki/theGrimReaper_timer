@@ -13,7 +13,7 @@
     <p class="text-left">1時間座り続けたことで<br>縮んだ寿命の合計時間を知れる</p>
     <p class="text-center-left">1日ごとの座っている時間と1時間座り続けたことで<br>縮んだ寿命を記録し、直近1週間分をグラフ化</p>
     <p class="text-center-right">ブレイクタイム時に行った1日ごとの<br>身体活動量を記録し、直近1週間分をグラフ化</p>
-    <p class="text-right">死神が縮めた寿命・身体活動量の<br>リアルタイム週間ランキング</p>
+    <p class="text-right">・死神が縮めた寿命ランキング<br>・1日の身体活動量ランキング</p>
   </div>
   <p class="text-right-purpose">(※ 自分のランキングの公開・非公開 は選択できます)</p>
   <div class="line2"></div>
@@ -175,7 +175,7 @@
   .text-right {
     margin-left: 60px;
     font-size: 12px;
-    text-align: center;
+    text-align: left;
   }
   .text-right-purpose {
     font-size: 9px;
