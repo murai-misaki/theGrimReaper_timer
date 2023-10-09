@@ -5,7 +5,7 @@
       <h1 class="neontext">How to Use</h1>
       <p class="subtitle">''アプリの主な使い方4ステップ''</p>
       <p class="body"><span class="number">1.</span><span class="red">30分ごとに</span>立ち上がりのお知らせを致します。</p>
-      <p class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />タイマーの通知が届かない場合<br>・ご使用のブラウザの通知をオフにしている可能性があります。端末の設定画面から使用されているブラウザアプリの通知をオンにしてください。<br>・端末がスリープ状態になっている場合もタイマーの通知が届きません。</p>
+      <p class="attention"><font-awesome-icon :icon="['fas', 'triangle-exclamation']" />端末がスリープ状態になっている場合は、タイマーの通知が届きませんのでご注意ください。</p>
       <p class="body"><span class="number">2.</span> 30分経過して通知が来ましたら、<span class="red">アプリ画面にて''立ち上がるか''を教えてください</span>。</p>
       <span class="attention">※ 1時間座り続けたことで縮んだ寿命の時間を正確にお伝えする為に、正直にお答えください。</span>
       <div class="group">
@@ -96,10 +96,10 @@
     left: 50%;
     background-color: #000000;
     width: 750px;
-    height: 620px;
+    height: 550px;
     transform: translate(-50%,-50%);
-    padding: 20px 65px 120px 65px;
-    margin-top: 80px;
+    padding: 20px 50px 100px 50px;
+    margin-top: 5px;
     border: 2px solid #FFFFFF;
   }
   .modal_close_btn {
@@ -111,7 +111,7 @@
     font-size: 25px;
     width: 300px;
     margin-left:240px;
-    margin-top: 50px;
+    margin-top: 30px;
     font-family: 'IM Fell English SC', serif;
     max-width: 280px;
     padding: 10px 25px;
@@ -132,11 +132,11 @@
       0 0 7px #fff,
       0 0 10px #fff,
       0 0 21px #fff,
-      0 0 42px #0fa,
-      0 0 82px #0fa,
-      0 0 92px #0fa,
-      0 0 102px #0fa,
-      0 0 151px #0fa;
+      0 0 42px #D9D9D9,
+      0 0 82px #D9D9D9,
+      0 0 92px #D9D9D9,
+      0 0 102px #D9D9D9,
+      0 0 151px #D9D9D9;
   }
   h1.neontext {
     color: #fff;
@@ -150,22 +150,22 @@
       0 0 4px #fff,
       0 0 11px #fff,
       0 0 19px #fff,
-      0 0 40px #0fa,
-      0 0 80px #0fa,
-      0 0 90px #0fa,
-      0 0 100px #0fa,
-      0 0 150px #0fa;
+      0 0 40px #D9D9D9,
+      0 0 80px #D9D9D9,
+      0 0 90px #D9D9D9,
+      0 0 100px #D9D9D9,
+      0 0 150px #D9D9D9;
     }
     0% {
       text-shadow:
       0 0 4px #fff,
       0 0 10px #fff,
       0 0 18px #fff,
-      0 0 38px #0fa,
-      0 0 73px #0fa,
-      0 0 80px #0fa,
-      0 0 94px #0fa,
-      0 0 140px #0fa;
+      0 0 38px #D9D9D9,
+      0 0 73px #D9D9D9,
+      0 0 80px #D9D9D9,
+      0 0 94px #D9D9D9,
+      0 0 140px #D9D9D9;
     }
   }
 

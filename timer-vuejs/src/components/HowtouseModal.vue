@@ -101,10 +101,9 @@
     left: 50%;
     background-color: #000000;
     width: 750px;
-    height: 600px;
     transform: translate(-50%,-50%);
-    padding: 20px 65px 110px 65px;
-    margin-top: 80px;
+    padding: 20px 50px 40px 50px;
+    margin-top: 5px;
     border: 2px solid #FFFFFF;
   }
   .modal_close_btn {
@@ -118,11 +117,11 @@
       0 0 7px #fff,
       0 0 10px #fff,
       0 0 21px #fff,
-      0 0 42px #0fa,
-      0 0 82px #0fa,
-      0 0 92px #0fa,
-      0 0 102px #0fa,
-      0 0 151px #0fa;
+      0 0 42px #D9D9D9,
+      0 0 82px #D9D9D9,
+      0 0 92px #D9D9D9,
+      0 0 102px #D9D9D9,
+      0 0 151px #D9D9D9;
   }
   h1.neontext {
     color: #fff;
@@ -136,26 +135,27 @@
       0 0 4px #fff,
       0 0 11px #fff,
       0 0 19px #fff,
-      0 0 40px #0fa,
-      0 0 80px #0fa,
-      0 0 90px #0fa,
-      0 0 100px #0fa,
-      0 0 150px #0fa;
+      0 0 40px #D9D9D9,
+      0 0 80px #D9D9D9,
+      0 0 90px #D9D9D9,
+      0 0 100px #D9D9D9,
+      0 0 150px #D9D9D9;
     }
     0% {
       text-shadow:
       0 0 4px #fff,
       0 0 10px #fff,
       0 0 18px #fff,
-      0 0 38px #0fa,
-      0 0 73px #0fa,
-      0 0 80px #0fa,
-      0 0 94px #0fa,
-      0 0 140px #0fa;
+      0 0 38px #D9D9D9,
+      0 0 73px #D9D9D9,
+      0 0 80px #D9D9D9,
+      0 0 94px #D9D9D9,
+      0 0 140px #D9D9D9;
     }
   }
   .open-icon {
     padding-left: 10px;
+    font-size: 12px;
   }
   span.border {
     cursor: pointer;
