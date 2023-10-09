@@ -4,8 +4,8 @@
   <div class="introduction">
     <h2>30分ごとに立ち上がりのお知らせを致します</h2>
     <div class="explanation">
-      <span>‘’ 30分に一度3分、立って動く ‘’</span>
-      <p>一回に座ったまま過ごす時間が30分を超えないようにすること。<br>これで座りすぎのリスクはかなり減らせます。</p>
+      <span class="red">‘’ 30分に一度3分、立って動く ‘’</span>
+      <p>一回に座ったまま過ごす時間が30分を超えないようにすること。<br>これで座りすぎのリスクはかなり減らせます。<br><span class="postscript">※ デスクワークにおいて、夕方の疲労感が圧倒的に改善されたというデータもあります。</span></p>
     </div>
   </div>
   <div class="introduction">
@@ -22,40 +22,37 @@
     </div>
   </div>
   <div class="introduction">
-    <h2>危機感を持つことで、30分に1回の立ち上がりを怠らないように促す機能</h2>
+    <h2>座りすぎで縮んだ寿命を可視化し、その危機感から<br>「30分に1回立ち上がること」を怠らないように促す機能</h2>
     <div class="body">
       <img src="../assets/img/to_introduce1.png" alt="該当の機能画面" class="img-left" >
       <span class="number number-right">1</span>
-      <p class="text-right">立ち上がらずに座り続けて1時間が経過すると、<br>座りすぎによって縮んだ寿命がリアルタイムで表示</p>
+      <p class="text-right">立ち上がらずに座り続けて1時間が経過すると、<br>座りすぎによって縮んだ寿命がリアルタイムで表示されます</p>
     </div>
     <div class="body">
       <span class="number number-left">2</span>
-      <p class="text-left">1日ごとの、座っている時間と<br>1時間座り続けたことで縮んだ寿命を記録し、<br>直近1週間分をグラフ化</p>
+      <p class="text-left">1日ごとの、座っている時間と<br>1時間座り続けたことで縮んだ寿命を記録し、<br>直近1週間分をグラフ化します</p>
       <img src="../assets/img/to_introduce2.png" alt="該当の機能画面" class="img-right" >
     </div>
     <div class="body-last">
-      <img src="../assets/img/to_introduce3.png" alt="該当の機能画面" class="img-left" >
+      <img src="../assets/img/to_introduce3.png" alt="該当の機能画面" class="img-left3" >
       <span class="number number-right3">3</span>
-      <p class="text-right3">1時間座り続けたことで縮んだ寿命の合計時間を知れる</p>
+      <p class="text-right3">1時間座り続けたことで縮んだ寿命の合計時間を知れます</p>
     </div>
   </div>
   <div class="introduction">
-    <h2>1日8時間以上座ることによって高まる罹患リスクや死亡リスク、<br>身体活動不足、水分不足も対策できる機能が備わっています</h2>
+    <h2>1日8時間以上座ることによって高まる罹患リスクや死亡リスク、<br>身体活動不足についても対策できる機能が備わっています</h2>
     <div class="body">
       <img src="../assets/img/to_introduce4.png" alt="該当の機能画面" class="img-left" >
       <span class="number number-right4">1</span>
-      <p class="text-right4">1日に8時間以上座り続けている場合に注意喚起<br>罹患リスクや死亡リスクが高まるのを防ぐ機能</p>
+      <p class="text-right4">1日に8時間以上座り続けている場合に注意喚起を行い、<br>罹患リスクや死亡リスクが高まるのを防ぎます</p>
     </div>
     <div class="body">
       <div>
         <div class="number5">
           <span class="number number-left5">2</span>
-          <p class="text-left5">ブレイクタイム時に<br>体を動かす4ジャンル計13種類<br>1分程度の軽い運動をご紹介</p>
+          <p class="text-left5">立ち上がって3分間のブレイクタイム時に<br>体を動かす4ジャンル計13種類<br>1分程度の軽い運動をご紹介します</p>
         </div>
-        <div class="number6">
-          <span class="number number-left6">3</span>
-          <p class="text-left6">30分に1回水分補給を促すメッセージを表示</p>
-        </div>
+        <p class="genre">1. 全身バランスよく(ラジオ体操)<br>2. 肩こり・肩痛予防<br>3. 腰痛・膝痛予防<br>4. 下肢筋力アップ</p>
       </div>
       <div>
         <img src="../assets/img/to_introduce5.png" alt="該当の機能画面" class="img-right5" >
@@ -67,8 +64,8 @@
       </div>
       <div>
         <div class="number7">
-          <span class="number number-right7">4</span>
-          <p class="text-right7">ブレイクタイム時に行った<br>1日ごとの身体活動量を記録し、<br>直近1週間分をグラフ化</p>
+          <span class="number number-right7">3</span>
+          <p class="text-right7">ブレイクタイム時に行った<br>1日ごとの身体活動量を記録し、<br>直近1週間分をグラフ化します</p>
         </div>
         <p class="reference">1日の身体活動量が10分(1回1分の運動を10回)増加すると、<br>3.2%のリスク※が減少することが明らかになっています。<br><span>※ 死亡、生活習慣病・がん・ロコモ・認知症の発症 (厚生労働省 : 健康づくりのための身体活動基準2013)</span></p>
       </div>
@@ -116,14 +113,15 @@
     font-weight: normal;
     text-align: center;
     background: rgba(73, 73, 73, 0.87);
+    border: 1px solid rgba(207, 207, 207, 0.51);
     width: 800px;
     margin: 40px auto;
   }
-  .explanation span {
+  .explanation span.red {
     color: #CB0101;
     padding-top: 28px;
     margin-left: 120px;
-    font-size: 18px;
+    font-size: 19px;
   }
   .explanation {
     display: flex;
@@ -134,14 +132,14 @@
     margin-left: 30px;
     font-size: 16px;
   }
-
+  span.postscript {
+    color: #BFBFBF;
+    font-size: 12px;
+  }
   .notification {
     display: flex;
     margin-top: -30px;
     margin-bottom: 25px;
-  }
-  .notification span {
-    color: #B4B4B4;
   }
   .sound {
     font-size: 20px;
@@ -209,6 +207,10 @@
     margin-left: 20px;
     margin-top: 35px;
   }
+  .img-left3 {
+    margin-left: 30px;
+    width: 300px;
+  }
 
   p.text-right3 {
     font-size: 18px;
@@ -234,9 +236,6 @@
   .number5 {
     display: flex;
   }
-  .number6 {
-    display: flex;
-  }
   span.number-left5 {
     font-size: 60px;
     margin-left: 80px;
@@ -247,17 +246,14 @@
     margin-left: 20px;
     margin-top: 5px;
   }
-  span.number-left6 {
-    font-size: 60px;
-    margin-left: 80px;
-  }
-  p.text-left6 {
-    font-size: 18px;
-    margin-left: 20px;
-    margin-top: 35px;
+  p.genre {
+    font-size: 14px;
+    color: #BFBFBF;
+    margin-left: 140px;
+    margin-top: -10px;
   }
   .img-right5 {
-    margin-left: 70px;
+    margin-left: 90px;
   }
   span.number-right7 {
     margin-left: 30px;
