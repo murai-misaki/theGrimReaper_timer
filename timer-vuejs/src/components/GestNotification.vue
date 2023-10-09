@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h2 class="neontext">30分ごとに立ち上がりのお知らせを致します。</h2>
+    <h2 @click="openShowDetail" class="neontext">30分ごとに立ち上がりのお知らせを致します。<font-awesome-icon :icon="['fas', 'chevron-down']" style="color: #D9D9D9;" class="open-icon" /></h2>
 
-    <div class="explanation">
-      <span>‘’ 30分に一度3分、立って動く ‘’</span>
-      <p>一回に座ったまま過ごす時間が30分を超えないようにすること。これで座り過ぎのリスクはかなり減らせます。</p>
+    <div v-show="showDetail" class="explanation">
+      <span class="red">‘’ 30分に一度3分、立って動く ‘’</span>
+      <p>一回に座ったまま過ごす時間が30分を超えないようにすること。<br>これで座り過ぎのリスクはかなり減らせます。<br><span class="postscript">※ デスクワークにおいて、夕方の疲労感が圧倒的に改善されたというデータもあります。</span></p>
     </div>
 
     <div class="question">
-      <p>お知らせ方法はどちらをご希望でしょうか？</p>
+      <h3>お知らせ方法はどちらをご希望でしょうか？</h3>
     </div>
 
     <div class="selection">
@@ -52,14 +52,18 @@
 
     data () {
       return {
+        showDetail: false,
         radio: 'false'
       }
     },
     mounted () {
       onedaytimeRemoveItem()
-      window.scrollTo(0, 40);
+      window.scrollTo(0, 20);
     },
     methods: {
+      openShowDetail () {
+        this.showDetail = !this.showDetail
+      },
       async createNotification () {
         this.$emit('showLoading')
         try {
@@ -92,21 +96,39 @@
   }
   h2 {
     font-weight: normal;
+    margin-left: 20px;
+    cursor: pointer;
   }
-  span {
+  span.red {
     color: #CB0101;
     font-size: 18px;
+    padding-top: 25px;
+    margin-left: 110px;
+  }
+  .explanation {
+    border-top: 0.1px solid #525151;
+    display: flex;
   }
   .explanation p {
-    padding-bottom: 20px;
-    border-bottom: 0.1px solid #525151;
+    margin-left: 30px;
+    text-align: left;
   }
-  .question p {
-    width: 480px;
-    margin-top: 40px;
+  span.postscript {
+    color: #BFBFBF;
+    font-size: 14px;
+    text-align: left;
+  }
+  .question h3 {
+    font-weight: normal;
+    width: 470px;
+    margin-top: 30px;
     margin-bottom: 15px;
     margin-left: 240px;
+    border: 0.1px solid #525151;
     background-color: rgba(40, 40, 40, 0.99);
+  }
+  .open-icon {
+    font-size: 15px;
   }
 
   input[type="radio"] {
@@ -181,11 +203,11 @@
       0 0 4px #fff,
       0 0 11px #fff,
       0 0 19px #fff,
-      0 0 40px #0fa,
-      0 0 80px #0fa,
-      0 0 90px #0fa,
-      0 0 100px #0fa,
-      0 0 150px #0fa;
+      0 0 40px #D9D9D9,
+      0 0 80px #D9D9D9,
+      0 0 90px #D9D9D9,
+      0 0 100px #D9D9D9,
+      0 0 150px #D9D9D9;
     } 
     20%, 24%, 55% {
       text-shadow: none;

@@ -9,53 +9,53 @@
       <div class="notification">
         <h1 class="neontext">Notification</h1>
         <p class="title">30分ごとに立ち上がりのお知らせを致します。</p>
-      <div class="question">
-        <p>お知らせ方法を変更されますか？</p>
-      </div>
+        <div class="question">
+          <p>お知らせ方法を変更されますか？</p>
+        </div>
 
-      <div class="selection">
-        <div class="sound-group">
-          <div>
-            <input type="radio" id="sound" v-model="radio" value="false">
-            <label for="sound">サウンド通知</label>
+        <div class="selection">
+          <div class="sound-group">
+            <div>
+              <input type="radio" id="sound" v-model="radio" value="false">
+              <label for="sound">サウンド通知</label>
+            </div>
+            <div>
+              <font-awesome-icon :icon="['fas', 'volume-up']" style="color: #D9D9D9;" />
+              音でお知らせ
+            </div>
           </div>
-          <div>
-            <font-awesome-icon :icon="['fas', 'volume-up']" style="color: #D9D9D9;" />
-            音でお知らせ
-          </div>
-        </div>
-        <div class="line"></div>
+          <div class="line"></div>
 
-        <div class="push-group">
-          <div>
-            <input type="radio" id="push" v-model="radio" value="true">
-            <label for="push">プッシュ通知</label>
-          </div>
-          <div>
-            <font-awesome-icon :icon="['fas', 'eye']" style="color: #D9D9D9;" />
-            視覚でお知らせ
+          <div class="push-group">
+            <div>
+              <input type="radio" id="push" v-model="radio" value="true">
+              <label for="push">プッシュ通知</label>
+            </div>
+            <div>
+              <font-awesome-icon :icon="['fas', 'eye']" style="color: #D9D9D9;" />
+              視覚でお知らせ
+            </div>
           </div>
         </div>
-      </div>
-      <button @click="push" class="push-button">プッシュ通知の許可をお願いします</button>
-      <p class="attention">
-        ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に許可になっている場合は表示されません)
-      </p>
-      <div v-show="!loading">
-        <button class="update-button" @click="updateNotification">更新</button>
-      </div>
-      <div v-show="loading" class="loading-space">
-        <div class="loading-block">
-          <div class="loading-circle"></div>
-          <div class="loading-circle"></div>
-          <div class="loading-circle"></div>
+        <button @click="push" class="push-button">プッシュ通知の許可をお願いします</button>
+        <p class="attention">
+          ※ プッシュ通知の許可を要求するポップアップが表示されます。<br>(既に許可になっている場合は表示されません)
+        </p>
+        <div v-show="!loading">
+          <button class="update-button" @click="updateNotification">更新</button>
         </div>
-      </div>
-      <div v-show="flashMessage" class="flash_message">
-        <p>お知らせ方法を更新しました。</p>
+        <div v-show="loading" class="loading-space">
+          <div class="loading-block">
+            <div class="loading-circle"></div>
+            <div class="loading-circle"></div>
+            <div class="loading-circle"></div>
+          </div>
+        </div>
+        <div v-show="flashMessage" class="flash_message">
+          <p>お知らせ方法を更新しました。</p>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -227,14 +227,14 @@
   }
 
   p.title {
-    border-bottom: 0.1px solid #525151;
-    width: 380px;
-    margin: 0 auto;
     text-align: center;
-    background-color: rgba(40, 40, 40, 0.99);
   }
   .question p {
     text-align: center;
+    width: 380px;
+    margin: 0 auto;
+    border: 0.1px solid #525151;
+    background-color: rgba(40, 40, 40, 0.99);
   }
 
   input[type="radio"] {
