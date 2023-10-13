@@ -2,14 +2,17 @@
   <div class="container">
     <div class="timerpage-top-space"></div>
     <div class="icon-group">
+      <div @click="openChatModal">
+        <font-awesome-icon :icon="['fas', 'comment-dots']" style="color: #D9D9D9;" class="chat-icon" />
+      </div>
       <div @click="openNotificationModal">
-        <font-awesome-icon :icon="['fas', 'gear']" style="color: #D9D9D9;" class="setting-icon" />
+        <font-awesome-icon :icon="['fas', 'gear']" style="color: #D9D9D9;" />
       </div>
       <div @click="openHowtouseModal">
         <font-awesome-icon :icon="['fas', 'circle-question']" style="color: #D9D9D9;" class="question-icon" />
       </div>
       <div @click="openHealthriskModal">
-        <font-awesome-icon :icon="['fas', 'book-skull']" style="color: #D9D9D9;" class="skull-icon" />
+        <font-awesome-icon :icon="['fas', 'book-skull']" style="color: #D9D9D9;" />
       </div>
     </div>
     <div v-if="showTimer">
@@ -29,6 +32,7 @@
       </div>
       <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
     </div>
+    <ChatModal ref="chatModal" :messages="messages" @connectCable="connectCable" />
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
@@ -51,8 +55,10 @@
 
 <script>
   import axios from 'axios'
+  import ActionCable from 'actioncable'
   import CountupTimer from '../components/CountupTimer.vue'
   import BreaktimeTimer from '../components/BreaktimeTimer.vue'
+  import ChatModal from '../components/ChatModal.vue'
   import NotificationModal from '../components/NotificationModal.vue'
   import HowtouseModal from  '../components/HowtouseModal.vue'
   import HealthriskModal from '../components/HealthriskModal.vue'
@@ -66,7 +72,7 @@
   import LocomoCheck from '../components/LocomoCheck.vue'
 
   export default {
-    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal, FullBody, ShoulderPain, LowbackPain, LegMuscle, LocomoCheck },
+    components: { CountupTimer, BreaktimeTimer, ChatModal, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal, FullBody, ShoulderPain, LowbackPain, LegMuscle, LocomoCheck },
 
     data () {
       return {
@@ -79,10 +85,23 @@
         todayExercise: Number(window.localStorage.getItem('todayExercise')),
         todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
         loading: false,
+        messages: [],
       }
     },
     mounted () {
+      const cable = ActionCable.createConsumer(process.env.VUE_APP_WS_URL)
+      this.messageChannel = cable.subscriptions.create('RoomChannel', {
+        connected: () => {
+          this.getMessages()
+        },
+        received: () => {
+          this.getMessages()
+        }
+      })
       window.addEventListener("beforeunload", this.confirmSave);
+    },
+    beforeUnmount () { 
+      this.messageChannel.unsubscribe()
     },
     unmounted () {
       window.removeEventListener("beforeunload", this.confirmSave);
@@ -104,6 +123,9 @@
         } catch (error) {
           console.log(error)
         }
+      },
+      openChatModal () {
+        this.$refs.chatModal.open()
       },
       openNotificationModal () {
         this.$refs.notificationModal.open()
@@ -169,6 +191,30 @@
       },
       endLoading () {
         this.loading = false
+      },
+      async getMessages () {
+        try {
+          const res = await axios.get(process.env.VUE_APP_API_URL + `/messages`, {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client:window.localStorage.getItem('client')
+            }
+          })
+          if (!res) {
+            new Error('メッセージ一覧を取得できませんでした')
+          }
+          this.messages = res.data
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      connectCable (message, shinigami) {
+        this.messageChannel.perform('receive', {
+          message: message,
+          shinigami: shinigami,
+          email: window.localStorage.getItem('uid')
+        })
       }
     }
   }
@@ -239,11 +285,14 @@
   .icon-group {
     font-size: 30px;
     padding-bottom: 20px;
-    margin-left: 780px;
+    margin-left: 700px;
     display: flex
   }
   .icon-group div {
     cursor: pointer;
+  }
+  .chat-icon {
+    padding-right: 40px;
   }
   .question-icon {
     padding-left: 40px;

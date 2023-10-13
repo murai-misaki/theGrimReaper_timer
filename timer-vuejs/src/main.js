@@ -19,6 +19,8 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import { faHouse } from "@fortawesome/free-solid-svg-icons"
+import { faCommentDots } from "@fortawesome/free-solid-svg-icons"
+import { faHeart } from "@fortawesome/free-solid-svg-icons"
 
 library.add(faVolumeUp)
 library.add(faEye)
@@ -34,4 +36,6 @@ library.add(faUser)
 library.add(faChevronDown)
 library.add(faArrowRightFromBracket)
 library.add(faHouse)
+library.add(faCommentDots)
+library.add(faHeart)
 createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
