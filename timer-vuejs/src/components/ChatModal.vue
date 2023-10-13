@@ -15,7 +15,7 @@
                 <span class="heart-count">{{ message.likes.length }}</span>
               </div>
             </div>
-            <span class="created-at">{{ message.created_at }}</span>
+            <span class="created-at">{{ message.created_at }}前</span>
           </li>
         </ul>
       </div>
@@ -258,16 +258,20 @@ import axios from 'axios'
   }
 
   .heart-container {
+    background: #000000;
     position: absolute;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: 30px;
     min-width: 25px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D9D9D9;
     padding: 1px 2px;
     z-index: 2;
     bottom: -7px;
-    right: -15px;
+    right: 0px;
     font-size: 12px;
   }
   .heart {

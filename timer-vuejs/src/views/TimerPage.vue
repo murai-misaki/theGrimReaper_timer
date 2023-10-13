@@ -32,7 +32,7 @@
       </div>
       <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
     </div>
-    <ChatModal ref="chatModal" :messages="messages" @connectCable="connectCable" />
+    <ChatModal ref="chatModal" :messages="formattedMessages" @connectCable="connectCable" />
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
@@ -56,6 +56,8 @@
 <script>
   import axios from 'axios'
   import ActionCable from 'actioncable'
+  import { formatDistanceToNow } from 'date-fns'
+  import { ja } from 'date-fns/locale'
   import CountupTimer from '../components/CountupTimer.vue'
   import BreaktimeTimer from '../components/BreaktimeTimer.vue'
   import ChatModal from '../components/ChatModal.vue'
@@ -106,6 +108,15 @@
     unmounted () {
       window.removeEventListener("beforeunload", this.confirmSave);
     },
+    computed: {
+      formattedMessages () {
+        if (!this.messages.length) { return [] }
+        return this.messages.map(message => {
+          let time = formatDistanceToNow(new Date(message.created_at), { locale: ja })
+          return { ...message, created_at: time }
+        })
+      }
+    },  
     methods: {
       async getNotification () {
         try {
