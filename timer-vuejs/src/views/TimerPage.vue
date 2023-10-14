@@ -94,10 +94,15 @@
       const cable = ActionCable.createConsumer(process.env.VUE_APP_WS_URL)
       this.messageChannel = cable.subscriptions.create('RoomChannel', {
         connected: () => {
-          this.getMessages()
+          this.getMessages().then(() => {
+            this.$refs.chatModal.scrollToBottom()
+            this.$refs.chatModal.close()
+          })
         },
         received: () => {
-          this.getMessages()
+          this.getMessages().then(() => {
+            this.$refs.chatModal.scrollToBottom()
+          })
         }
       })
       window.addEventListener("beforeunload", this.confirmSave);

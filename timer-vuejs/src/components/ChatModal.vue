@@ -4,7 +4,7 @@
     <div class="modal_contents_wrap">
       <span @click="close" class="modal_close_btn"><font-awesome-icon :icon="['fas', 'xmark']" style="color: #D9D9D9;" /></span>
       <h1 class="neontext">Chat</h1>
-      <div v-if="messages" class="messages">
+      <div v-if="messages" class="messages" ref="messages">
         <ul v-for="message in messages" :key="message.id">
           <li :class="{ received: message.email !== uid, sent: message.email === uid }">
             <span class="name">{{ message.name }}</span>
@@ -34,7 +34,7 @@ import axios from 'axios'
 
     data () {
       return {
-        show: false,
+        show: true,
         uid: localStorage.getItem('uid'),
         newMessage: '',
         shinigami: false
@@ -44,9 +44,11 @@ import axios from 'axios'
       open () {
         this.show = true
         window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
       },
       close () {
         this.show = false
+        document.body.style.overflow = 'auto';
       },
       handleSubmit () {
         this.$emit('connectCable', this.newMessage, this.shinigami)
@@ -98,6 +100,10 @@ import axios from 'axios'
           console.log(error)
         }      
       },
+      scrollToBottom () {
+        const element = this.$refs.messages
+        element.scrollTop = element.scrollHeight
+      },
     }
   }
 </script>
@@ -123,7 +129,7 @@ import axios from 'axios'
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 940px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;
@@ -132,12 +138,12 @@ import axios from 'axios'
     background-color: #000000;
     width: 750px;
     transform: translate(-50%,-50%);
-    padding: 20px 50px 40px 50px;
+    padding: 10px 40px 30px 40px;
     margin-top: 5px;
     border: 2px solid #FFFFFF;
   }
   .modal_close_btn {
-    margin-left: 760px;
+    margin-left: 750px;
     cursor: pointer;
   }
 
