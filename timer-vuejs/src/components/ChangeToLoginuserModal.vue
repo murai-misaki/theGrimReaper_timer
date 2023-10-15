@@ -46,9 +46,11 @@
       open () {
         this.show = true
         window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
       },
       close () {
         this.show = false
+        document.body.style.overflow = 'auto';
       },
       async userUpdate () {
         this.$emit('showLoading')
@@ -114,7 +116,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 900px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;
@@ -125,7 +127,7 @@
     height: 500px;
     transform: translate(-50%,-50%);
     padding: 10px 50px 70px 50px;
-    margin-top: 30px;
+    margin-top: 5px;
     border: 2px solid #FFFFFF;
   }
   .modal_close_btn {

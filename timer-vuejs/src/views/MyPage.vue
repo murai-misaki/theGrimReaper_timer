@@ -100,6 +100,7 @@
     mounted () {
       this.showSitting()
       onedaytimeRemoveItem()
+      document.body.style.overflow = 'auto';
     },
     methods: {
       showExercise () {

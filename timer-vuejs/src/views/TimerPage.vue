@@ -21,7 +21,7 @@
     <div v-if="!showTimer">
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
     </div>
-    <div v-if="!showTimer">
+    <div v-show="!showTimer">
       <p class="exercise-title">体を動かしましょう。</p>
       <div class="exercise-button-group">
         <button @click="openFullBodyModal" class="exercise-button1">全身バランスよく</button>
@@ -36,15 +36,9 @@
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
-    <div v-show="showStandupModal">
-      <StandupModal @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
-    </div>
-    <div v-show="showShortenedLifespanModal">
-      <ShortenedLifespanModal :totalCountUp="totalCountUp" :todayExercise="todayExercise" :todayShortenedLifespan="todayShortenedLifespan" :loading="loading" @showLoading="showLoading" />
-    </div>
-    <div v-show="showRiskModal">
-      <RiskModal @closeRiskModal="closeRiskModal" />
-    </div>
+    <StandupModal ref="standupModal" @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
+    <ShortenedLifespanModal ref="shortenedLifespanModal" :totalCountUp="totalCountUp" :todayExercise="todayExercise" :todayShortenedLifespan="todayShortenedLifespan" :loading="loading" @showLoading="showLoading" />
+    <RiskModal ref="risakModal" />
     <FullBody ref="fullBody" />
     <ShoulderPain ref="shoulderPain" />
     <LowbackPain ref="lowbackPain" />
@@ -80,9 +74,6 @@
       return {
         showTimer: true,
         notificationWay: false,
-        showStandupModal: false,
-        showShortenedLifespanModal: false,
-        showRiskModal: false,
         totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
         todayExercise: Number(window.localStorage.getItem('todayExercise')),
         todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
@@ -106,6 +97,7 @@
         }
       })
       window.addEventListener("beforeunload", this.confirmSave);
+      document.body.style.overflow = 'auto';
     },
     beforeUnmount () { 
       this.messageChannel.unsubscribe()
@@ -154,10 +146,10 @@
       },
       openStandupModal () {
         this.$refs.countupTimer.stop()
-        this.showStandupModal = true
+        this.$refs.standupModal.open()
       },
       showBreaktimeTimer () {
-        this.showStandupModal = false
+        this.$refs.standupModal.close()
         this.showTimer = false
       },
       showCountupTimer () {
@@ -166,23 +158,19 @@
         this.showTimer = true
       },
       restartCountupTimer () {
-        this.showStandupModal = false
+        this.$refs.standupModal.close()
         this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
         this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
         this.$refs.countupTimer.start()
       },
       openShortenedLifespanModal () {
-        window.scrollTo(0, 0);
-        this.showShortenedLifespanModal = true
+        this.$refs.shortenedLifespanModal.open()
         this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
         this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
         this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
       },
       openRiskModal () {
-        this.showRiskModal = true
-      },
-      closeRiskModal () {
-        this.showRiskModal = false
+        this.$refs.risakModal.open()
       },
       confirmSave (event) {
         event.returnValue = "タイマー記録は保存されませんが、よろしいですか？";

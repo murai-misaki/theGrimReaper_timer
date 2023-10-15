@@ -1,5 +1,5 @@
 <template>
-  <div class="modal_contents">
+  <div v-show="show" class="modal_contents">
     <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="neontext">Do you stand up？</h1>
@@ -16,9 +16,16 @@
   export default {
     data () {
       return {
+        show: false
       }
     },
     methods: {
+      open () {
+        this.show = true
+      },
+      close () {
+        this.show = false
+      },
       startBreaktimeTimer () {
         this.$emit('showBreaktimeTimer')
       },
@@ -53,7 +60,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 700px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;

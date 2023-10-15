@@ -1,5 +1,5 @@
 <template>
-  <div class="modal_contents">
+  <div v-show="show" class="modal_contents">
     <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="neontext">Thank you for using.</h1>
@@ -34,6 +34,7 @@
 
     data () {
       return {
+        show: false,
         onedaytimeTodayId: null,
         onedaytimeTodayCountUp: 0,
         onedaytimeTodayExercise: 0,
@@ -44,6 +45,11 @@
       }
     },
     methods: {
+      open () {
+        this.show = true
+        window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
+      },
       async getOnedaytimeToday () {
         try {
           const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times/today`, {
@@ -207,7 +213,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 700px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;
