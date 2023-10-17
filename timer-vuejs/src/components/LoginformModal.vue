@@ -68,7 +68,8 @@
         }
 
         if (!this.error) {
-          setItem(res.headers, res.data.data.guest, res.data.data.name)
+          setItem(res.headers, res.data.data.guest, res.data.data.name, res.data.data.privacy)
+          window.localStorage.setItem('riskUsed', false)
           this.$router.push({ name: 'Mypage' })
         }
         return res

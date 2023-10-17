@@ -6,8 +6,9 @@
       <h1 class="neontext">Chat</h1>
       <div v-if="messages" class="messages" ref="messages">
         <ul v-for="message in messages" :key="message.id">
-          <li :class="{ received: message.email !== uid, sent: message.email === uid }">
-            <span class="name">{{ message.name }}</span>
+          <li :class="messageClasses(message)">
+            <span v-if="message.shinigami" class="name">{{ message.name }}の死神</span>
+            <span v-else class="name">{{ message.name }}</span>
             <div class="message" @dblclick="handleLike(message)">
               {{ message.content }}
               <div v-if="message.likes.length" class="heart-container">
@@ -34,8 +35,8 @@ import axios from 'axios'
 
     data () {
       return {
-        show: true,
-        uid: localStorage.getItem('uid'),
+        show: false,
+        uid: window.localStorage.getItem('uid'),
         newMessage: '',
         shinigami: false
       }
@@ -45,6 +46,12 @@ import axios from 'axios'
         this.show = true
         window.scrollTo(0, 0);
         document.body.style.overflow = 'hidden';
+      },
+      openScrollToBottom () {
+        this.open()
+        this.$nextTick(() => {
+          this.scrollToBottom()
+        })
       },
       close () {
         this.show = false
@@ -103,6 +110,17 @@ import axios from 'axios'
       scrollToBottom () {
         const element = this.$refs.messages
         element.scrollTop = element.scrollHeight
+      },
+      messageClasses(message) {
+        const isSent = message.email === this.uid
+        const isShinigami = message.shinigami
+
+        return {
+          'received-shinigami': !isSent && isShinigami,
+          'received': !isSent && !isShinigami,
+          'sent-shinigami': isSent && isShinigami,
+          'sent': isSent && !isShinigami,
+        }
       },
     }
   }
@@ -200,23 +218,33 @@ import axios from 'axios'
     clear: both;
   }
   .received .message {
-    background: rgba(90, 3, 3, 0.6);
+    background: rgba(217, 217, 217, 0.2);
+    color: #D9D9D9;
     padding: 10px;
     display: inline-block;
     border: 1px solid #D9D9D9;
     border-radius: 30px;
     margin-bottom: 2px;
     max-width: 400px;
-    color: #D9D9D9;
   }
-  .received {
+  .received-shinigami .message, .sent-shinigami .message {
+    background: rgba(90, 3, 3, 0.6);
+    color: #D9D9D9;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #D9D9D9;
+    border-radius: 30px;
+    margin-bottom: 2px;
+    max-width: 400px;
+  }
+  .received, .received-shinigami {
     float: left;
   }
-  .sent {
+  .sent, .sent-shinigami {
     float: right;
   }
   .sent .message {
-    background: rgba(217, 217, 217, 0.2);
+    background: rgba(217, 217, 217, 0.3);
     color: #D9D9D9;
     padding: 10px;
     display: inline-block;

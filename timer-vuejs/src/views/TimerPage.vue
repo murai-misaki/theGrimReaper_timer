@@ -2,7 +2,7 @@
   <div class="container">
     <div class="timerpage-top-space"></div>
     <div class="icon-group">
-      <div @click="openChatModal">
+      <div v-show="guest === 'false'" @click="openChatModal">
         <font-awesome-icon :icon="['fas', 'comment-dots']" style="color: #D9D9D9;" class="chat-icon" />
       </div>
       <div @click="openNotificationModal">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div v-if="showTimer">
-      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" :totalCountUp="totalCountUp" :todayShortenedLifespan="todayShortenedLifespan" />
+      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" @connectCable="connectCable" :guest="guest" />
     </div>
     <div v-if="!showTimer">
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
@@ -37,7 +37,7 @@
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
     <StandupModal ref="standupModal" @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
-    <ShortenedLifespanModal ref="shortenedLifespanModal" :totalCountUp="totalCountUp" :todayExercise="todayExercise" :todayShortenedLifespan="todayShortenedLifespan" :loading="loading" @showLoading="showLoading" />
+    <ShortenedLifespanModal ref="shortenedLifespanModal" :loading="loading" @showLoading="showLoading" :guest="guest" />
     <RiskModal ref="risakModal" />
     <FullBody ref="fullBody" />
     <ShoulderPain ref="shoulderPain" />
@@ -74,33 +74,22 @@
       return {
         showTimer: true,
         notificationWay: false,
-        totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
-        todayExercise: Number(window.localStorage.getItem('todayExercise')),
-        todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
         loading: false,
         messages: [],
+        guest: window.localStorage.getItem('guest'),
       }
     },
     mounted () {
-      const cable = ActionCable.createConsumer(process.env.VUE_APP_WS_URL)
-      this.messageChannel = cable.subscriptions.create('RoomChannel', {
-        connected: () => {
-          this.getMessages().then(() => {
-            this.$refs.chatModal.scrollToBottom()
-            this.$refs.chatModal.close()
-          })
-        },
-        received: () => {
-          this.getMessages().then(() => {
-            this.$refs.chatModal.scrollToBottom()
-          })
-        }
-      })
+      if (this.guest === 'false') {
+        this.initializeMessageChannel()
+      }
       window.addEventListener("beforeunload", this.confirmSave);
       document.body.style.overflow = 'auto';
     },
     beforeUnmount () { 
-      this.messageChannel.unsubscribe()
+      if (this.guest === 'false') {
+        this.messageChannel.unsubscribe()
+      }
     },
     unmounted () {
       window.removeEventListener("beforeunload", this.confirmSave);
@@ -133,7 +122,7 @@
         }
       },
       openChatModal () {
-        this.$refs.chatModal.open()
+        this.$refs.chatModal.openScrollToBottom()
       },
       openNotificationModal () {
         this.$refs.notificationModal.open()
@@ -153,21 +142,14 @@
         this.showTimer = false
       },
       showCountupTimer () {
-        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
         this.showTimer = true
       },
       restartCountupTimer () {
         this.$refs.standupModal.close()
-        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
         this.$refs.countupTimer.start()
       },
       openShortenedLifespanModal () {
         this.$refs.shortenedLifespanModal.open()
-        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
-        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
       },
       openRiskModal () {
         this.$refs.risakModal.open()
@@ -195,6 +177,19 @@
       },
       endLoading () {
         this.loading = false
+      },
+      initializeMessageChannel () {
+        const cable = ActionCable.createConsumer(process.env.VUE_APP_WS_URL)
+        this.messageChannel = cable.subscriptions.create('RoomChannel', {
+          connected: () => {
+            this.getMessages()
+          },
+          received: () => {
+            this.getMessages().then(() => {
+              this.$refs.chatModal.scrollToBottom()
+            })
+          }
+        })
       },
       async getMessages () {
         try {

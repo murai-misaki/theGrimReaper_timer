@@ -100,6 +100,7 @@
     mounted () {
       this.showSitting()
       onedaytimeRemoveItem()
+      window.localStorage.setItem('riskUsed', false)
       document.body.style.overflow = 'auto';
     },
     methods: {
