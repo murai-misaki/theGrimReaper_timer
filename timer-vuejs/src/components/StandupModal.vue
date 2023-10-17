@@ -22,9 +22,12 @@
     methods: {
       open () {
         this.show = true
+        window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
       },
       close () {
         this.show = false
+        document.body.style.overflow = 'auto';
       },
       startBreaktimeTimer () {
         this.$emit('showBreaktimeTimer')

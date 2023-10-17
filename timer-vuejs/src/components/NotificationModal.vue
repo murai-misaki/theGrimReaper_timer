@@ -160,7 +160,7 @@
     padding: 10px 40px 30px 40px;
     margin-top: 5px;
     border: 2px solid #FFFFFF;
-    max-height: 600px;
+    max-height: 590px;
     overflow: auto;
   }
   .modal_close_btn {
@@ -258,7 +258,7 @@
   .attention {
     color: #BFBFBF;
     font-size: 13px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
   }
   .line1 {
     width: 700px;
@@ -344,7 +344,7 @@
   }
 
   .flash_message {
-    padding-top: 20px;
+    padding-top: 10px;
   }
   .flash_message p {
     border: 1px solid #BFBFBF;

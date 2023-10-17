@@ -113,7 +113,7 @@
   .password {
     border: 1px solid #D9D9D9;
     margin-left: 50px;
-    padding: 30px 120px;
+    padding: 30px 110px;
     margin-top: -20px;
     margin-bottom: 30px;
   }
