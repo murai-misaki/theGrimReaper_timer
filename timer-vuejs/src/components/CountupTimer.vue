@@ -15,11 +15,10 @@
 </template>
 
 <script>
-import Push from 'push.js';
 import axios from 'axios'
 
 export default {
-  props: ['notificationWay', 'guest'],
+  props: ['guest'],
 
   data() {
     return {
@@ -46,14 +45,11 @@ export default {
       shortenedLifespanMessage: '1時間座り続けたことで寿命を22分戴きました',
       riskMessage: '本日座っている時間が合計8時間を越えました。これ以上座り続けると、罹患リスクや死亡リスクが高まります',
       shinigami: true,
-
-      audio: new Audio(require('@/assets/sounds/Short_Gothic_02.mp3'))
     }
   },
   mounted() {
     this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
     this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
-    this.$emit('getNotification')
     this.getShortenedLifespanToday().then(() => {
       this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
     })
@@ -84,14 +80,9 @@ export default {
             this.countUp += 30;
           }
           window.localStorage.setItem('totalCountUp', this.countUp)
-          if (this.notificationWay === true) {
-            Push.create("座ったまま30分が経ちました", {
-              body: "アプリのタイマー画面にて立ち上がるか教えてください",
-              icon: require('@/assets/img/push_icon.png'),
-              requireInteraction: true
-            });
-          } else {
-            this.audio.play() // 鳴らす
+          this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+          if (this.riskUsed === 'false') {
+            this.riskCheck()
           }
           this.$emit('openStandupModal')
         }
@@ -104,6 +95,8 @@ export default {
             this.shortenedLifespan += 22;
           }
           window.localStorage.setItem('todayShortenedLifespan', this.shortenedLifespan)
+          this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
+          this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
           this.sentShortenedLifespanMessage()
         }
       }, 1000);
@@ -114,14 +107,6 @@ export default {
     },
     start() {
       this.timerOn = true;
-      this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-      this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
-      this.getShortenedLifespanToday().then(() => {
-        this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
-      })
-      if (this.riskUsed === 'false') {
-        this.riskCheck()
-      }
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     },
     end() {

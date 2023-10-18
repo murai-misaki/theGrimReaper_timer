@@ -13,17 +13,26 @@
 </template>
 
 <script>
+import Push from 'push.js';
+
   export default {
+    props: ['notificationWay'],
+
     data () {
       return {
-        show: false
+        show: false,
+        audio: new Audio(require('@/assets/sounds/Short_Gothic_02.mp3'))
       }
+    },
+    mounted() {
+      this.$emit('getNotification')
     },
     methods: {
       open () {
         this.show = true
         window.scrollTo(0, 0);
         document.body.style.overflow = 'hidden';
+        this.notification()
       },
       close () {
         this.show = false
@@ -34,6 +43,17 @@
       },
       restart () {
         this.$emit('restartCountupTimer')
+      },
+      notification () {
+        if (this.notificationWay === true) {
+          Push.create("座ったまま30分が経ちました", {
+            body: "アプリのタイマー画面にて立ち上がるか教えてください",
+            icon: require('@/assets/img/push_icon.png'),
+            requireInteraction: true
+          });
+        } else {
+          this.audio.play() // 鳴らす
+        }
       }
     }
   }

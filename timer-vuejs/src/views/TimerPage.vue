@@ -16,7 +16,7 @@
       </div>
     </div>
     <div v-if="showTimer">
-      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" @connectCable="connectCable" :guest="guest" />
+      <CountupTimer ref="countupTimer" @openStandupModal="openStandupModal" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" @connectCable="connectCable" :guest="guest" />
     </div>
     <div v-if="!showTimer">
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
@@ -36,7 +36,7 @@
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
-    <StandupModal ref="standupModal" @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
+    <StandupModal ref="standupModal" @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" @getNotification="getNotification" :notificationWay="notificationWay" />
     <ShortenedLifespanModal ref="shortenedLifespanModal" :loading="loading" @showLoading="showLoading" :guest="guest" />
     <RiskModal ref="risakModal" />
     <FullBody ref="fullBody" />
