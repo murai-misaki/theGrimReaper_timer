@@ -32,7 +32,7 @@
       </div>
       <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
     </div>
-    <ChatModal ref="chatModal" :messages="formattedMessages" @connectCable="connectCable" />
+    <ChatModal ref="chatModal" :messages="formattedMessages" @connectCable="connectCable" @getMessages="getMessages" />
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />

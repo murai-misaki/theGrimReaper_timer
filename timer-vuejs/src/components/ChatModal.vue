@@ -49,6 +49,7 @@ import axios from 'axios'
     methods: {
       open () {
         this.show = true
+        this.$emit('getMessages')
         window.scrollTo(0, 0);
         document.body.style.overflow = 'hidden';
       },
