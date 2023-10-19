@@ -1,18 +1,18 @@
 <template>
   <div class="container">
     <div class="timerpage-top-space"></div>
-    <div class="icon-group">
+    <div :class="{ 'guest-icon-group': guest === 'true', 'icon-group': guest === 'false'}">
       <div v-show="guest === 'false'" @click="openChatModal">
         <font-awesome-icon :icon="['fas', 'comment-dots']" style="color: #D9D9D9;" class="chat-icon" />
       </div>
       <div @click="openNotificationModal">
-        <font-awesome-icon :icon="['fas', 'gear']" style="color: #D9D9D9;" />
+        <font-awesome-icon :icon="['fas', 'gear']" style="color: #D9D9D9;" class="setting-icon" />
       </div>
       <div @click="openHowtouseModal">
         <font-awesome-icon :icon="['fas', 'circle-question']" style="color: #D9D9D9;" class="question-icon" />
       </div>
       <div @click="openHealthriskModal">
-        <font-awesome-icon :icon="['fas', 'book-skull']" style="color: #D9D9D9;" />
+        <font-awesome-icon :icon="['fas', 'book-skull']" style="color: #D9D9D9;" class="skull-icon" />
       </div>
     </div>
     <div v-if="showTimer">
@@ -285,17 +285,23 @@
     font-size: 30px;
     padding-bottom: 20px;
     margin-left: 700px;
-    display: flex
+    display: flex;
   }
-  .icon-group div {
+  .guest-icon-group {
+    font-size: 30px;
+    padding-bottom: 20px;
+    margin-left: 780px;
+    display: flex;
+  }
+  .chat-icon, .setting-icon, .question-icon, .skull-icon {
     cursor: pointer;
   }
   .chat-icon {
-    padding-right: 40px;
+    margin-right: 40px;
   }
   .question-icon {
-    padding-left: 40px;
-    padding-right: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 
   .timer {

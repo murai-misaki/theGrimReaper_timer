@@ -9,14 +9,19 @@
           <li :class="messageClasses(message)">
             <span v-if="message.shinigami" class="name">{{ message.name }}の死神</span>
             <span v-else class="name">{{ message.name }}</span>
-            <div class="message" @dblclick="handleLike(message)">
+            <div class="message" @click="handleLike(message)">
               {{ message.content }}
               <div v-if="message.likes.length" class="heart-container">
                 <font-awesome-icon :icon="['fas', 'heart']" class="heart" />
                 <span class="heart-count">{{ message.likes.length }}</span>
               </div>
             </div>
-            <span class="created-at">{{ message.created_at }}前</span>
+            <div class="message-bottom">
+              <div v-if="message.email === uid" @click="deleteMessage(message.id)">
+                <font-awesome-icon :icon="['fas', 'trash']" style="color: #999;" class="trash-icon" />
+              </div>
+              <span class="created-at">{{ message.created_at }}前</span>
+            </div>
           </li>
         </ul>
       </div>
@@ -121,6 +126,24 @@ import axios from 'axios'
           'sent-shinigami': isSent && isShinigami,
           'sent': isSent && !isShinigami,
         }
+      },
+      async deleteMessage(messageId) {
+        try {
+          const res = await axios.delete(process.env.VUE_APP_API_URL + `/messages/${messageId}`,
+            {
+              headers: {
+                uid: this.uid,
+                "access-token": window.localStorage.getItem('access-token'),
+                client: window.localStorage.getItem('client')
+              }
+            })
+          if (!res) { 
+            new Error('メッセージを削除できませんでした')
+          }
+          this.$emit('connectCable')
+        } catch (error) {
+          console.log(error)
+        }      
       },
     }
   }
@@ -264,7 +287,8 @@ import axios from 'axios'
     color: #999;
     font-size: 12px;
     margin-bottom: 20px;
-    margin-left: 4px;
+    margin-left: 5px;
+    margin-top: 3px;
   }
   .messages {
     max-height: 400px;
@@ -289,6 +313,7 @@ import axios from 'axios'
 
   .message {
     position: relative;
+    cursor: pointer;
   }
 
   .heart-container {
@@ -316,10 +341,23 @@ import axios from 'axios'
   }
 
   .received .message::selection {
+    background: rgba(217, 217, 217, 0);
+  }
+  .received-shinigami .message::selection {
+    background: rgba(90, 3, 3, 0);
+  }
+  .sent .message::selection {
+    background: rgba(217, 217, 217, 0);
+  }
+  .sent-shinigami .message::selection {
     background: rgba(90, 3, 3, 0);
   }
 
-  .sent .message::selection {
-    background: rgba(217, 217, 217, 0);
+  .trash-icon {
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .message-bottom {
+    display: flex;
   }
 </style>
