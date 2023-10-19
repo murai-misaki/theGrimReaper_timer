@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!, only: %i[index destroy]
 
   def index
-    messages =  Message.includes(:user, [likes: :user])
+    messages = Message.includes(:user, [likes: :user])
     messages_array = build_messages_array(messages)
     render json: messages_array, status: :ok
   end
@@ -11,7 +11,8 @@ class MessagesController < ApplicationController
     message = current_user.messages.find(params[:id])
 
     if message.destroy
-      render json: { id: message.id, email: message.user.email, message: '削除に成功しました' }, status: :ok
+      hash = MessageSerializer.new(message).serializable_hash
+      render json: hash, status: :ok
     else
       render json: { message: '削除できませんでした', errors: message.errors.messages }, status: :bad_request
     end
