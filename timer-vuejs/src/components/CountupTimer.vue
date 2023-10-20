@@ -81,9 +81,6 @@ export default {
           }
           window.localStorage.setItem('totalCountUp', this.countUp)
           this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-          if (this.riskUsed === 'false') {
-            this.riskCheck()
-          }
           this.$emit('openStandupModal')
         }
 
@@ -107,6 +104,9 @@ export default {
     },
     start() {
       this.timerOn = true;
+      if (this.riskUsed === 'false') {
+        this.riskCheck()
+      }
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     },
     end() {
