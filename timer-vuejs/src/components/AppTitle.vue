@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p><span class="title"><span class="neontext">t</span>he <span class="neontext">G</span>rim Re<span class="neontext">a</span>per <span class="neontext">t</span>imer</span><br>''座りすぎが寿命を縮める''</p>
+    <p><span class="title"><span class="neontext">t</span>he <span class="neontext">G</span>rim Re<span class="neontext">a</span>per <span class="neontext">T</span>imer</span><br>''座りすぎが寿命を縮める''</p>
   </div>
   <img src="../assets/img/top.png" alt="死神イラスト" >
 </template>
