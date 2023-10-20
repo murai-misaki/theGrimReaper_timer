@@ -9,7 +9,7 @@ class RoomChannel < ApplicationCable::Channel
 
   def receive(data)
     user = User.find_by(email: data['email'])
-    
+
     Message.create_and_send(data, user)
   end
 end
