@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_one :notification, dependent: :destroy
   has_one :total_shortened_lifespan, dependent: :destroy
   has_many :one_day_times, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 10 }
 end

@@ -15,11 +15,10 @@
 </template>
 
 <script>
-import Push from 'push.js';
 import axios from 'axios'
 
 export default {
-  props: ['notificationWay', 'totalCountUp', 'todayShortenedLifespan'],
+  props: ['guest'],
 
   data() {
     return {
@@ -31,6 +30,8 @@ export default {
       startTime: null,
       elapsedTime: 0,
 
+      totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
+      todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
       countUp: 0,
       shortenedLifespan: 0,
 
@@ -39,20 +40,21 @@ export default {
       onedaytimeTodayShortenedLifespan: 0,
       todayTotalShortenedLifespan: 0,
 
-      audio: new Audio(require('@/assets/sounds/Short_Gothic_02.mp3'))
+      riskUsed: window.localStorage.getItem('riskUsed'),
+      privacy: window.localStorage.getItem('privacy'),
+      shortenedLifespanMessage: '1時間座り続けたことで寿命を22分戴きました',
+      riskMessage: '本日座っている時間が合計8時間を越えました。これ以上座り続けると、罹患リスクや死亡リスクが高まります',
+      shinigami: true,
     }
   },
   mounted() {
-    this.$emit('getNotification')
+    this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+    this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
     this.getShortenedLifespanToday().then(() => {
       this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
     })
-    if (this.totalCountUp >= 480) {
-      this.$emit('openRiskModal')
-    } else {
-      this.getCountUpToday().then(() => {
-        this.checkCountUp()
-      })
+    if (this.riskUsed === 'false') {
+      this.riskCheck()
     }
     this.startTimer();
   },
@@ -78,14 +80,9 @@ export default {
             this.countUp += 30;
           }
           window.localStorage.setItem('totalCountUp', this.countUp)
-          if (this.notificationWay === true) {
-            Push.create("座ったまま30分が経ちました", {
-              body: "アプリのタイマー画面にて立ち上がるか教えてください",
-              icon: require('@/assets/img/push_icon.png'),
-              requireInteraction: true
-            });
-          } else {
-            this.audio.play() // 鳴らす
+          this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+          if (this.riskUsed === 'false') {
+            this.riskCheck()
           }
           this.$emit('openStandupModal')
         }
@@ -98,6 +95,9 @@ export default {
             this.shortenedLifespan += 22;
           }
           window.localStorage.setItem('todayShortenedLifespan', this.shortenedLifespan)
+          this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
+          this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
+          this.sentShortenedLifespanMessage()
         }
       }, 1000);
     },
@@ -107,16 +107,6 @@ export default {
     },
     start() {
       this.timerOn = true;
-      this.getShortenedLifespanToday().then(() => {
-        this.todayTotalShortenedLifespan = this.onedaytimeTodayShortenedLifespan + this.todayShortenedLifespan
-      })
-      if (this.totalCountUp >= 480) {
-        this.$emit('openRiskModal')
-      } else {
-        this.getCountUpToday().then(() => {
-          this.checkCountUp()
-        })
-      }
       this.startTimer(); // タイマーを再開する際にもstartTimer()を呼び出す
     },
     end() {
@@ -146,7 +136,30 @@ export default {
       this.checkCountUpTime = this.onedaytimeTodayCountUp + this.totalCountUp
 
       if (this.checkCountUpTime >= 480) {
+        this.sentRiskMessage()
         this.$emit('openRiskModal')
+        this.riskUsed = window.localStorage.getItem('riskUsed')
+      }
+    },
+    riskCheck () {
+      if (this.totalCountUp >= 480) {
+        this.sentRiskMessage()
+        this.$emit('openRiskModal')
+        this.riskUsed = window.localStorage.getItem('riskUsed')
+      } else {
+        this.getCountUpToday().then(() => {
+          this.checkCountUp()
+        })
+      }
+    },
+    sentShortenedLifespanMessage () {
+      if (this.guest === 'false' && this.privacy === 'false') {
+        this.$emit('connectCable', this.shortenedLifespanMessage, this.shinigami)
+      }
+    },
+    sentRiskMessage () {
+      if (this.guest === 'false' && this.privacy === 'false') {
+        this.$emit('connectCable', this.riskMessage, this.shinigami)
       }
     },
     async getShortenedLifespanToday () {

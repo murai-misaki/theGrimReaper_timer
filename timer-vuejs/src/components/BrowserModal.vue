@@ -39,6 +39,7 @@
       open () {
         this.show = true
         window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
       },
       redirectToTimer () {
         this.showLoading()
@@ -83,7 +84,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 1200px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;
@@ -91,15 +92,12 @@
     left: 50%;
     background-color: #000000;
     width: 750px;
-    height: 650px;
     transform: translate(-50%,-50%);
-    padding: 20px 65px 120px 65px;
-    margin-top: 70px;
+    padding: 10px 40px 30px 40px;
+    margin-top: 5px;
     border: 2px solid #FFFFFF;
-  }
-  .modal_close_btn {
-    margin-left: 760px;
-    cursor: pointer;
+    max-height: 600px;
+    overflow: auto;
   }
 
   button {

@@ -1,10 +1,10 @@
 <template>
-  <div class="modal_contents">
+  <div v-show="show" class="modal_contents">
     <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="neontext">Please be careful !</h1>
       <div>
-        <p>''1日座っている時間が合計8時間を越えました。''<br>これ以上座り続けると、<span>罹患リスクや死亡リスクが高まります</span>。</p>
+        <p>''本日座っている時間が合計8時間を越えました。''<br>これ以上座り続けると、<span>罹患リスクや死亡リスクが高まります</span>。</p>
       </div>
       <button class="ok_button" @click="close">OK</button>
     </div>
@@ -15,11 +15,19 @@
   export default {
     data () {
       return {
+        show: false,
       }
     },
     methods: {
+      open () {
+        this.show = true
+        window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
+        window.localStorage.setItem('riskUsed', true)
+      },
       close () {
-        this.$emit('closeRiskModal')
+        this.show = false
+        document.body.style.overflow = 'auto';
       }
     }
   }
@@ -52,7 +60,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 700px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;

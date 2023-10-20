@@ -1,5 +1,5 @@
 <template>
-  <div class="modal_contents">
+  <div v-show="show" class="modal_contents">
     <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="neontext">Thank you for using.</h1>
@@ -30,20 +30,30 @@
   import onedaytimeRemoveItem from '../common/removeItem'
 
   export default {
-    props: ['totalCountUp', 'todayExercise', 'todayShortenedLifespan', 'loading'],
+    props: ['loading', 'guest'],
 
     data () {
       return {
+        show: false,
+        totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
+        todayExercise: Number(window.localStorage.getItem('todayExercise')),
+        todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
         onedaytimeTodayId: null,
         onedaytimeTodayCountUp: 0,
         onedaytimeTodayExercise: 0,
         onedaytimeTodayShortenedLifespan: 0,
         totalShortenedLifespan: 0,
-
-        guest: localStorage.getItem('guest')
       }
     },
     methods: {
+      open () {
+        this.show = true
+        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
+        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
+        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
+        window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
+      },
       async getOnedaytimeToday () {
         try {
           const res = await axios.get(process.env.VUE_APP_API_URL + `/one_day_times/today`, {
@@ -207,7 +217,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 700px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;

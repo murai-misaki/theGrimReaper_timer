@@ -13,6 +13,11 @@
           <input type="text" required placeholder="ユーザー名" v-model="name">
           <p class="input-text">メールアドレス</p>
           <input type="email" required placeholder="メールアドレス" v-model="email">
+          <p class="input-text">チャット・ランキング機能のプライバシー設定</p>
+          <div class="checkbox-group">
+            <input id="checkbox" class="checkbox" type="checkbox" v-model="privacy">
+            <label for="checkbox">自分の座りすぎで縮んだ寿命・身体活動量を非公開にする</label>
+          </div>
           <div v-show="!loading">
             <button class="form-button">更新</button>
           </div>
@@ -46,6 +51,7 @@
       return {
         name: window.localStorage.getItem('name'),
         email: window.localStorage.getItem('uid'),
+        privacy: window.localStorage.getItem('privacy'),
         error: null,
         flashMessage: false
       }
@@ -57,7 +63,8 @@
         try {
           const res = await axios.patch(process.env.VUE_APP_API_URL + '/auth', {
             name: this.name,
-            email: this.email
+            email: this.email,
+            privacy: this.privacy
             },
             {
               headers: {
@@ -73,7 +80,7 @@
 
           if (!this.error) {
             this.$emit('endLoading')
-            setItem(res.headers, res.data.data.guest, res.data.data.name)
+            setItem(res.headers, res.data.data.guest, res.data.data.name, res.data.data.privacy)
             this.showFlashMessage()
             setTimeout(this.closeFlashMessage, 3000);
           }
@@ -115,8 +122,8 @@
   .profile {
     border: 1px solid #D9D9D9;
     margin-left: 50px;
-    padding: 30px 120px;
-    margin-top: -20px;
+    padding: 20px 110px;
+    margin-top: -80px;
     margin-bottom: 30px;
   }
   h1 {
@@ -224,11 +231,72 @@
     border: 1px solid #BFBFBF;
     background: rgba(217, 217, 217, 0.2);
     width: 300px;
-    margin: 0 auto;
+    margin: -20px auto;
     text-align: center;
     font-size: 14px;
   }
   .loading-space {
     margin-top: 40px;
   }
+
+  .checkbox-group {
+    display: flex;
+    margin-bottom: 30px;
+  }
+  label {
+    font-size: 13px;
+    margin-left: -310px;
+  }
+  input[type="checkbox"] {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  /* チェックボックスデザイン */
+  input[type="checkbox"] {
+    cursor: pointer;
+    padding-left: 30px;/*label手前にチェックボックス用の余白を開ける*/
+    vertical-align: middle;
+    position: relative;
+  }
+ 
+  input[type="checkbox"]::before,
+  input[type="checkbox"]::after {
+    content: "";
+    display: block; 
+    position: absolute;
+  }
+ 
+  input[type="checkbox"]::before {
+    background-color: #000000;
+    border-radius: 0%;
+    border: 1px solid #D9D9D9;
+    width: 20px;/*チェックボックスの横幅*/
+    height: 20px;/*チェックボックスの縦幅*/
+    transform: translateY(-50%);
+    top: 50%;
+    left: 5px;
+  }
+ 
+  input[type="checkbox"]::after {
+    border-bottom: 3px solid #D9D9D9;/*チェックの太さ*/
+    border-left: 3px solid #D9D9D9;/*チェックの太さ*/
+    opacity: 0;/*チェック前は非表示*/
+    height: 6px;/*チェックの高さ*/
+    width: 11px;/*チェックの横幅*/
+    transform: rotate(-45deg);
+    top: 3px;/*チェック時の位置調整*/
+    left: 10px;/*チェック時の位置調整*/
+  }
+ 
+  input[type="checkbox"]:checked::after {
+    opacity: 1;/*チェック後表示*/
+  }
+  
 </style>

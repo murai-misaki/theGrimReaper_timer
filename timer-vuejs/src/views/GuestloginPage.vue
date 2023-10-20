@@ -19,6 +19,9 @@
         loading: false
       }
     },
+    mounted () {
+      document.body.style.overflow = 'auto';
+    },
     methods: {
       openChangeToLoginuserModal () {
         this.$refs.changeToLoginuserModal.open()

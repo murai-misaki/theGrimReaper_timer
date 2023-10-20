@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div class="timerpage-top-space"></div>
-    <div class="icon-group">
+    <div :class="{ 'guest-icon-group': guest === 'true', 'icon-group': guest === 'false'}">
+      <div v-show="guest === 'false'" @click="openChatModal">
+        <font-awesome-icon :icon="['fas', 'comment-dots']" style="color: #D9D9D9;" class="chat-icon" />
+      </div>
       <div @click="openNotificationModal">
         <font-awesome-icon :icon="['fas', 'gear']" style="color: #D9D9D9;" class="setting-icon" />
       </div>
@@ -13,12 +16,12 @@
       </div>
     </div>
     <div v-if="showTimer">
-      <CountupTimer ref="countupTimer" @getNotification="getNotification" @openStandupModal="openStandupModal" :notificationWay="notificationWay" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" :totalCountUp="totalCountUp" :todayShortenedLifespan="todayShortenedLifespan" />
+      <CountupTimer ref="countupTimer" @openStandupModal="openStandupModal" @openShortenedLifespanModal="openShortenedLifespanModal" @openRiskModal="openRiskModal" @connectCable="connectCable" :guest="guest" />
     </div>
     <div v-if="!showTimer">
       <BreaktimeTimer @getNotification="getNotification" :notificationWay="notificationWay" @showCountupTimer="showCountupTimer" @openShortenedLifespanModal="openShortenedLifespanModal" />
     </div>
-    <div v-if="!showTimer">
+    <div v-show="!showTimer">
       <p class="exercise-title">体を動かしましょう。</p>
       <div class="exercise-button-group">
         <button @click="openFullBodyModal" class="exercise-button1">全身バランスよく</button>
@@ -29,18 +32,13 @@
       </div>
       <p class="exercise-reference">※ 引用 : 千葉県健康福祉部健康づくり支援課(監修:千葉県理学療法士会)「WORK+10 (ワークプラステン) 」</p>
     </div>
+    <ChatModal ref="chatModal" :messages="formattedMessages" @connectCable="connectCable" @getMessages="getMessages" />
     <NotificationModal ref="notificationModal" @getNotification="getNotification" :notificationWay="notificationWay" :loading="loading" @showLoading="showLoading" @endLoading="endLoading" />
     <HowtouseModal ref="howtouseModal" />
     <HealthriskModal ref="healthriskModal" />
-    <div v-show="showStandupModal">
-      <StandupModal @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" />
-    </div>
-    <div v-show="showShortenedLifespanModal">
-      <ShortenedLifespanModal :totalCountUp="totalCountUp" :todayExercise="todayExercise" :todayShortenedLifespan="todayShortenedLifespan" :loading="loading" @showLoading="showLoading" />
-    </div>
-    <div v-show="showRiskModal">
-      <RiskModal @closeRiskModal="closeRiskModal" />
-    </div>
+    <StandupModal ref="standupModal" @showBreaktimeTimer="showBreaktimeTimer" @restartCountupTimer="restartCountupTimer" @getNotification="getNotification" :notificationWay="notificationWay" />
+    <ShortenedLifespanModal ref="shortenedLifespanModal" :loading="loading" @showLoading="showLoading" :guest="guest" />
+    <RiskModal ref="risakModal" />
     <FullBody ref="fullBody" />
     <ShoulderPain ref="shoulderPain" />
     <LowbackPain ref="lowbackPain" />
@@ -51,8 +49,12 @@
 
 <script>
   import axios from 'axios'
+  import ActionCable from 'actioncable'
+  import { formatDistanceToNow } from 'date-fns'
+  import { ja } from 'date-fns/locale'
   import CountupTimer from '../components/CountupTimer.vue'
   import BreaktimeTimer from '../components/BreaktimeTimer.vue'
+  import ChatModal from '../components/ChatModal.vue'
   import NotificationModal from '../components/NotificationModal.vue'
   import HowtouseModal from  '../components/HowtouseModal.vue'
   import HealthriskModal from '../components/HealthriskModal.vue'
@@ -66,27 +68,41 @@
   import LocomoCheck from '../components/LocomoCheck.vue'
 
   export default {
-    components: { CountupTimer, BreaktimeTimer, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal, FullBody, ShoulderPain, LowbackPain, LegMuscle, LocomoCheck },
+    components: { CountupTimer, BreaktimeTimer, ChatModal, NotificationModal, HowtouseModal, HealthriskModal, StandupModal, ShortenedLifespanModal, RiskModal, FullBody, ShoulderPain, LowbackPain, LegMuscle, LocomoCheck },
 
     data () {
       return {
         showTimer: true,
         notificationWay: false,
-        showStandupModal: false,
-        showShortenedLifespanModal: false,
-        showRiskModal: false,
-        totalCountUp: Number(window.localStorage.getItem('totalCountUp')),
-        todayExercise: Number(window.localStorage.getItem('todayExercise')),
-        todayShortenedLifespan: Number(window.localStorage.getItem('todayShortenedLifespan')),
         loading: false,
+        messages: [],
+        guest: window.localStorage.getItem('guest'),
       }
     },
     mounted () {
+      if (this.guest === 'false') {
+        this.initializeMessageChannel()
+      }
       window.addEventListener("beforeunload", this.confirmSave);
+      document.body.style.overflow = 'auto';
+    },
+    beforeUnmount () { 
+      if (this.guest === 'false') {
+        this.messageChannel.unsubscribe()
+      }
     },
     unmounted () {
       window.removeEventListener("beforeunload", this.confirmSave);
     },
+    computed: {
+      formattedMessages () {
+        if (!this.messages.length) { return [] }
+        return this.messages.map(message => {
+          let time = formatDistanceToNow(new Date(message.created_at), { locale: ja })
+          return { ...message, created_at: time }
+        })
+      }
+    },  
     methods: {
       async getNotification () {
         try {
@@ -105,6 +121,9 @@
           console.log(error)
         }
       },
+      openChatModal () {
+        this.$refs.chatModal.openScrollToBottom()
+      },
       openNotificationModal () {
         this.$refs.notificationModal.open()
       },
@@ -116,35 +135,24 @@
       },
       openStandupModal () {
         this.$refs.countupTimer.stop()
-        this.showStandupModal = true
+        this.$refs.standupModal.open()
       },
       showBreaktimeTimer () {
-        this.showStandupModal = false
+        this.$refs.standupModal.close()
         this.showTimer = false
       },
       showCountupTimer () {
-        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
         this.showTimer = true
       },
       restartCountupTimer () {
-        this.showStandupModal = false
-        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
+        this.$refs.standupModal.close()
         this.$refs.countupTimer.start()
       },
       openShortenedLifespanModal () {
-        window.scrollTo(0, 0);
-        this.showShortenedLifespanModal = true
-        this.totalCountUp = Number(window.localStorage.getItem('totalCountUp'))
-        this.todayExercise = Number(window.localStorage.getItem('todayExercise'))
-        this.todayShortenedLifespan = Number(window.localStorage.getItem('todayShortenedLifespan'))
+        this.$refs.shortenedLifespanModal.open()
       },
       openRiskModal () {
-        this.showRiskModal = true
-      },
-      closeRiskModal () {
-        this.showRiskModal = false
+        this.$refs.risakModal.open()
       },
       confirmSave (event) {
         event.returnValue = "タイマー記録は保存されませんが、よろしいですか？";
@@ -169,6 +177,43 @@
       },
       endLoading () {
         this.loading = false
+      },
+      initializeMessageChannel () {
+        const cable = ActionCable.createConsumer(process.env.VUE_APP_WS_URL)
+        this.messageChannel = cable.subscriptions.create('RoomChannel', {
+          connected: () => {
+            this.getMessages()
+          },
+          received: () => {
+            this.getMessages().then(() => {
+              this.$refs.chatModal.scrollToBottom()
+            })
+          }
+        })
+      },
+      async getMessages () {
+        try {
+          const res = await axios.get(process.env.VUE_APP_API_URL + `/messages`, {
+            headers: {
+              uid: window.localStorage.getItem('uid'),
+              "access-token": window.localStorage.getItem('access-token'),
+              client:window.localStorage.getItem('client')
+            }
+          })
+          if (!res) {
+            new Error('メッセージ一覧を取得できませんでした')
+          }
+          this.messages = res.data
+        } catch (err) {
+          console.log(err)
+        }
+      },
+      connectCable (message, shinigami) {
+        this.messageChannel.perform('receive', {
+          message: message,
+          shinigami: shinigami,
+          email: window.localStorage.getItem('uid')
+        })
       }
     }
   }
@@ -239,15 +284,24 @@
   .icon-group {
     font-size: 30px;
     padding-bottom: 20px;
-    margin-left: 780px;
-    display: flex
+    margin-left: 700px;
+    display: flex;
   }
-  .icon-group div {
+  .guest-icon-group {
+    font-size: 30px;
+    padding-bottom: 20px;
+    margin-left: 780px;
+    display: flex;
+  }
+  .chat-icon, .setting-icon, .question-icon, .skull-icon {
     cursor: pointer;
   }
+  .chat-icon {
+    margin-right: 40px;
+  }
   .question-icon {
-    padding-left: 40px;
-    padding-right: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 
   .timer {

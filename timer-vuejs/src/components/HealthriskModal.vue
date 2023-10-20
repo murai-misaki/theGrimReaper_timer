@@ -54,9 +54,11 @@
       open () {
         this.show = true
         window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
       },
       close () {
         this.show = false
+        document.body.style.overflow = 'auto';
       },
       openShow1 () {
         this.show1 = !this.show1
@@ -103,7 +105,7 @@
     font-size: 12px;
   }
   p.body {
-    margin-top: 20px;
+    margin-top: 30px;
     border-bottom: 1px solid rgba(207, 207, 207, 0.51);
     cursor: pointer;
   }
@@ -133,7 +135,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 940px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;
@@ -142,11 +144,14 @@
     background-color: #000000;
     width: 750px;
     transform: translate(-50%,-50%);
-    padding: 20px 50px 40px 50px;
+    padding: 10px 40px 30px 40px;
+    margin-top: 5px;
     border: 2px solid #FFFFFF;
+    max-height: 590px;
+    overflow: auto;
   }
   .modal_close_btn {
-    margin-left: 760px;
+    margin-left: 750px;
     cursor: pointer;
   }
 

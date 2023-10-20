@@ -1,5 +1,5 @@
 <template>
-  <div class="modal_contents">
+  <div v-show="show" class="modal_contents">
     <div class="modal_contents_bg"></div>
     <div class="modal_contents_wrap">
       <h1 class="neontext">Do you stand up？</h1>
@@ -13,17 +13,47 @@
 </template>
 
 <script>
+import Push from 'push.js';
+
   export default {
+    props: ['notificationWay'],
+
     data () {
       return {
+        show: false,
+        audio: new Audio(require('@/assets/sounds/Short_Gothic_02.mp3'))
       }
     },
+    mounted() {
+      this.$emit('getNotification')
+    },
     methods: {
+      open () {
+        this.show = true
+        window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
+        this.notification()
+      },
+      close () {
+        this.show = false
+        document.body.style.overflow = 'auto';
+      },
       startBreaktimeTimer () {
         this.$emit('showBreaktimeTimer')
       },
       restart () {
         this.$emit('restartCountupTimer')
+      },
+      notification () {
+        if (this.notificationWay === true) {
+          Push.create("座ったまま30分が経ちました", {
+            body: "アプリのタイマー画面にて立ち上がるか教えてください",
+            icon: require('@/assets/img/push_icon.png'),
+            requireInteraction: true
+          });
+        } else {
+          this.audio.play() // 鳴らす
+        }
       }
     }
   }
@@ -53,7 +83,7 @@
   .modal_contents_bg {
     background: rgba(40, 40, 40, 0.56);
     width: 100%;
-    height: 700px;
+    height: 100%;
   }
   .modal_contents_wrap {
     position: absolute;
