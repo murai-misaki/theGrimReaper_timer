@@ -7,7 +7,10 @@
       <div v-if="messages" class="messages" ref="messages">
         <ul v-for="message in messages" :key="message.id">
           <li :class="messageClasses(message)">
-            <span v-if="message.shinigami" class="name">{{ message.name }}の死神</span>
+            <div v-if="message.shinigami" class="shinigami-name">
+              <span class="name">{{ message.name }}の死神</span>
+              <img src="../assets/img/chat_icon.png" alt="死神アイコン" class="shinigami-icon" >
+            </div>
             <span v-else class="name">{{ message.name }}</span>
             <div class="message" @click="handleLike(message)">
               {{ message.content }}
@@ -360,5 +363,11 @@ import axios from 'axios'
   }
   .message-bottom {
     display: flex;
+  }
+  .shinigami-name {
+    display: flex;
+  }
+  .shinigami-icon {
+    width: 25px;
   }
 </style>
