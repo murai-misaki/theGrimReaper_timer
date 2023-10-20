@@ -1,6 +1,6 @@
 ## the Grim Reaper Timer　〜1時間座り続けるごとにあなたの寿命を22分戴きます〜
 [shinigami-timer.com](https://www.shinigami-timer.com/)  (※ PC対応)
-[![アプリのイメージ画像](https://i.gyazo.com/6bb54756cf4420714da052b1d8fa85ea.png)](https://gyazo.com/6bb54756cf4420714da052b1d8fa85ea)
+[![アプリのイメージ画像](https://i.gyazo.com/9a2891f2182987de38a755636710faac.png)](https://gyazo.com/9a2891f2182987de38a755636710faac)
 
 ## サービス概要
 　「1時間座り続けると22分死神が寿命を縮める」座りすぎ防止Webタイマーアプリです。  
