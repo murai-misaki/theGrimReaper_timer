@@ -429,6 +429,6 @@
   }
   p.exercise-reference {
     color: #BFBFBF;
-    font-size: 7px;
+    font-size: 9px;
   }
 </style>
