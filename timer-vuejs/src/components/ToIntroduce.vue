@@ -26,7 +26,7 @@
     <div class="body">
       <img src="../assets/img/to_introduce1.png" alt="該当の機能画面" class="img-left" >
       <span class="number number-right">1</span>
-      <p class="text-right">立ち上がらずに座り続けて1時間が経過すると、<br>座りすぎによって縮んだ寿命がリアルタイムで表示されます</p>
+      <p class="text-right">その日の、1時間座り続けたことで縮んだ寿命が<br>リアルタイムで表示されます</p>
     </div>
     <div class="body">
       <span class="number number-left">2</span>
