@@ -3,19 +3,27 @@
   <div class="line"></div>
   <p class="subtitle neontext">''あなた専用のマイページを作成いたします''</p>
   <p class="text-top">ログイン後すぐに、タイマー利用ができ、日常使いに大変便利！</p>
-  <div class="img-group">
-    <img src="../assets/img/to_introduce3_2.png" alt="該当の機能画面" class="img-left" >
+  <div class="introduce-group">
+    <div class="introduce3">
+      <img src="../assets/img/to_introduce3.png" alt="該当の機能画面" class="img-left" >
+      <p class="top">縮んだ寿命の合計時間を知れる</p>
+      <img src="../assets/img/ranking_img.png" alt="該当の機能画面" class="img-left" >
+      <p>・死神が縮めた寿命ランキング<br>・1日の身体活動量ランキング</p>
+    </div>
+    <div class="introduce2">
     <img src="../assets/img/to_introduce2.png" alt="該当の機能画面" class="img-center-left" >
-    <img src="../assets/img/to_introduce6.png" alt="該当の機能画面" class="img-center-right" >
-    <img src="../assets/img/ranking_img.png" alt="該当の機能画面" class="img-right" >
+     <p>1日ごとの座っている時間と1時間座り続けたことで<br>縮んだ寿命を記録し、直近1週間分をグラフ化</p>
+    </div>
+    <div class="introduce6">
+      <img src="../assets/img/to_introduce6.png" alt="該当の機能画面" class="img-center-right" >
+      <p>ブレイクタイム時に行った1日ごとの<br>身体活動量を記録し、直近1週間分をグラフ化</p>
+    </div>
+    <div class="chat">
+      <img src="../assets/img/chat_img.png" alt="該当の機能画面" class="img-right" >
+      <p>座りすぎによる健康リスクが高まると<br>ユーザーの死神がチャットをします</p>
+    </div>
   </div>
-  <div class="text-group">
-    <p class="text-left">1時間座り続けたことで<br>縮んだ寿命の合計時間を知れる</p>
-    <p class="text-center-left">1日ごとの座っている時間と1時間座り続けたことで<br>縮んだ寿命を記録し、直近1週間分をグラフ化</p>
-    <p class="text-center-right">ブレイクタイム時に行った1日ごとの<br>身体活動量を記録し、直近1週間分をグラフ化</p>
-    <p class="text-right">・死神が縮めた寿命ランキング<br>・1日の身体活動量ランキング</p>
-  </div>
-  <p class="text-right-purpose">(※ 自分のランキングの公開・非公開 は選択できます)</p>
+  <p class="text-right-purpose">(※ 自分の縮んだ寿命・身体活動量は<br>プロフィールから非公開にできます)</p>
   <div class="line2"></div>
   <div v-show="!loading">
     <div class="button-group">
@@ -118,17 +126,13 @@
     border: 1px solid rgba(207, 207, 207, 0.51);
   }
   .img-center-left {
-    width: 280px;
-    margin-right: 20px;
+    width: 300px;
   }
   .img-center-right {
-    width: 277px;
-    margin-right: 20px;
+    width: 300px;
   }
   .img-left {
     width: 200px;
-    margin-left: 190px;
-    margin-right: 20px;
   }
   .img-right {
     width: 220px;
@@ -154,38 +158,31 @@
       text-shadow: none;
     }
   }
-  .text-group {
+  .introduce-group {
     display: flex;
   }
-  .text-left {
-    margin-left: 205px;
+  .introduce-group p {
     font-size: 12px;
     text-align: center;
   }
-  .text-center-left {
-    margin-left: 41px;
-    font-size: 12px;
-    text-align: center;
+  .introduce3 {
+    margin-left: 170px;
   }
-  .text-center-right {
-    margin-left: 39px;
-    font-size: 12px;
-    text-align: center;
+  .introduce3 p.top {
+    margin-top: -5px;
   }
-  .text-right {
-    margin-left: 60px;
-    font-size: 12px;
-    text-align: left;
+  .introduce2, .introduce6, .chat {
+    margin-left: 20px;
+    margin-top: 10px;
   }
   .text-right-purpose {
-    font-size: 9px;
+    font-size: 11px;
     color: #BFBFBF;
-    margin-left: 1010px;
-    margin-top: -5px;
+    margin-left: 1050px;
+    margin-top: -40px;
   }
   
   .text-top {
-    font-size: 12px;
     text-align: center;
     margin-top: 35px;
   }
@@ -224,8 +221,8 @@
     background: rgba(90, 3, 3, 0.6);
   }
   .attention-left {
-    font-size: 9px;
-    margin-left: 362px;
+    font-size: 11px;
+    margin-left: 350px;
     color: #BFBFBF;
   }
   .attention-right {
