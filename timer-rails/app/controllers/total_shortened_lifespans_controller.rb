@@ -11,7 +11,7 @@ class TotalShortenedLifespansController < ApplicationController
   end
 
   def show_ranking
-    ranking_times = TotalShortenedLifespan.all.includes(:user).order(time: :desc).limit(5)
+    ranking_times = TotalShortenedLifespan.includes(:user).order(time: :desc).limit(5)
     ranking_array = build_ranking_array(ranking_times)
     render json: ranking_array, status: :ok
   end
