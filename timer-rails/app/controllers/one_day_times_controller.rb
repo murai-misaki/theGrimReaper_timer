@@ -1,5 +1,5 @@
 class OneDayTimesController < ApplicationController
-  before_action :authenticate_user!, only: %i[create show_today update index]
+  before_action :authenticate_user!, only: %i[create show_today show_today_exercise_ranking update index]
 
   def index
     data = build_weekly_data
@@ -39,6 +39,13 @@ class OneDayTimesController < ApplicationController
     if today_time
       render json: { shortened_lifespan: today_time.shortened_lifespan }, status: :ok
     end
+  end
+
+  def show_today_exercise_ranking
+    now = Time.current
+    ranking_times = OneDayTime.where(created_at: now.all_day).includes(:user).order(exercise: :desc).limit(5)
+    ranking_array = build_ranking_array(ranking_times)
+    render json: ranking_array, status: :ok
   end
 
   def update
@@ -91,5 +98,16 @@ class OneDayTimesController < ApplicationController
       exercise: exercise_array,
       shortened_lifespan: shortened_lifespan_array
     }
+  end
+
+  def build_ranking_array(ranking_times)
+    ranking_times.map do |ranking_time|
+      {
+        id: ranking_time.id,
+        user_id: ranking_time.user.id,
+        name: ranking_time.user.name,
+        exercise: ranking_time.exercise
+      }
+    end
   end
 end

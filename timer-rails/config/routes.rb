@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get '/one_day_times/today', to: 'one_day_times#show_today'
     get '/one_day_times/today_count_up', to: 'one_day_times#show_today_count_up'
     get '/one_day_times/today_shortened_lifespan', to: 'one_day_times#show_today_shortened_lifespan'
+    get '/one_day_times/today_exercise_ranking', to: 'one_day_times#show_today_exercise_ranking'
     resources :messages, only: %i[index destroy] do
       member do
         resources :likes, only: %i[create]
