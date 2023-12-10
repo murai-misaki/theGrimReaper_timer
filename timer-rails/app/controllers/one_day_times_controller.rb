@@ -1,5 +1,5 @@
 class OneDayTimesController < ApplicationController
-  before_action :authenticate_user!, only: %i[create show_today show_today_exercise_ranking update index]
+  before_action :authenticate_user!, only: %i[create show_today show_today_count_up show_today_shortened_lifespan show_today_exercise_ranking update index]
 
   def index
     data = build_weekly_data
