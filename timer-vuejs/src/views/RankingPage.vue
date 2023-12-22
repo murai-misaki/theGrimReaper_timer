@@ -1,16 +1,17 @@
 <template>
+  <div class="top-space"></div>
   <HomeButton />
-  <Ranking />
+  <TimeRanking />
   <FooterLink />
 </template>
 
 <script>
   import HomeButton from '../components/HomeButton.vue'
-  import Ranking from '../components/Ranking.vue'
+  import TimeRanking from '../components/TimeRanking.vue'
   import FooterLink from '../components/FooterLink.vue'
 
   export default {
-    components: { HomeButton, Ranking, FooterLink },
+    components: { HomeButton, TimeRanking, FooterLink },
 
     data () {
       return {
@@ -22,4 +23,7 @@
 </script>
 
 <style scoped>
+  .top-space {
+    margin-top: 120px;
+  }
 </style>
